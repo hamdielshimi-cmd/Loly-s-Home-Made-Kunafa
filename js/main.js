@@ -335,7 +335,7 @@ Thank you for choosing Loly's Kunafa House! 💛
         
         // Encode message for WhatsApp URL
         const encodedMessage = encodeURIComponent(whatsappMessage);
-        const whatsappURL = `https://wa.me/201234567890?text=${encodedMessage}`;
+        const whatsappURL = `https://wa.me/+20 10 93350300?text=${encodedMessage}`;
         
         // Open WhatsApp in new tab
         window.open(whatsappURL, '_blank');
