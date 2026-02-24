@@ -280,24 +280,63 @@ function initContactForm() {
             console.error('Sheet error:', error);
         }
 
-        // Always open WhatsApp regardless
-        const whatsappMessage = `*New Order Request from Loly's Website*\n\n👤 *Name:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n🍰 *Product:* ${formData.product}\n\n📝 *Message:*\n${formData.message || 'No additional message'}\n\n---\nThank you for choosing Loly's Kunafa House! 💛`;
-        window.open(`https://wa.me/201093350300?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-
-        showSuccessMessage();
         form.reset();
+        showThankYouPopup(formData.name);
     });
 }
 
-function showSuccessMessage() {
-    const notification = document.getElementById('cartNotification');
-    const originalContent = notification.innerHTML;
-    notification.innerHTML = `<i class="fas fa-check-circle"></i><span>Opening WhatsApp to complete your order...</span>`;
-    notification.classList.add('show');
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => { notification.innerHTML = originalContent; }, 300);
-    }, 4000);
+function showThankYouPopup(name) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7); z-index: 99999;
+        display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px); animation: fadeIn 0.3s ease;
+    `;
+
+    overlay.innerHTML = `
+        <div style="
+            background: white; border-radius: 24px; padding: 60px 50px;
+            max-width: 500px; width: 90%; text-align: center;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s cubic-bezier(0.4,0,0.2,1);
+        ">
+            <div style="
+                width: 80px; height: 80px; background: linear-gradient(135deg, #D4AF37, #F4C430);
+                border-radius: 50%; display: flex; align-items: center;
+                justify-content: center; margin: 0 auto 25px; font-size: 36px;
+            ">🍰</div>
+            <h2 style="
+                font-family: 'Playfair Display', serif; font-size: 32px;
+                color: #2C1810; margin-bottom: 15px;
+            ">Thank You, ${name}!</h2>
+            <p style="
+                font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 10px;
+            ">Your order request has been received.</p>
+            <p style="
+                font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 35px;
+            ">We will contact you shortly on WhatsApp to confirm your order. 💛</p>
+            <button onclick="this.closest('[data-popup]').remove()" style="
+                background: linear-gradient(135deg, #D4AF37, #F4C430);
+                color: #2C1810; border: none; padding: 15px 40px;
+                border-radius: 50px; font-size: 16px; font-weight: 700;
+                cursor: pointer; letter-spacing: 1px;
+            ">Done</button>
+        </div>
+    `;
+
+    overlay.setAttribute('data-popup', 'true');
+
+    // Close on outside click
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
+
+    document.body.appendChild(overlay);
+
+    // Auto close after 8 seconds
+    setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 8000);
 }
 
 // ===================================
