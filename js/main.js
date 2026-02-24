@@ -79,18 +79,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 }
     
-    // Hide loading screen
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide loading screen FIRST - before anything else
     setTimeout(() => {
         const loadingScreen = document.getElementById('loading-screen');
         loadingScreen.classList.add('hidden');
         document.body.style.overflow = 'auto';
     }, 1500);
-    
-    // Initialize all functionality
+
+    // Then everything else...
+    if (typeof AOS !== 'undefined') { ... }
     initNavigation();
-    initSmoothScroll();
-    initContactForm();
-    initParallax();
+    ...
 });
 
 // ===================================
