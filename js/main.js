@@ -318,7 +318,7 @@ function initContactForm() {
         };
         
         // 👇 Paste your Web App URL here
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoGBjj6Zo6EacBQrh7pIsSF8XN1e6E6TvU4e11Sdd9kc_HSsLtbd0PG0BshP49mVsVUA/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRCQ2emy53UDIurk_E6NYgOnFCkk6aTWvvkTcRfOD3SfApNtKXjealxroP-_hM4-OW/exec';
         
         try {
             await fetch(SCRIPT_URL, {
