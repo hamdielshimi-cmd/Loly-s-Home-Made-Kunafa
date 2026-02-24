@@ -304,19 +304,44 @@ function showCartNotification() {
 function initContactForm() {
     const form = document.getElementById('contactForm');
     
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        const productSelect = document.getElementById('product');
+        const productName = productSelect.options[productSelect.selectedIndex].text;
         
         const formData = {
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
-            product: document.getElementById('product').value,
+            product: productName,
             message: document.getElementById('message').value
         };
         
-        // Get product name for display
-        const productSelect = document.getElementById('product');
-        const productName = productSelect.options[productSelect.selectedIndex].text;
+        // 👇 Paste your Web App URL here
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoGBjj6Zo6EacBQrh7pIsSF8XN1e6E6TvU4e11Sdd9kc_HSsLtbd0PG0BshP49mVsVUA/exec';
+        
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            
+            // Show success & open WhatsApp as before
+            showSuccessMessage();
+            
+            const whatsappMessage = `*New Order Request from Loly's Website*\n\n👤 *Name:* ${formData.name}\n📞 *Phone:* ${formData.phone}\n🍰 *Product:* ${formData.product}\n\n📝 *Message:*\n${formData.message || 'No additional message'}`;
+            window.open(`https://wa.me/201234567890?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+            
+            form.reset();
+            
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('Something went wrong. Please try WhatsApp directly.');
+        }
+    });
+}
         
         // Create WhatsApp message
         const whatsappMessage = `
