@@ -317,7 +317,7 @@ function showThankYouPopup(name) {
             <p style="
                 font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 35px;
             ">We will contact you shortly on WhatsApp to confirm your order. 💛</p>
-            <button onclick="this.closest('[data-popup]').remove()" style="
+            <button onclick="document.querySelector('[data-popup]').remove()" style="
                 background: linear-gradient(135deg, #D4AF37, #F4C430);
                 color: #2C1810; border: none; padding: 15px 40px;
                 border-radius: 50px; font-size: 16px; font-weight: 700;
