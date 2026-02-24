@@ -69,6 +69,7 @@ const products = {
 // ===================================
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS animations
+    if (typeof AOS !== 'undefined') {
     AOS.init({
         duration: 1000,
         easing: 'ease-out-cubic',
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 100,
         delay: 100
     });
+}
     
     // Hide loading screen
     setTimeout(() => {
