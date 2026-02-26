@@ -32,7 +32,6 @@
 }
 
 :root {
-    /* Color Palette */
     --primary-gold: #D4AF37;
     --primary-dark: #2C1810;
     --primary-brown: #6B4423;
@@ -44,17 +43,11 @@
     --text-gray: #666666;
     --bg-light: #FAF8F5;
     --bg-dark: #1A1A1A;
-
-    /* Typography */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Montserrat', sans-serif;
     --font-elegant: 'Cormorant Garamond', serif;
-
-    /* Spacing */
     --section-padding: 100px 0;
     --container-padding: 0 20px;
-
-    /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -89,10 +82,8 @@ a {
    =================================== */
 #loading-screen {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-brown) 100%);
     display: flex;
     align-items: center;
@@ -106,17 +97,11 @@ a {
     visibility: hidden;
 }
 
-.loader {
-    text-align: center;
-}
-
-.loader-inner {
-    position: relative;
-}
+.loader { text-align: center; }
+.loader-inner { position: relative; }
 
 .loader-circle {
-    width: 80px;
-    height: 80px;
+    width: 80px; height: 80px;
     border: 3px solid rgba(212, 175, 55, 0.2);
     border-top-color: var(--primary-gold);
     border-radius: 50%;
@@ -132,22 +117,10 @@ a {
     animation: pulse 1.5s ease-in-out infinite;
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.5;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 /* ===================================
@@ -155,8 +128,7 @@ a {
    =================================== */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     padding: 20px 0;
     z-index: 1000;
@@ -186,9 +158,7 @@ a {
     transition: var(--transition-smooth);
 }
 
-.navbar.scrolled .nav-logo img {
-    height: 50px;
-}
+.navbar.scrolled .nav-logo img { height: 50px; }
 
 .nav-links {
     display: flex;
@@ -207,23 +177,14 @@ a {
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
+    bottom: -5px; left: 0;
+    width: 0; height: 2px;
     background: var(--primary-gold);
     transition: var(--transition-smooth);
 }
 
-.nav-link:hover,
-.nav-link.active {
-    color: var(--primary-gold);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
+.nav-link:hover, .nav-link.active { color: var(--primary-gold); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
 .nav-toggle {
     display: none;
@@ -234,217 +195,140 @@ a {
 }
 
 .nav-toggle span {
-    width: 30px;
-    height: 3px;
+    width: 30px; height: 3px;
     background: var(--text-light);
     transition: var(--transition-smooth);
     border-radius: 3px;
 }
 
-.nav-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-}
-
-.nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.nav-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(8px, -8px);
-}
+.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -8px); }
 
 /* ===================================
-   Hero Section
+   Hero Section — text BELOW video, no overlap
    =================================== */
 .hero-section {
-    position: relative;
-    height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(160deg, var(--primary-dark) 0%, var(--primary-brown) 100%);
     overflow: hidden;
 }
 
+/* Video block — top portion */
 .hero-video-container {
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
+    position: relative;
+    width: calc(100% - 40px);
+    margin: 20px auto 0;
+    height: 62vh;
+    min-height: 340px;
     overflow: hidden;
-    border-radius: 30px;
+    border-radius: 24px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    flex-shrink: 0;
 }
 
 .hero-video {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
-    transform: scale(1.05);
-    /* Slight scale to ensure no black edges while keeping content visible */
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-}
+/* No overlay needed — text is not on the video */
+.hero-overlay { display: none; }
 
+/* Text block — sits below the video */
 .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: left;
-    /* Changed from center */
-    max-width: 1400px;
     width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 5%;
-    /* Match video container alignment */
-    height: 100%;
+    padding: 36px 5% 44px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: flex-start;
 }
 
-.hero-banner-content {
-    margin-bottom: 40px;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+.hero-banner-content { /* no text-shadow needed on dark bg */ }
 
 .stunning-text {
     font-family: var(--font-elegant);
-    font-size: 50px;
+    font-size: 22px;
     font-weight: 400;
     color: var(--primary-gold);
-    letter-spacing: 12px;
-    margin-bottom: -15px;
-    opacity: 0.9;
+    letter-spacing: 10px;
+    display: block;
+    margin-bottom: 4px;
+    opacity: 0.85;
+    text-transform: uppercase;
 }
 
 .main-title {
     font-family: var(--font-heading);
-    font-size: 85px;
+    font-size: 58px;
     font-weight: 800;
     color: var(--text-light);
     line-height: 1;
-    margin-bottom: 5px;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
+    margin-bottom: 2px;
 }
 
 .from-home {
-    font-family: "Playfair Display", serif;
-    font-size: 70px;
+    font-family: var(--font-heading);
+    font-size: 46px;
     font-weight: 400;
-    color: var(--text-light);
+    color: var(--secondary-cream);
     font-style: italic;
-    margin-bottom: 30px;
-    opacity: 0.95;
+    opacity: 0.9;
+    margin-bottom: 10px;
 }
 
 .hero-phone {
     font-family: var(--font-heading);
-    font-size: 90px;
-    font-weight: 900;
-    color: var(--text-light);
-    -webkit-text-stroke: 4px #000;
-    text-shadow: 4px 4px 0 #000;
-    margin-top: 10px;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--primary-gold);
+    letter-spacing: 2px;
 }
 
+/* Buttons — inline with text, no absolute positioning */
 .hero-buttons {
     display: flex;
-    gap: 30px;
-    justify-content: flex-start;
-    /* Changed from center */
+    gap: 16px;
     flex-wrap: wrap;
-    position: absolute;
-    bottom: 10%;
-    left: 10px;
-    /* Moved further left to avoid text overlap */
-    z-index: 3;
+    margin-top: 28px;
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-light);
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    z-index: 2;
+/* Hide scroll indicator — layout no longer needs it */
+.scroll-indicator { display: none; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive hero */
+@media (max-width: 1024px) {
+    .hero-video-container { height: 55vh; }
+    .main-title  { font-size: 48px; }
+    .from-home   { font-size: 38px; }
+    .hero-phone  { font-size: 34px; }
 }
 
 @media (max-width: 768px) {
-    .stunning-text {
-        font-size: 30px;
-        letter-spacing: 6px;
-    }
-
-    .main-title {
-        font-size: 45px;
-    }
-
-    .from-home {
-        font-size: 40px;
-    }
-
-    .hero-phone {
-        font-size: 50px;
-        -webkit-text-stroke: 2px #000;
-    }
+    .hero-video-container { width: calc(100% - 24px); margin-top: 14px; height: 48vw; min-height: 220px; border-radius: 16px; }
+    .hero-content { padding: 24px 5% 32px; }
+    .stunning-text { font-size: 14px; letter-spacing: 6px; }
+    .main-title  { font-size: 34px; }
+    .from-home   { font-size: 26px; }
+    .hero-phone  { font-size: 26px; }
+    .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; }
 }
 
-.scroll-mouse {
-    width: 30px;
-    height: 50px;
-    border: 2px solid var(--primary-gold);
-    border-radius: 20px;
-    position: relative;
-}
-
-.scroll-wheel {
-    width: 4px;
-    height: 10px;
-    background: var(--primary-gold);
-    border-radius: 2px;
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scroll-down 2s infinite;
-}
-
-@keyframes scroll-down {
-    0% {
-        top: 8px;
-        opacity: 1;
-    }
-
-    100% {
-        top: 28px;
-        opacity: 0;
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@media (max-width: 480px) {
+    .hero-video-container { height: 52vw; border-radius: 12px; }
+    .main-title  { font-size: 28px; }
+    .from-home   { font-size: 22px; }
+    .hero-phone  { font-size: 22px; }
+    .stunning-text { font-size: 12px; letter-spacing: 4px; }
 }
 
 /* ===================================
@@ -465,40 +349,25 @@ a {
     letter-spacing: 1px;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .btn::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.2);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
 }
 
-.btn:hover::before {
-    width: 300px;
-    height: 300px;
-}
+.btn:hover::before { width: 300px; height: 300px; }
 
-.btn span {
-    position: relative;
-    z-index: 1;
-}
-
-.btn i {
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s;
-}
-
-.btn:hover i {
-    transform: translateX(5px);
-}
+.btn span, .btn i { position: relative; z-index: 1; }
+.btn i { transition: transform 0.3s; }
+.btn:hover i { transform: translateX(5px); }
 
 .btn-primary {
     background: linear-gradient(135deg, var(--primary-gold) 0%, #F4C430 100%);
@@ -523,10 +392,7 @@ a {
     transform: translateY(-3px);
 }
 
-.btn-full {
-    width: 100%;
-    justify-content: center;
-}
+.btn-full { width: 100%; justify-content: center; }
 
 /* ===================================
    Container & Section Utilities
@@ -595,8 +461,7 @@ section {
 }
 
 .feature-icon {
-    width: 80px;
-    height: 80px;
+    width: 80px; height: 80px;
     background: rgba(212, 175, 55, 0.1);
     border: 2px solid var(--primary-gold);
     border-radius: 50%;
@@ -630,11 +495,7 @@ section {
     color: var(--primary-gold);
 }
 
-.feature-card p {
-    font-size: 15px;
-    line-height: 1.6;
-    opacity: 0.9;
-}
+.feature-card p { font-size: 15px; line-height: 1.6; opacity: 0.9; }
 
 /* ===================================
    Story Section
@@ -643,8 +504,7 @@ section {
     background: var(--bg-light);
     position: relative;
     overflow: hidden;
-    padding-top: 150px;
-    /* Increased padding to push it down */
+    padding-top: 120px;
 }
 
 .story-content {
@@ -654,20 +514,9 @@ section {
     align-items: center;
 }
 
-.story-text {
-    padding: 40px 0;
-}
-
-.story-body {
-    margin-top: 30px;
-}
-
-.story-body p {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--text-dark);
-    margin-bottom: 25px;
-}
+.story-text { padding: 40px 0; }
+.story-body { margin-top: 30px; }
+.story-body p { font-size: 17px; line-height: 1.8; color: var(--text-dark); margin-bottom: 25px; }
 
 .story-signature {
     font-family: var(--font-elegant);
@@ -677,9 +526,7 @@ section {
     margin-top: 40px;
 }
 
-.story-images {
-    position: relative;
-}
+.story-images { position: relative; }
 
 .story-image-grid {
     display: grid;
@@ -697,59 +544,35 @@ section {
 }
 
 .story-image img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     transition: var(--transition-smooth);
 }
 
-.story-image:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
-}
-
-.story-image:hover img {
-    transform: scale(1.1);
-}
-
-.story-image-1 {
-    transform: translateY(40px);
-}
-
-.story-image-2 {
-    transform: translateY(-40px);
-}
+.story-image:hover { transform: translateY(-10px); box-shadow: 0 30px 70px rgba(0,0,0,0.3); }
+.story-image:hover img { transform: scale(1.1); }
+.story-image-1 { transform: translateY(40px); }
+.story-image-2 { transform: translateY(-40px); }
 
 .story-decoration {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
+    width: 500px; height: 500px;
     z-index: 1;
     opacity: 0.1;
     animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-
-    0%,
-    100% {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    50% {
-        transform: translate(-50%, -55%) rotate(180deg);
-    }
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50%       { transform: translate(-50%, -55%) rotate(180deg); }
 }
 
 /* ===================================
    Products Section
    =================================== */
-.products-section {
-    background: #FFFFFF;
-}
+.products-section { background: #FFFFFF; }
 
 .products-grid {
     display: grid;
@@ -767,15 +590,11 @@ section {
     position: relative;
 }
 
-.product-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-}
+.product-card:hover { transform: translateY(-15px); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
 
 .product-badge {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 20px; right: 20px;
     background: var(--primary-gold);
     color: var(--primary-dark);
     padding: 8px 20px;
@@ -788,29 +607,14 @@ section {
     box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
-.product-image {
-    position: relative;
-    overflow: hidden;
-    height: 350px;
-}
-
-.product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition-smooth);
-}
-
-.product-card:hover .product-image img {
-    transform: scale(1.1);
-}
+.product-image { position: relative; overflow: hidden; height: 350px; }
+.product-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-smooth); }
+.product-card:hover .product-image img { transform: scale(1.1); }
 
 .product-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(44, 24, 16, 0.85);
     display: flex;
     align-items: center;
@@ -819,9 +623,7 @@ section {
     transition: var(--transition-smooth);
 }
 
-.product-card:hover .product-overlay {
-    opacity: 1;
-}
+.product-card:hover .product-overlay { opacity: 1; }
 
 .btn-view-details {
     background: var(--primary-gold);
@@ -839,34 +641,12 @@ section {
     transform: translateY(20px);
 }
 
-.product-card:hover .btn-view-details {
-    transform: translateY(0);
-}
+.product-card:hover .btn-view-details { transform: translateY(0); }
+.btn-view-details:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(212,175,55,0.5); }
 
-.btn-view-details:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
-}
-
-.product-info {
-    padding: 30px;
-}
-
-.product-name {
-    font-family: var(--font-heading);
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--primary-dark);
-    margin-bottom: 15px;
-}
-
-.product-description {
-    font-size: 15px;
-    color: var(--text-gray);
-    line-height: 1.6;
-    margin-bottom: 25px;
-    min-height: 60px;
-}
+.product-info { padding: 30px; }
+.product-name { font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: var(--primary-dark); margin-bottom: 15px; }
+.product-description { font-size: 15px; color: var(--text-gray); line-height: 1.6; margin-bottom: 25px; min-height: 60px; }
 
 .product-footer {
     display: flex;
@@ -876,17 +656,8 @@ section {
     flex-wrap: wrap;
 }
 
-.product-price {
-    font-family: var(--font-heading);
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--primary-gold);
-}
-
-.product-price small {
-    font-size: 20px;
-    font-weight: 500;
-}
+.product-price { font-family: var(--font-heading); font-size: 36px; font-weight: 700; color: var(--primary-gold); }
+.product-price small { font-size: 20px; font-weight: 500; }
 
 .btn-add-to-cart {
     background: var(--primary-dark);
@@ -903,18 +674,12 @@ section {
     transition: var(--transition-smooth);
 }
 
-.btn-add-to-cart:hover {
-    background: var(--primary-gold);
-    color: var(--primary-dark);
-    transform: scale(1.05);
-}
+.btn-add-to-cart:hover { background: var(--primary-gold); color: var(--primary-dark); transform: scale(1.05); }
 
 /* ===================================
    About Section
    =================================== */
-.about-section {
-    background: var(--bg-light);
-}
+.about-section { background: var(--bg-light); }
 
 .about-content {
     display: grid;
@@ -930,66 +695,19 @@ section {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
-.about-image-wrapper img {
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
-    transition: var(--transition-smooth);
-}
+.about-image-wrapper img { width: 100%; height: 600px; object-fit: cover; transition: var(--transition-smooth); }
+.about-image-wrapper:hover img { transform: scale(1.05); }
 
-.about-image-wrapper:hover img {
-    transform: scale(1.05);
-}
+.about-decoration { position: absolute; top: -30px; right: -30px; z-index: -1; }
 
-.about-decoration {
-    position: absolute;
-    top: -30px;
-    right: -30px;
-    z-index: -1;
-}
+.decoration-circle { position: absolute; border-radius: 50%; border: 3px solid var(--primary-gold); }
+.decoration-circle-1 { width: 150px; height: 150px; top: 0; right: 0; animation: rotate 10s linear infinite; }
+.decoration-circle-2 { width: 100px; height: 100px; top: 60px; right: 60px; animation: rotate 8s linear infinite reverse; }
 
-.decoration-circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 3px solid var(--primary-gold);
-}
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-.decoration-circle-1 {
-    width: 150px;
-    height: 150px;
-    top: 0;
-    right: 0;
-    animation: rotate 10s linear infinite;
-}
-
-.decoration-circle-2 {
-    width: 100px;
-    height: 100px;
-    top: 60px;
-    right: 60px;
-    animation: rotate 8s linear infinite reverse;
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.about-body {
-    margin-top: 30px;
-}
-
-.about-body p {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--text-dark);
-    margin-bottom: 25px;
-}
+.about-body { margin-top: 30px; }
+.about-body p { font-size: 17px; line-height: 1.8; color: var(--text-dark); margin-bottom: 25px; }
 
 .about-values {
     display: grid;
@@ -998,19 +716,8 @@ section {
     margin-top: 40px;
 }
 
-.value-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--primary-dark);
-}
-
-.value-item i {
-    font-size: 24px;
-    color: var(--primary-gold);
-}
+.value-item { display: flex; align-items: center; gap: 15px; font-size: 16px; font-weight: 600; color: var(--primary-dark); }
+.value-item i { font-size: 24px; color: var(--primary-gold); }
 
 /* ===================================
    Testimonials Section
@@ -1021,9 +728,7 @@ section {
 
 .testimonials-section .section-title,
 .testimonials-section .section-subtitle,
-.testimonials-section .section-label {
-    color: var(--text-light);
-}
+.testimonials-section .section-label { color: var(--text-light); }
 
 .testimonials-grid {
     display: grid;
@@ -1040,70 +745,20 @@ section {
     transition: var(--transition-smooth);
 }
 
-.testimonial-card:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--primary-gold);
-}
-
-.testimonial-stars {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 20px;
-}
-
-.testimonial-stars i {
-    color: var(--primary-gold);
-    font-size: 18px;
-}
-
-.testimonial-text {
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text-light);
-    margin-bottom: 30px;
-    font-style: italic;
-}
-
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.author-avatar {
-    width: 50px;
-    height: 50px;
-    background: var(--primary-gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.author-avatar i {
-    font-size: 24px;
-    color: var(--primary-dark);
-}
-
-.author-info h4 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-light);
-    margin-bottom: 5px;
-}
-
-.author-info span {
-    font-size: 14px;
-    color: var(--primary-gold);
-}
+.testimonial-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.08); border-color: var(--primary-gold); }
+.testimonial-stars { display: flex; gap: 5px; margin-bottom: 20px; }
+.testimonial-stars i { color: var(--primary-gold); font-size: 18px; }
+.testimonial-text { font-size: 16px; line-height: 1.8; color: var(--text-light); margin-bottom: 30px; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 15px; }
+.author-avatar { width: 50px; height: 50px; background: var(--primary-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.author-avatar i { font-size: 24px; color: var(--primary-dark); }
+.author-info h4 { font-size: 18px; font-weight: 600; color: var(--text-light); margin-bottom: 5px; }
+.author-info span { font-size: 14px; color: var(--primary-gold); }
 
 /* ===================================
    Contact Section
    =================================== */
-.contact-section {
-    background: var(--bg-light);
-}
+.contact-section { background: var(--bg-light); }
 
 .contact-content {
     display: grid;
@@ -1111,28 +766,12 @@ section {
     gap: 80px;
 }
 
-.contact-description {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--text-gray);
-    margin: 20px 0 50px;
-}
-
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.contact-method {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
+.contact-description { font-size: 17px; line-height: 1.8; color: var(--text-gray); margin: 20px 0 50px; }
+.contact-methods { display: flex; flex-direction: column; gap: 30px; }
+.contact-method { display: flex; gap: 20px; align-items: flex-start; }
 
 .contact-icon {
-    width: 60px;
-    height: 60px;
+    width: 60px; height: 60px;
     background: linear-gradient(135deg, var(--primary-gold) 0%, #F4C430 100%);
     border-radius: 15px;
     display: flex;
@@ -1141,35 +780,11 @@ section {
     flex-shrink: 0;
 }
 
-.contact-icon i {
-    font-size: 28px;
-    color: var(--primary-dark);
-}
-
-.contact-details h4 {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--primary-dark);
-    margin-bottom: 5px;
-}
-
-.contact-details p {
-    font-size: 14px;
-    color: var(--text-gray);
-    margin-bottom: 10px;
-}
-
-.contact-link {
-    font-size: 16px;
-    color: var(--primary-gold);
-    font-weight: 600;
-    transition: var(--transition-smooth);
-}
-
-.contact-link:hover {
-    color: var(--primary-brown);
-    text-decoration: underline;
-}
+.contact-icon i { font-size: 28px; color: var(--primary-dark); }
+.contact-details h4 { font-size: 20px; font-weight: 600; color: var(--primary-dark); margin-bottom: 5px; }
+.contact-details p { font-size: 14px; color: var(--text-gray); margin-bottom: 10px; }
+.contact-link { font-size: 16px; color: var(--primary-gold); font-weight: 600; transition: var(--transition-smooth); }
+.contact-link:hover { color: var(--primary-brown); text-decoration: underline; }
 
 .contact-form-wrapper {
     background: #FFFFFF;
@@ -1178,25 +793,9 @@ section {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
 }
 
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.form-group label {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--primary-dark);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+.contact-form { display: flex; flex-direction: column; gap: 25px; }
+.form-group { display: flex; flex-direction: column; gap: 10px; }
+.form-group label { font-size: 14px; font-weight: 600; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 1px; }
 
 .form-group input,
 .form-group select,
@@ -1217,10 +816,7 @@ section {
     box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
+.form-group textarea { resize: vertical; min-height: 120px; }
 
 /* ===================================
    Footer
@@ -1238,131 +834,38 @@ section {
     margin-bottom: 60px;
 }
 
-.footer-logo {
-    margin-bottom: 25px;
-}
-
-.footer-logo img {
-    height: 80px;
-    width: auto;
-}
-
-.footer-description {
-    font-size: 16px;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 30px;
-}
-
-.footer-social {
-    display: flex;
-    gap: 15px;
-}
+.footer-logo { margin-bottom: 25px; }
+.footer-logo img { height: 80px; width: auto; }
+.footer-description { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.7); margin-bottom: 30px; }
+.footer-social { display: flex; gap: 15px; }
 
 .social-link {
-    width: 45px;
-    height: 45px;
+    width: 45px; height: 45px;
     background: rgba(212, 175, 55, 0.1);
     border: 2px solid var(--primary-gold);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: var(--transition-smooth);
 }
 
-.social-link i {
-    font-size: 20px;
-    color: var(--primary-gold);
-}
-
-.social-link:hover {
-    background: var(--primary-gold);
-    transform: translateY(-5px);
-}
-
-.social-link:hover i {
-    color: var(--primary-dark);
-}
-
-.footer-col h4 {
-    font-family: var(--font-heading);
-    font-size: 22px;
-    margin-bottom: 25px;
-    color: var(--primary-gold);
-}
-
-.footer-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.footer-links a {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.7);
-    transition: var(--transition-smooth);
-}
-
-.footer-links a:hover {
-    color: var(--primary-gold);
-    padding-left: 10px;
-}
-
-.footer-contact {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.footer-contact li {
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.footer-contact i {
-    color: var(--primary-gold);
-    font-size: 18px;
-    margin-top: 2px;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 30px;
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-}
-
-.footer-bottom p {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.footer-bottom i {
-    color: var(--accent-red);
-    animation: heartbeat 1.5s infinite;
-}
+.social-link i { font-size: 20px; color: var(--primary-gold); }
+.social-link:hover { background: var(--primary-gold); transform: translateY(-5px); }
+.social-link:hover i { color: var(--primary-dark); }
+.footer-col h4 { font-family: var(--font-heading); font-size: 22px; margin-bottom: 25px; color: var(--primary-gold); }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 15px; color: rgba(255,255,255,0.7); transition: var(--transition-smooth); }
+.footer-links a:hover { color: var(--primary-gold); padding-left: 10px; }
+.footer-contact { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+.footer-contact li { display: flex; gap: 15px; align-items: flex-start; font-size: 15px; color: rgba(255,255,255,0.7); }
+.footer-contact i { color: var(--primary-gold); font-size: 18px; margin-top: 2px; }
+.footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(212, 175, 55, 0.2); }
+.footer-bottom p { font-size: 14px; color: rgba(255,255,255,0.5); }
+.footer-bottom i { color: var(--accent-red); animation: heartbeat 1.5s infinite; }
 
 @keyframes heartbeat {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    10%,
-    30% {
-        transform: scale(1.2);
-    }
-
-    20%,
-    40% {
-        transform: scale(1);
-    }
+    0%, 100% { transform: scale(1); }
+    10%, 30%  { transform: scale(1.2); }
+    20%, 40%  { transform: scale(1); }
 }
 
 /* ===================================
@@ -1371,10 +874,8 @@ section {
 .modal {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.85);
     z-index: 10000;
     padding: 20px;
@@ -1382,22 +883,9 @@ section {
     backdrop-filter: blur(5px);
 }
 
-.modal.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s;
-}
+.modal.active { display: flex; align-items: center; justify-content: center; animation: fadeIn 0.3s; }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal-content {
     background: #FFFFFF;
@@ -1410,24 +898,12 @@ section {
     overflow-y: auto;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+@keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
 
 .modal-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
+    top: 20px; right: 20px;
+    width: 45px; height: 45px;
     background: var(--primary-dark);
     border: none;
     border-radius: 50%;
@@ -1438,29 +914,10 @@ section {
     z-index: 10;
 }
 
-.modal-close:hover {
-    background: var(--primary-gold);
-    color: var(--primary-dark);
-    transform: rotate(90deg);
-}
-
-.modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-}
-
-.modal-image {
-    height: 100%;
-    min-height: 500px;
-}
-
-.modal-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 20px 0 0 20px;
-}
+.modal-close:hover { background: var(--primary-gold); color: var(--primary-dark); transform: rotate(90deg); }
+.modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.modal-image { height: 100%; min-height: 500px; }
+.modal-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px 0 0 20px; }
 
 .modal-info {
     padding: 60px 50px;
@@ -1469,61 +926,20 @@ section {
     justify-content: center;
 }
 
-.modal-info h3 {
-    font-family: var(--font-heading);
-    font-size: 36px;
-    color: var(--primary-dark);
-    margin-bottom: 20px;
-}
-
-.modal-info p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: var(--text-gray);
-    margin-bottom: 30px;
-}
-
-.modal-price {
-    font-family: var(--font-heading);
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--primary-gold);
-    margin-bottom: 30px;
-}
-
-.modal-features {
-    margin-bottom: 40px;
-}
-
-.modal-features h4 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--primary-dark);
-    margin-bottom: 15px;
-}
-
-.modal-features ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.modal-features li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    color: var(--text-dark);
-}
+.modal-info h3 { font-family: var(--font-heading); font-size: 36px; color: var(--primary-dark); margin-bottom: 20px; }
+.modal-info p { font-size: 16px; line-height: 1.8; color: var(--text-gray); margin-bottom: 30px; }
+.modal-price { font-family: var(--font-heading); font-size: 48px; font-weight: 700; color: var(--primary-gold); margin-bottom: 30px; }
+.modal-features { margin-bottom: 40px; }
+.modal-features h4 { font-size: 18px; font-weight: 600; color: var(--primary-dark); margin-bottom: 15px; }
+.modal-features ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.modal-features li { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--text-dark); }
 
 .modal-features li::before {
-    content: 'âœ“';
+    content: '✓';
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 24px; height: 24px;
     background: var(--primary-gold);
     color: var(--primary-dark);
     border-radius: 50%;
@@ -1536,8 +952,7 @@ section {
    =================================== */
 .cart-notification {
     position: fixed;
-    bottom: -100px;
-    right: 30px;
+    bottom: -100px; right: 30px;
     background: linear-gradient(135deg, #28A745 0%, #20C997 100%);
     color: var(--text-light);
     padding: 20px 30px;
@@ -1552,195 +967,14 @@ section {
     transition: var(--transition-smooth);
 }
 
-.cart-notification.show {
-    bottom: 30px;
-    animation: bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
+.cart-notification.show { bottom: 30px; animation: bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
 
 @keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
 }
 
-.cart-notification i {
-    font-size: 24px;
-}
-
-/* ===================================
-   Responsive Design
-   =================================== */
-@media (max-width: 1200px) {
-    .section-title {
-        font-size: 48px;
-    }
-
-    .hero-title {
-        font-size: 64px;
-    }
-}
-
-@media (max-width: 992px) {
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 300px;
-        height: 100vh;
-        background: var(--primary-dark);
-        flex-direction: column;
-        padding: 100px 40px 40px;
-        gap: 30px;
-        transition: var(--transition-smooth);
-        box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav-links.active {
-        left: 0;
-    }
-
-    .nav-toggle {
-        display: flex;
-    }
-
-    .story-content,
-    .about-content,
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 50px;
-    }
-
-    .story-image-1,
-    .story-image-2 {
-        transform: translateY(0);
-    }
-
-    .modal-body {
-        grid-template-columns: 1fr;
-    }
-
-    .modal-image {
-        min-height: 400px;
-    }
-
-    .modal-image img {
-        border-radius: 20px 20px 0 0;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    :root {
-        --section-padding: 60px 0;
-    }
-
-    .hero-title {
-        font-size: 48px;
-    }
-
-    .hero-subtitle {
-        font-size: 20px;
-    }
-
-    .section-title {
-        font-size: 36px;
-    }
-
-    .section-subtitle {
-        font-size: 16px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .testimonials-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-form-wrapper {
-        padding: 30px;
-    }
-
-    .modal-info {
-        padding: 40px 30px;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 36px;
-    }
-
-    .hero-subtitle {
-        font-size: 18px;
-    }
-
-    .section-title {
-        font-size: 28px;
-    }
-
-    .nav-logo img {
-        height: 50px;
-    }
-
-    .product-name {
-        font-size: 24px;
-    }
-
-    .product-price {
-        font-size: 28px;
-    }
-
-    .about-image-wrapper img {
-        height: 400px;
-    }
-}
-
-/* ===================================
-   Custom Scrollbar
-   =================================== */
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--primary-gold);
-    border-radius: 10px;
-}
+.cart-notification i { font-size: 24px; }
 
 /* ===================================
    Calculator & Order Summary
@@ -1757,8 +991,7 @@ section {
 }
 
 .btn-qty {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border-radius: 50%;
     border: 1px solid var(--primary-gold);
     background: transparent;
@@ -1766,29 +999,17 @@ section {
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: var(--transition-smooth);
 }
 
-.btn-qty:hover {
-    background: var(--primary-gold);
-    color: white;
-}
+.btn-qty:hover { background: var(--primary-gold); color: white; }
 
-.qty-display {
-    font-size: 18px;
-    font-weight: 700;
-    min-width: 25px;
-    text-align: center;
-    color: var(--primary-dark);
-}
+.qty-display { font-size: 18px; font-weight: 700; min-width: 25px; text-align: center; color: var(--primary-dark); }
 
 .order-summary-bar {
     position: sticky;
-    bottom: 30px;
-    left: 0;
+    bottom: 30px; left: 0;
     width: 100%;
     background: white;
     padding: 20px 40px;
@@ -1797,7 +1018,6 @@ section {
     z-index: 100;
     margin-top: 50px;
     display: none;
-    /* Hidden by default, shown via JS */
 }
 
 .order-summary-content {
@@ -1808,60 +1028,74 @@ section {
     margin: 0 auto;
 }
 
-.total-info {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
+.total-info { display: flex; align-items: baseline; gap: 10px; }
+.total-info .label { font-size: 18px; color: var(--text-gray); font-weight: 500; }
+.total-info .total-amount { font-size: 36px; font-weight: 800; color: var(--primary-dark); }
+.total-info .currency { font-size: 16px; font-weight: 600; color: var(--primary-gold); }
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 1200px) {
+    .section-title { font-size: 48px; }
 }
 
-.total-info .label {
-    font-size: 18px;
-    color: var(--text-gray);
-    font-weight: 500;
-}
-
-.total-info .total-amount {
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--primary-dark);
-}
-
-.total-info .currency {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--primary-gold);
+@media (max-width: 992px) {
+    .nav-links {
+        position: fixed;
+        top: 0; left: -100%;
+        width: 300px; height: 100vh;
+        background: var(--primary-dark);
+        flex-direction: column;
+        padding: 100px 40px 40px;
+        gap: 30px;
+        transition: var(--transition-smooth);
+        box-shadow: 5px 0 20px rgba(0,0,0,0.3);
+    }
+    .nav-links.active { left: 0; }
+    .nav-toggle { display: flex; }
+    .story-content, .about-content, .contact-content { grid-template-columns: 1fr; gap: 50px; }
+    .story-image-1, .story-image-2 { transform: translateY(0); }
+    .modal-body { grid-template-columns: 1fr; }
+    .modal-image { min-height: 400px; }
+    .modal-image img { border-radius: 20px 20px 0 0; }
+    .footer-content { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
-    .order-summary-content {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-
-    .order-summary-bar {
-        bottom: 0;
-        border-radius: 20px 20px 0 0;
-    }
+    :root { --section-padding: 60px 0; }
+    .section-title { font-size: 36px; }
+    .section-subtitle { font-size: 16px; }
+    .btn { width: 100%; justify-content: center; }
+    .features-grid { grid-template-columns: 1fr; gap: 30px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .contact-form-wrapper { padding: 30px; }
+    .modal-info { padding: 40px 30px; }
+    .footer-content { grid-template-columns: 1fr; gap: 40px; }
+    .order-summary-content { flex-direction: column; gap: 20px; text-align: center; }
+    .order-summary-bar { bottom: 0; border-radius: 20px 20px 0 0; }
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #F4C430;
+@media (max-width: 480px) {
+    .section-title { font-size: 28px; }
+    .nav-logo img { height: 50px; }
+    .product-name { font-size: 24px; }
+    .product-price { font-size: 28px; }
+    .about-image-wrapper img { height: 400px; }
 }
 
 /* ===================================
-   Selection
+   Custom Scrollbar
    =================================== */
-::selection {
-    background: var(--primary-gold);
-    color: var(--primary-dark);
-}
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--primary-gold); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #F4C430; }
 
-::-moz-selection {
-    background: var(--primary-gold);
-    color: var(--primary-dark);
-}
-</style>
+::selection { background: var(--primary-gold); color: var(--primary-dark); }
+::-moz-selection { background: var(--primary-gold); color: var(--primary-dark); }
+    </style>
 </head>
 
 <body>
@@ -1896,39 +1130,38 @@ section {
         </div>
     </nav>
 
-    <!-- Hero Section with Video -->
+    <!-- HERO — video on top, text cleanly below -->
     <section id="home" class="hero-section">
-        <div class="hero-video-container">
+
+        <!-- Spacer so video clears the fixed navbar -->
+        <div style="height:80px;flex-shrink:0;"></div>
+
+        <!-- Video: no text on top of it -->
+        <div class="hero-video-container" data-aos="fade-in">
             <video autoplay muted loop playsinline webkit-playsinline class="hero-video">
                 <source src="https://ik.imagekit.io/244zlaxy8/Loly's%20Video.mp4" type="video/mp4">
             </video>
-            <div class="hero-overlay"></div>
         </div>
+
+        <!-- Text block lives BELOW the video -->
         <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-banner-content" data-aos="fade-up">
-                    <h2 class="stunning-text">STUNNING</h2>
-                    <h1 class="main-title">KUNAFA AND GOLASH</h1>
-                    <h3 class="from-home">From Our Home</h3>
-                    <div class="hero-phone">+20 10 21604151</div>
-                </div>
-                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="800">
-                    <a href="#products" class="btn btn-primary">
-                        <span>EXPLORE OUR SWEETS</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#story" class="btn btn-secondary">
-                        <span>OUR STORY</span>
-                    </a>
-                </div>
+            <div class="hero-banner-content" data-aos="fade-up">
+                <span class="stunning-text">Stunning</span>
+                <h1 class="main-title">Kunafa and Golash</h1>
+                <h2 class="from-home">From Our Home</h2>
+                <div class="hero-phone">+20 10 21604151</div>
+            </div>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+                <a href="#products" class="btn btn-primary">
+                    <span>Explore Our Sweets</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#story" class="btn btn-secondary">
+                    <span>Our Story</span>
+                </a>
             </div>
         </div>
-        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Scroll to discover</span>
-        </div>
+
     </section>
 
     <!-- Features Section -->
@@ -1936,30 +1169,22 @@ section {
         <div class="container">
             <div class="features-grid">
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-home"></i></div>
                     <h3>Homemade Excellence</h3>
                     <p>Every dessert is crafted in our family kitchen with Mom's special touch</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-heart"></i></div>
                     <h3>Made with Love</h3>
                     <p>Three generations of tradition in every bite</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
                     <h3>Premium Ingredients</h3>
                     <p>Only the finest ingredients, handpicked for perfection</p>
                 </div>
                 <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-users"></i></div>
                     <h3>Family Legacy</h3>
                     <p>A tradition passed down through generations</p>
                 </div>
@@ -1973,42 +1198,33 @@ section {
             <div class="story-content">
                 <div class="story-text" data-aos="fade-right">
                     <span class="section-label">Our Journey</span>
-                    <h2 class="section-title">From Our Home to Yours âœ¨</h2>
+                    <h2 class="section-title">From Our Home to Yours ✨</h2>
                     <div class="story-body">
                         <p>Every great recipe starts with a memory. For us, it starts in our mother's kitchen.</p>
-
-                        <p>As the years passed and we grew upâ€”moving out, getting married, and travelingâ€”one thing
+                        <p>As the years passed and we grew up—moving out, getting married, and traveling—one thing
                             always brought us back: Ramadan. It was the time for family gatherings, and more
                             importantly, it was the time for Mom's legendary Kunafa and Golash.</p>
-
                         <p>She didn't just make sweets; she made masterpieces, perfected with her own special "extras"
                             that no store could ever replicate. We realized her talent was too good to keep hidden
                             within our four walls. We wanted the world to taste the love, the crunch, and the tradition
                             that we grew up with.</p>
-
                         <p>We named the brand after the newest light in our family, Layla (Loly), bridging the gap
                             between our mother's timeless tradition and a sweet future for the next generation.</p>
-
-                        <p class="story-signature"><strong>Loly's Kunafa House: Handmade by Mom. Shared with
-                                Love.</strong></p>
+                        <p class="story-signature"><strong>Loly's Kunafa House: Handmade by Mom. Shared with Love.</strong></p>
                     </div>
                 </div>
                 <div class="story-images" data-aos="fade-left">
                     <div class="story-image-grid">
                         <div class="story-image story-image-1">
-                            <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg"
-                                alt="Traditional Golash">
+                            <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Traditional Golash">
                         </div>
                         <div class="story-image story-image-2">
-                            <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg"
-                                alt="Authentic Kunafa">
+                            <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Authentic Kunafa">
                         </div>
                     </div>
                     <div class="story-decoration">
                         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#D4AF37"
-                                d="M45.3,-59.7C57.9,-50.1,66.8,-34.9,70.2,-18.3C73.6,-1.8,71.5,16.1,63.9,30.3C56.3,44.5,43.2,55,28.4,60.3C13.6,65.6,-2.9,65.7,-18.7,61.2C-34.5,56.7,-49.6,47.6,-58.2,34.2C-66.8,20.8,-68.9,3.1,-65.7,-12.9C-62.5,-28.9,-54,-43.2,-42.2,-53C-30.4,-62.8,-15.2,-68.1,0.7,-69C16.6,-69.9,32.7,-69.3,45.3,-59.7Z"
-                                transform="translate(100 100)" />
+                            <path fill="#D4AF37" d="M45.3,-59.7C57.9,-50.1,66.8,-34.9,70.2,-18.3C73.6,-1.8,71.5,16.1,63.9,30.3C56.3,44.5,43.2,55,28.4,60.3C13.6,65.6,-2.9,65.7,-18.7,61.2C-34.5,56.7,-49.6,47.6,-58.2,34.2C-66.8,20.8,-68.9,3.1,-65.7,-12.9C-62.5,-28.9,-54,-43.2,-42.2,-53C-30.4,-62.8,-15.2,-68.1,0.7,-69C16.6,-69.9,32.7,-69.3,45.3,-59.7Z" transform="translate(100 100)" />
                         </svg>
                     </div>
                 </div>
@@ -2016,7 +1232,7 @@ section {
         </div>
     </section>
 
-    <!-- Contact Section (Moved) -->
+    <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="contact-content">
@@ -2025,12 +1241,9 @@ section {
                     <h2 class="section-title">Order Your Sweets Today</h2>
                     <p class="contact-description">We'd love to share our family tradition with you. Reach out to place
                         an order or ask any questions.</p>
-
                     <div class="contact-methods">
                         <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
                             <div class="contact-details">
                                 <h4>WhatsApp</h4>
                                 <p>Message us for quick orders</p>
@@ -2038,19 +1251,15 @@ section {
                             </div>
                         </div>
                         <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fab fa-facebook-f"></i></div>
                             <div class="contact-details">
                                 <h4>Facebook</h4>
                                 <p>Follow our journey</p>
-                                <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
-                                    class="contact-link">Loly's Kunafa House</a>
+                                <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" class="contact-link">Loly's Kunafa House</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="contact-form-wrapper" data-aos="fade-left">
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
@@ -2073,8 +1282,7 @@ section {
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4"
-                                placeholder="Special requests or questions..."></textarea>
+                            <textarea id="message" name="message" rows="4" placeholder="Special requests or questions..."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">
                             <span>Send Order Request</span>
@@ -2092,28 +1300,24 @@ section {
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">Our Delights</span>
                 <h2 class="section-title">Handcrafted Masterpieces</h2>
-                <p class="section-subtitle">Each dessert is made to order with premium ingredients and Mom's special
-                    touch</p>
+                <p class="section-subtitle">Each dessert is made to order with premium ingredients and Mom's special touch</p>
             </div>
 
             <div class="products-grid">
-                <!-- Product 1: Golash Large -->
+                <!-- Golash Large -->
                 <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="product-badge">Signature</div>
                     <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg"
-                            alt="Golash Large">
+                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Large">
                         <div class="product-overlay">
                             <button class="btn-view-details" onclick="openProductModal('golash-large')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
+                                <i class="fas fa-eye"></i><span>View Details</span>
                             </button>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Golash Large</h3>
-                        <p class="product-description">Layers of crispy phyllo dough filled with premium nuts and
-                            drenched in sweet syrup</p>
+                        <p class="product-description">Layers of crispy phyllo dough filled with premium nuts and drenched in sweet syrup</p>
                         <div class="product-footer">
                             <div class="quantity-controls">
                                 <button class="btn-qty" onclick="changeQuantity('golash-large', -1)">-</button>
@@ -2122,30 +1326,26 @@ section {
                             </div>
                             <span class="product-price">350 <small>L.E</small></span>
                             <button class="btn-add-to-cart" onclick="addToCart('golash-large')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
+                                <i class="fas fa-shopping-bag"></i><span>Order Now</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 2: Kunafa Large -->
+                <!-- Kunafa Large -->
                 <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="product-badge">Best Seller</div>
                     <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg"
-                            alt="Kunafa Large">
+                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Large">
                         <div class="product-overlay">
                             <button class="btn-view-details" onclick="openProductModal('kunafa-large')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
+                                <i class="fas fa-eye"></i><span>View Details</span>
                             </button>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Kunafa Large</h3>
-                        <p class="product-description">Traditional kunafa with melted cheese center and golden crispy
-                            threads</p>
+                        <p class="product-description">Traditional kunafa with melted cheese center and golden crispy threads</p>
                         <div class="product-footer">
                             <div class="quantity-controls">
                                 <button class="btn-qty" onclick="changeQuantity('kunafa-large', -1)">-</button>
@@ -2154,30 +1354,26 @@ section {
                             </div>
                             <span class="product-price">350 <small>L.E</small></span>
                             <button class="btn-add-to-cart" onclick="addToCart('kunafa-large')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
+                                <i class="fas fa-shopping-bag"></i><span>Order Now</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 3: Golash Medium -->
+                <!-- Golash Medium -->
                 <div class="product-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="product-badge">Popular</div>
                     <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/ChatGPT%20Image%20Feb%2024,%202026,%2005_06_21%20AM.png?updatedAt=1771902459474"
-                            alt="Golash Medium">
+                        <img src="https://ik.imagekit.io/xtj3m9hth/ChatGPT%20Image%20Feb%2024,%202026,%2005_06_21%20AM.png?updatedAt=1771902459474" alt="Golash Medium">
                         <div class="product-overlay">
                             <button class="btn-view-details" onclick="openProductModal('golash-medium')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
+                                <i class="fas fa-eye"></i><span>View Details</span>
                             </button>
                         </div>
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">Golash Medium</h3>
-                        <p class="product-description">Perfect portion of our signature Golash for smaller gatherings
-                        </p>
+                        <p class="product-description">Perfect portion of our signature Golash for smaller gatherings</p>
                         <div class="product-footer">
                             <div class="quantity-controls">
                                 <button class="btn-qty" onclick="changeQuantity('golash-medium', -1)">-</button>
@@ -2186,23 +1382,20 @@ section {
                             </div>
                             <span class="product-price">250 <small>L.E</small></span>
                             <button class="btn-add-to-cart" onclick="addToCart('golash-medium')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
+                                <i class="fas fa-shopping-bag"></i><span>Order Now</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 4: Kunafa Medium -->
+                <!-- Kunafa Medium -->
                 <div class="product-card" data-aos="zoom-in" data-aos-delay="400">
                     <div class="product-badge">Family Favorite</div>
                     <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg"
-                            alt="Kunafa Medium">
+                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Medium">
                         <div class="product-overlay">
                             <button class="btn-view-details" onclick="openProductModal('kunafa-medium')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
+                                <i class="fas fa-eye"></i><span>View Details</span>
                             </button>
                         </div>
                     </div>
@@ -2217,8 +1410,7 @@ section {
                             </div>
                             <span class="product-price">250 <small>L.E</small></span>
                             <button class="btn-add-to-cart" onclick="addToCart('kunafa-medium')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
+                                <i class="fas fa-shopping-bag"></i><span>Order Now</span>
                             </button>
                         </div>
                     </div>
@@ -2227,7 +1419,7 @@ section {
         </div>
 
         <!-- Order Summary Sticky Bar -->
-        <div class="order-summary-bar" id="orderSummaryBar" data-aos="fade-up" style="display: none;">
+        <div class="order-summary-bar" id="orderSummaryBar" style="display: none;">
             <div class="order-summary-content">
                 <div class="total-info">
                     <span class="label">Total Order:</span>
@@ -2248,8 +1440,7 @@ section {
             <div class="about-content">
                 <div class="about-image" data-aos="fade-right">
                     <div class="about-image-wrapper">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg"
-                            alt="About Loly's Kunafa House">
+                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="About Loly's Kunafa House">
                         <div class="about-decoration">
                             <div class="decoration-circle decoration-circle-1"></div>
                             <div class="decoration-circle decoration-circle-2"></div>
@@ -2258,33 +1449,19 @@ section {
                 </div>
                 <div class="about-text" data-aos="fade-left">
                     <span class="section-label">About Us</span>
-                    <h2 class="section-title">A Family Legacy ðŸ </h2>
+                    <h2 class="section-title">A Family Legacy 🏠</h2>
                     <div class="about-body">
-                        <p>Loly's Kunafa House isn't a commercial bakeryâ€”it's a family legacy. We believe that the best
+                        <p>Loly's Kunafa House isn't a commercial bakery—it's a family legacy. We believe that the best
                             desserts aren't made in factories; they are made at home, with premium ingredients and a
                             mother's intuition.</p>
-
                         <p>What started as a private Ramadan tradition for our family is now a kitchen dedicated to
                             bringing that same warmth to your table. Every tray we bake carries the essence of an
                             Egyptian family gathering: authentic, generous, and unforgettable.</p>
-
                         <div class="about-values">
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>100% Homemade</span>
-                            </div>
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Premium Ingredients</span>
-                            </div>
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Traditional Recipes</span>
-                            </div>
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Made to Order</span>
-                            </div>
+                            <div class="value-item"><i class="fas fa-check-circle"></i><span>100% Homemade</span></div>
+                            <div class="value-item"><i class="fas fa-check-circle"></i><span>Premium Ingredients</span></div>
+                            <div class="value-item"><i class="fas fa-check-circle"></i><span>Traditional Recipes</span></div>
+                            <div class="value-item"><i class="fas fa-check-circle"></i><span>Made to Order</span></div>
                         </div>
                     </div>
                 </div>
@@ -2302,62 +1479,32 @@ section {
             <div class="testimonials-grid">
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"The kunafa reminded me of my grandmother's cooking. Absolutely
-                        authentic and delicious!"</p>
+                    <p class="testimonial-text">"The kunafa reminded me of my grandmother's cooking. Absolutely authentic and delicious!"</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Fatima Ahmed</h4>
-                            <span>Cairo</span>
-                        </div>
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info"><h4>Fatima Ahmed</h4><span>Cairo</span></div>
                     </div>
                 </div>
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Best Golash I've ever tasted! You can really taste the love and care in
-                        every bite."</p>
+                    <p class="testimonial-text">"Best Golash I've ever tasted! You can really taste the love and care in every bite."</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Omar Hassan</h4>
-                            <span>Alexandria</span>
-                        </div>
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info"><h4>Omar Hassan</h4><span>Alexandria</span></div>
                     </div>
                 </div>
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p class="testimonial-text">"Finally, a place that makes kunafa like my mother used to! This is the
-                        real deal."</p>
+                    <p class="testimonial-text">"Finally, a place that makes kunafa like my mother used to! This is the real deal."</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Nour Mahmoud</h4>
-                            <span>Giza</span>
-                        </div>
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info"><h4>Nour Mahmoud</h4><span>Giza</span></div>
                     </div>
                 </div>
             </div>
@@ -2370,13 +1517,11 @@ section {
             <div class="footer-content">
                 <div class="footer-col">
                     <div class="footer-logo">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/Loly's%20Logo%20NoBK.png"
-                            alt="Loly's Kunafa House Logo">
+                        <img src="https://ik.imagekit.io/xtj3m9hth/Loly's%20Logo%20NoBK.png" alt="Loly's Kunafa House Logo">
                     </div>
                     <p class="footer-description">Handmade by Mom. Shared with Love.</p>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" class="social-link"
-                            aria-label="Facebook">
+                        <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" class="social-link" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="https://wa.me/201021604151" class="social-link" aria-label="WhatsApp">
@@ -2405,27 +1550,18 @@ section {
                 <div class="footer-col">
                     <h4>Contact Us</h4>
                     <ul class="footer-contact">
-                        <li>
-                            <i class="fab fa-whatsapp"></i>
-                            <span>+20 10 21604151</span>
-                        </li>
+                        <li><i class="fab fa-whatsapp"></i><span>+20 10 21604151</span></li>
                         <li>
                             <i class="fab fa-facebook-f"></i>
-                            <span>Loly's Kunafa House</span>
-                            <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
-                                style="display: block; font-size: 13px; color: var(--primary-gold);">Follow us on
-                                Facebook</a>
+                            <span>Loly's Kunafa House<br>
+                            <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" style="font-size:13px;color:var(--primary-gold);">Follow us on Facebook</a></span>
                         </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Cairo, Egypt</span>
-                        </li>
+                        <li><i class="fas fa-map-marker-alt"></i><span>Cairo, Egypt</span></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Loly's Kunafa House. All rights reserved. Made with <i class="fas fa-heart"></i> by the
-                    Family</p>
+                <p>&copy; 2026 Loly's Kunafa House. All rights reserved. Made with <i class="fas fa-heart"></i> by the Family</p>
             </div>
         </div>
     </footer>
@@ -2443,9 +1579,7 @@ section {
                 <div class="modal-info">
                     <h3 id="modalProductName"></h3>
                     <p id="modalProductDescription"></p>
-                    <div class="modal-price">
-                        <span id="modalProductPrice"></span>
-                    </div>
+                    <div class="modal-price"><span id="modalProductPrice"></span></div>
                     <div class="modal-features">
                         <h4>Features:</h4>
                         <ul id="modalProductFeatures"></ul>
@@ -2465,7 +1599,7 @@ section {
         <span>Added to cart successfully!</span>
     </div>
 
-    <!-- AOS Animation Library -->
+    <!-- AOS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
@@ -2474,64 +1608,28 @@ section {
 // ===================================
 const products = {
     'golash-large': {
-        name: 'Golash Large',
-        price: '350 L.E',
+        name: 'Golash Large', price: '350 L.E',
         description: 'Our signature Golash features layers of crispy, golden phyllo dough filled with a premium blend of pistachios, almonds, and walnuts. Each layer is carefully hand-brushed with clarified butter and baked to perfection, then drenched in our special honey-sugar syrup infused with orange blossom water.',
         image: 'https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg',
-        features: [
-            'Handmade with premium phyllo dough',
-            'Triple nut filling (pistachios, almonds, walnuts)',
-            'Brushed with clarified butter',
-            'Special honey-sugar syrup',
-            'Orange blossom water infusion',
-            'Serves 10-12 people',
-            'Perfect for special occasions'
-        ]
+        features: ['Handmade with premium phyllo dough','Triple nut filling (pistachios, almonds, walnuts)','Brushed with clarified butter','Special honey-sugar syrup','Orange blossom water infusion','Serves 10-12 people','Perfect for special occasions']
     },
     'kunafa-large': {
-        name: 'Kunafa Large',
-        price: '350 L.E',
+        name: 'Kunafa Large', price: '350 L.E',
         description: 'Traditional Egyptian kunafa made with the finest semolina threads, filled with premium sweet cheese that melts beautifully in the center. Topped with crushed pistachios and soaked in our signature sugar syrup. This is the kunafa that brought our family together every Ramadan.',
         image: 'https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg',
-        features: [
-            'Authentic Egyptian recipe',
-            'Premium sweet cheese filling',
-            'Hand-shredded semolina threads',
-            'Topped with crushed pistachios',
-            'Mom\'s special sugar syrup',
-            'Serves 10-12 people',
-            'Made fresh to order'
-        ]
+        features: ['Authentic Egyptian recipe','Premium sweet cheese filling','Hand-shredded semolina threads','Topped with crushed pistachios',"Mom's special sugar syrup",'Serves 10-12 people','Made fresh to order']
     },
     'golash-medium': {
-        name: 'Golash Medium',
-        price: '250 L.E',
-        description: 'A perfect portion of our beloved Golash for smaller gatherings or family dinners. All the same quality, love, and tradition of our large tray, crafted with the same premium ingredients and Mom\'s special touch.',
+        name: 'Golash Medium', price: '250 L.E',
+        description: "A perfect portion of our beloved Golash for smaller gatherings or family dinners. All the same quality, love, and tradition of our large tray, crafted with the same premium ingredients and Mom's special touch.",
         image: 'https://ik.imagekit.io/xtj3m9hth/ChatGPT%20Image%20Feb%2024,%202026,%2005_06_21%20AM.png?updatedAt=1771902459474',
-        features: [
-            'Same premium quality as large',
-            'Triple nut filling blend',
-            'Hand-layered phyllo dough',
-            'Honey-sugar syrup',
-            'Orange blossom essence',
-            'Serves 6-8 people',
-            'Ideal for family gatherings'
-        ]
+        features: ['Same premium quality as large','Triple nut filling blend','Hand-layered phyllo dough','Honey-sugar syrup','Orange blossom essence','Serves 6-8 people','Ideal for family gatherings']
     },
     'kunafa-medium': {
-        name: 'Kunafa Medium',
-        price: '250 L.E',
+        name: 'Kunafa Medium', price: '250 L.E',
         description: 'Our traditional kunafa in a medium size, perfect for intimate gatherings or when you want to enjoy this delicious dessert without leftovers. Made with the same care and premium ingredients as our large tray.',
         image: 'https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg',
-        features: [
-            'Traditional Egyptian kunafa',
-            'Premium cheese filling',
-            'Golden crispy threads',
-            'Pistachio garnish',
-            'Special syrup blend',
-            'Serves 6-8 people',
-            'Fresh daily preparation'
-        ]
+        features: ['Traditional Egyptian kunafa','Premium cheese filling','Golden crispy threads','Pistachio garnish','Special syrup blend','Serves 6-8 people','Fresh daily preparation']
     }
 };
 
@@ -2539,35 +1637,21 @@ const products = {
 // Initialize
 // ===================================
 document.addEventListener('DOMContentLoaded', function () {
-
-    // Hide loading screen FIRST - always runs no matter what
     setTimeout(() => {
         const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            loadingScreen.classList.add('hidden');
-        }
+        if (loadingScreen) loadingScreen.classList.add('hidden');
         document.body.style.overflow = 'auto';
     }, 1500);
 
-    // Initialize AOS safely
     if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 1000,
-            easing: 'ease-out-cubic',
-            once: true,
-            offset: 100,
-            delay: 100
-        });
+        AOS.init({ duration: 1000, easing: 'ease-out-cubic', once: true, offset: 100 });
     }
 
-    // Initialize all functionality
     initNavigation();
     initSmoothScroll();
     initContactForm();
-    initParallax();
     initCardEffects();
     initScrollObserver();
-
 });
 
 // ===================================
@@ -2580,11 +1664,7 @@ function initNavigation() {
     const navLinkItems = document.querySelectorAll('.nav-link');
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+        navbar.classList.toggle('scrolled', window.scrollY > 100);
     });
 
     navToggle.addEventListener('click', () => {
@@ -2602,22 +1682,17 @@ function initNavigation() {
     });
 
     const sections = document.querySelectorAll('section[id]');
-
-    function highlightNavigation() {
+    window.addEventListener('scroll', () => {
         const scrollY = window.pageYOffset;
         sections.forEach(section => {
-            const sectionHeight = section.offsetHeight;
             const sectionTop = section.offsetTop - 100;
-            const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                navLinkItems.forEach(link => link.classList.remove('active'));
+            if (scrollY > sectionTop && scrollY <= sectionTop + section.offsetHeight) {
+                navLinkItems.forEach(l => l.classList.remove('active'));
+                const navLink = document.querySelector(`.nav-link[href="#${section.getAttribute('id')}"]`);
                 if (navLink) navLink.classList.add('active');
             }
         });
-    }
-
-    window.addEventListener('scroll', highlightNavigation);
+    });
 }
 
 // ===================================
@@ -2630,12 +1705,7 @@ function initSmoothScroll() {
             if (href === '#') return;
             e.preventDefault();
             const target = document.querySelector(href);
-            if (target) {
-                window.scrollTo({
-                    top: target.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
+            if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
         });
     });
 }
@@ -2646,21 +1716,14 @@ function initSmoothScroll() {
 function openProductModal(productId) {
     const product = products[productId];
     if (!product) return;
-
     document.getElementById('modalProductImage').src = product.image;
     document.getElementById('modalProductImage').alt = product.name;
     document.getElementById('modalProductName').textContent = product.name;
     document.getElementById('modalProductDescription').textContent = product.description;
     document.getElementById('modalProductPrice').textContent = product.price;
-
-    const modalFeatures = document.getElementById('modalProductFeatures');
-    modalFeatures.innerHTML = '';
-    product.features.forEach(feature => {
-        const li = document.createElement('li');
-        li.textContent = feature;
-        modalFeatures.appendChild(li);
-    });
-
+    const ul = document.getElementById('modalProductFeatures');
+    ul.innerHTML = '';
+    product.features.forEach(f => { const li = document.createElement('li'); li.textContent = f; ul.appendChild(li); });
     const modal = document.getElementById('productModal');
     modal.dataset.currentProduct = productId;
     modal.classList.add('active');
@@ -2673,50 +1736,73 @@ function closeProductModal() {
 }
 
 function closeModalAndOrder() {
-    const modal = document.getElementById('productModal');
-    const productId = modal.dataset.currentProduct;
+    const productId = document.getElementById('productModal').dataset.currentProduct;
     closeProductModal();
     setTimeout(() => {
-        const contactSection = document.getElementById('contact');
-        window.scrollTo({ top: contactSection.offsetTop - 80, behavior: 'smooth' });
+        window.scrollTo({ top: document.getElementById('contact').offsetTop - 80, behavior: 'smooth' });
         setTimeout(() => {
-            const productSelect = document.getElementById('product');
-            if (productSelect) {
-                productSelect.value = productId;
-                productSelect.focus();
-            }
+            const sel = document.getElementById('product');
+            if (sel) { sel.value = productId; sel.focus(); }
         }, 500);
     }, 300);
 }
 
-document.addEventListener('click', (e) => {
-    const modal = document.getElementById('productModal');
-    if (e.target === modal) closeProductModal();
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeProductModal();
-});
+document.addEventListener('click', e => { if (e.target === document.getElementById('productModal')) closeProductModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeProductModal(); });
 
 // ===================================
-// Add to Cart
+// Cart & Quantity Logic
 // ===================================
+const cart = { 'golash-large': 0, 'kunafa-large': 0, 'golash-medium': 0, 'kunafa-medium': 0 };
+
+function changeQuantity(productId, delta) {
+    cart[productId] = Math.max(0, cart[productId] + delta);
+    const el = document.getElementById(`qty-${productId}`);
+    if (el) el.textContent = cart[productId];
+    updateOrderSummary();
+}
+
+function updateOrderSummary() {
+    let total = 0, hasItems = false;
+    for (const [id, qty] of Object.entries(cart)) {
+        total += parseInt(products[id].price) * qty;
+        if (qty > 0) hasItems = true;
+    }
+    const bar = document.getElementById('orderSummaryBar');
+    const totalEl = document.getElementById('grandTotal');
+    if (totalEl) totalEl.textContent = total;
+    if (bar) bar.style.display = hasItems ? 'block' : 'none';
+}
+
 function addToCart(productId) {
+    if (cart[productId] === 0) changeQuantity(productId, 1);
     showCartNotification();
     setTimeout(() => {
-        const contactSection = document.getElementById('contact');
-        window.scrollTo({ top: contactSection.offsetTop - 80, behavior: 'smooth' });
-        setTimeout(() => {
-            const productSelect = document.getElementById('product');
-            if (productSelect) productSelect.value = productId;
-        }, 500);
-    }, 1000);
+        const bar = document.getElementById('orderSummaryBar');
+        if (bar && bar.style.display !== 'none') bar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 500);
 }
 
 function showCartNotification() {
-    const notification = document.getElementById('cartNotification');
-    notification.classList.add('show');
-    setTimeout(() => notification.classList.remove('show'), 3000);
+    const n = document.getElementById('cartNotification');
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 3000);
+}
+
+function proceedToOrder() {
+    let message = "Hello Loly's Kunafa House! I'd like to place an order:\n\n";
+    let total = 0, hasItems = false;
+    for (const [id, qty] of Object.entries(cart)) {
+        if (qty > 0) {
+            const price = parseInt(products[id].price);
+            message += `• ${products[id].name} x${qty} = ${price * qty} L.E\n`;
+            total += price * qty;
+            hasItems = true;
+        }
+    }
+    if (!hasItems) return;
+    message += `\n*TOTAL: ${total} L.E*`;
+    window.open(`https://wa.me/201021604151?text=${encodeURIComponent(message)}`, '_blank');
 }
 
 // ===================================
@@ -2724,114 +1810,54 @@ function showCartNotification() {
 // ===================================
 function initContactForm() {
     const form = document.getElementById('contactForm');
-
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
-
-        const productSelect = document.getElementById('product');
-        const productName = productSelect.options[productSelect.selectedIndex].text;
-
+        const sel = document.getElementById('product');
         const formData = {
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
-            product: productName,
+            product: sel.options[sel.selectedIndex].text,
             message: document.getElementById('message').value
         };
-
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRCQ2emy53UDIurk_E6NYgOnFCkk6aTWvvkTcRfOD3SfApNtKXjealxroP-_hM4-OW/exec';
-
         try {
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
+            await fetch('https://script.google.com/macros/s/AKfycbzRCQ2emy53UDIurk_E6NYgOnFCkk6aTWvvkTcRfOD3SfApNtKXjealxroP-_hM4-OW/exec', {
+                method: 'POST', mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
-        } catch (error) {
-            console.error('Sheet error:', error);
-        }
-
+        } catch (err) { console.error('Sheet error:', err); }
         form.reset();
         showThankYouPopup(formData.name);
     });
 }
 
 function showThankYouPopup(name) {
-    // Create overlay
     const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.7); z-index: 99999;
-        display: flex; align-items: center; justify-content: center;
-        backdrop-filter: blur(5px); animation: fadeIn 0.3s ease;
-    `;
-
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);';
     overlay.innerHTML = `
-        <div style="
-            background: white; border-radius: 24px; padding: 60px 50px;
-            max-width: 500px; width: 90%; text-align: center;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-            animation: slideUp 0.4s cubic-bezier(0.4,0,0.2,1);
-        ">
-            <div style="
-                width: 80px; height: 80px; background: linear-gradient(135deg, #D4AF37, #F4C430);
-                border-radius: 50%; display: flex; align-items: center;
-                justify-content: center; margin: 0 auto 25px; font-size: 36px;
-            ">ðŸ°</div>
-            <h2 style="
-                font-family: 'Playfair Display', serif; font-size: 32px;
-                color: #2C1810; margin-bottom: 15px;
-            ">Thank You, ${name}!</h2>
-            <p style="
-                font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 10px;
-            ">Your order request has been received.</p>
-            <p style="
-                font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 35px;
-            ">We will contact you shortly on WhatsApp to confirm your order. ðŸ’›</p>
-            <button onclick="document.querySelector('[data-popup]').remove()" style="
-                background: linear-gradient(135deg, #D4AF37, #F4C430);
-                color: #2C1810; border: none; padding: 15px 40px;
-                border-radius: 50px; font-size: 16px; font-weight: 700;
-                cursor: pointer; letter-spacing: 1px;
-            ">Done</button>
-        </div>
-    `;
-
+        <div style="background:white;border-radius:24px;padding:60px 50px;max-width:500px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,0.3);">
+            <div style="width:80px;height:80px;background:linear-gradient(135deg,#D4AF37,#F4C430);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;font-size:36px;">🍰</div>
+            <h2 style="font-family:'Playfair Display',serif;font-size:32px;color:#2C1810;margin-bottom:15px;">Thank You, ${name}!</h2>
+            <p style="font-size:17px;color:#666;line-height:1.7;margin-bottom:10px;">Your order request has been received.</p>
+            <p style="font-size:17px;color:#666;line-height:1.7;margin-bottom:35px;">We will contact you shortly on WhatsApp to confirm your order. 💛</p>
+            <button onclick="this.closest('[data-popup]').remove()" style="background:linear-gradient(135deg,#D4AF37,#F4C430);color:#2C1810;border:none;padding:15px 40px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;">Done</button>
+        </div>`;
     overlay.setAttribute('data-popup', 'true');
-
-    // Close on outside click
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) overlay.remove();
-    });
-
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
     document.body.appendChild(overlay);
-
-    // Auto close after 8 seconds
     setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 8000);
-}
-
-// ===================================
-// Parallax Effect
-// ===================================
-function initParallax() {
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const heroVideo = document.querySelector('.hero-video');
-        if (heroVideo) heroVideo.style.transform = `translateY(${scrolled * 0.5}px)`;
-    });
 }
 
 // ===================================
 // Card Hover Effects
 // ===================================
 function initCardEffects() {
-    const cards = document.querySelectorAll('.product-card, .feature-card, .testimonial-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+    document.querySelectorAll('.product-card, .feature-card, .testimonial-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
-            const rotateX = (e.clientY - rect.top - rect.height / 2) / 20;
-            const rotateY = (rect.width / 2 - (e.clientX - rect.left)) / 20;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            const rx = (e.clientY - rect.top - rect.height / 2) / 20;
+            const ry = (rect.width / 2 - (e.clientX - rect.left)) / 20;
+            card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
         });
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
@@ -2843,146 +1869,29 @@ function initCardEffects() {
 // Scroll Observer
 // ===================================
 function initScrollObserver() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('fade-in');
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-    document.querySelectorAll('section').forEach(section => observer.observe(section));
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('fade-in'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
 }
 
 // ===================================
 // Scroll to Top Button
 // ===================================
-const scrollTopButton = document.createElement('button');
-scrollTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
-scrollTopButton.className = 'scroll-to-top';
-scrollTopButton.style.cssText = `
-    position: fixed; bottom: 30px; right: 30px;
-    width: 50px; height: 50px;
-    background: linear-gradient(135deg, #D4AF37 0%, #F4C430 100%);
-    color: #2C1810; border: none; border-radius: 50%;
-    font-size: 20px; cursor: pointer;
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-    opacity: 0; visibility: hidden;
-    transition: all 0.3s ease; z-index: 9998;
-`;
-document.body.appendChild(scrollTopButton);
+const scrollTopBtn = document.createElement('button');
+scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+scrollTopBtn.style.cssText = 'position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:linear-gradient(135deg,#D4AF37,#F4C430);color:#2C1810;border:none;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:0 10px 30px rgba(212,175,55,0.4);opacity:0;visibility:hidden;transition:all 0.3s ease;z-index:9998;';
+document.body.appendChild(scrollTopBtn);
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-        scrollTopButton.style.opacity = '1';
-        scrollTopButton.style.visibility = 'visible';
-    } else {
-        scrollTopButton.style.opacity = '0';
-        scrollTopButton.style.visibility = 'hidden';
-    }
+    const show = window.scrollY > 500;
+    scrollTopBtn.style.opacity = show ? '1' : '0';
+    scrollTopBtn.style.visibility = show ? 'visible' : 'hidden';
 });
 
-scrollTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-scrollTopButton.addEventListener('mouseenter', () => scrollTopButton.style.transform = 'scale(1.1) translateY(-5px)');
-scrollTopButton.addEventListener('mouseleave', () => scrollTopButton.style.transform = 'scale(1) translateY(0)');
-
-// ===================================
-// Calculator Logic
-// ===================================
-const cart = {
-    'golash-large': 0,
-    'kunafa-large': 0,
-    'golash-medium': 0,
-    'kunafa-medium': 0
-};
-
-function changeQuantity(productId, delta) {
-    const newQty = Math.max(0, cart[productId] + delta);
-    cart[productId] = newQty;
-
-    // Update display
-    const qtyDisplay = document.getElementById(`qty-${productId}`);
-    if (qtyDisplay) {
-        qtyDisplay.textContent = newQty;
-    }
-
-    updateOrderSummary();
-}
-
-function updateOrderSummary() {
-    let total = 0;
-    let hasItems = false;
-
-    for (const [id, qty] of Object.entries(cart)) {
-        const price = parseInt(products[id].price.replace(' L.E', ''));
-        total += price * qty;
-        if (qty > 0) hasItems = true;
-    }
-
-    const summaryBar = document.getElementById('orderSummaryBar');
-    const grandTotalDisplay = document.getElementById('grandTotal');
-
-    if (grandTotalDisplay) {
-        grandTotalDisplay.textContent = total;
-    }
-
-    if (summaryBar) {
-        if (hasItems) {
-            summaryBar.style.display = 'block';
-        } else {
-            summaryBar.style.display = 'none';
-        }
-    }
-}
-
-function proceedToOrder() {
-    let message = "Hello Loly's Kunafa House! I'd like to place an order:\n\n";
-    let total = 0;
-    let hasItems = false;
-
-    for (const [id, qty] of Object.entries(cart)) {
-        if (qty > 0) {
-            const product = products[id];
-            const price = parseInt(product.price.replace(' L.E', ''));
-            const subtotal = price * qty;
-            message += `â€¢ ${product.name} x${qty} = ${subtotal} L.E\n`;
-            total += subtotal;
-            hasItems = true;
-        }
-    }
-
-    if (!hasItems) return;
-
-    message += `\n*TOTAL: ${total} L.E*`;
-
-    const whatsappUrl = `https://wa.me/201021604151?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-// Update addToCart to use current quantity or default to 1
-const originalAddToCart = addToCart;
-addToCart = function (productId) {
-    if (cart[productId] === 0) {
-        changeQuantity(productId, 1);
-    }
-
-    showCartNotification();
-
-    // Smooth scroll to summary bar or contact
-    setTimeout(() => {
-        const summaryBar = document.getElementById('orderSummaryBar');
-        if (summaryBar) {
-            summaryBar.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    }, 500);
-};
-
-// ===================================
-// Console Welcome Message
-// ===================================
-console.log('%cðŸ° Welcome to Loly\'s Kunafa House! ðŸ°', 'font-size: 24px; font-weight: bold; color: #D4AF37;');
-console.log('%cHandmade by Mom. Shared with Love.', 'font-size: 16px; font-style: italic; color: #6B4423;');
-
-
-</script>
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+scrollTopBtn.addEventListener('mouseenter', () => scrollTopBtn.style.transform = 'scale(1.1) translateY(-5px)');
+scrollTopBtn.addEventListener('mouseleave', () => scrollTopBtn.style.transform = 'scale(1) translateY(0)');
+    </script>
 </body>
-
 </html>
