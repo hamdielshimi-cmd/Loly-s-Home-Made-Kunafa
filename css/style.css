@@ -338,7 +338,8 @@ a {
     flex-wrap: wrap;
     position: absolute;
     bottom: 10%;
-    left: 5%;
+    left: 10px;
+    /* Moved further left to avoid text overlap */
     z-index: 3;
 }
 
@@ -1623,4 +1624,216 @@ section {
     }
 
     .hero-subtitle {
- 
+        font-size: 20px;
+    }
+
+    .section-title {
+        font-size: 36px;
+    }
+
+    .section-subtitle {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form-wrapper {
+        padding: 30px;
+    }
+
+    .modal-info {
+        padding: 40px 30px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .hero-subtitle {
+        font-size: 18px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .nav-logo img {
+        height: 50px;
+    }
+
+    .product-name {
+        font-size: 24px;
+    }
+
+    .product-price {
+        font-size: 28px;
+    }
+
+    .about-image-wrapper img {
+        height: 400px;
+    }
+}
+
+/* ===================================
+   Custom Scrollbar
+   =================================== */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-gold);
+    border-radius: 10px;
+}
+
+/* ===================================
+   Calculator & Order Summary
+   =================================== */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+    padding: 5px 15px;
+    border-radius: 30px;
+    width: fit-content;
+}
+
+.btn-qty {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-gold);
+    background: transparent;
+    color: var(--primary-dark);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.btn-qty:hover {
+    background: var(--primary-gold);
+    color: white;
+}
+
+.qty-display {
+    font-size: 18px;
+    font-weight: 700;
+    min-width: 25px;
+    text-align: center;
+    color: var(--primary-dark);
+}
+
+.order-summary-bar {
+    position: sticky;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 20px 40px;
+    border-radius: 20px;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    margin-top: 50px;
+    display: none;
+    /* Hidden by default, shown via JS */
+}
+
+.order-summary-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.total-info {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.total-info .label {
+    font-size: 18px;
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+.total-info .total-amount {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.total-info .currency {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary-gold);
+}
+
+@media (max-width: 768px) {
+    .order-summary-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .order-summary-bar {
+        bottom: 0;
+        border-radius: 20px 20px 0 0;
+    }
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #F4C430;
+}
+
+/* ===================================
+   Selection
+   =================================== */
+::selection {
+    background: var(--primary-gold);
+    color: var(--primary-dark);
+}
+
+::-moz-selection {
+    background: var(--primary-gold);
+    color: var(--primary-dark);
+}
