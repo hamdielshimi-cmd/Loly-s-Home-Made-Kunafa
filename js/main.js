@@ -36,7 +36,7 @@ const products = {
         name: 'Golash Medium',
         price: '250 L.E',
         description: 'A perfect portion of our beloved Golash for smaller gatherings or family dinners. All the same quality, love, and tradition of our large tray, crafted with the same premium ingredients and Mom\'s special touch.',
-        image: 'https://ik.imagekit.io/xtj3m9hth/ChatGPT%20Image%20Feb%2024,%202026,%2005_06_21%20AM.png?updatedAt=1771902459474',
+        image: 'https://ik.imagekit.io/xtj3m9hth/Gemini_Generated_Image_bplmq1bplmq1bplm.png',
         features: [
             'Same premium quality as large',
             'Triple nut filling blend',
