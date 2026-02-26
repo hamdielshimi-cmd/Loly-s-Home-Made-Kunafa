@@ -1,607 +1,511 @@
-<!DOCTYPE html>
-<html lang="en">
+// ===================================
+// Product Data
+// ===================================
+const products = {
+    'golash-large': {
+        name: 'Golash Large',
+        price: '350 L.E',
+        description: 'Our signature Golash features layers of crispy, golden phyllo dough filled with a premium blend of pistachios, almonds, and walnuts. Each layer is carefully hand-brushed with clarified butter and baked to perfection, then drenched in our special honey-sugar syrup infused with orange blossom water.',
+        image: 'https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg',
+        features: [
+            'Handmade with premium phyllo dough',
+            'Triple nut filling (pistachios, almonds, walnuts)',
+            'Brushed with clarified butter',
+            'Special honey-sugar syrup',
+            'Orange blossom water infusion',
+            'Serves 10-12 people',
+            'Perfect for special occasions'
+        ]
+    },
+    'kunafa-large': {
+        name: 'Kunafa Large',
+        price: '350 L.E',
+        description: 'Traditional Egyptian kunafa made with the finest semolina threads, filled with premium sweet cheese that melts beautifully in the center. Topped with crushed pistachios and soaked in our signature sugar syrup. This is the kunafa that brought our family together every Ramadan.',
+        image: 'https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg',
+        features: [
+            'Authentic Egyptian recipe',
+            'Premium sweet cheese filling',
+            'Hand-shredded semolina threads',
+            'Topped with crushed pistachios',
+            'Mom\'s special sugar syrup',
+            'Serves 10-12 people',
+            'Made fresh to order'
+        ]
+    },
+    'golash-medium': {
+        name: 'Golash Medium',
+        price: '250 L.E',
+        description: 'A perfect portion of our beloved Golash for smaller gatherings or family dinners. All the same quality, love, and tradition of our large tray, crafted with the same premium ingredients and Mom\'s special touch.',
+        image: 'https://ik.imagekit.io/xtj3m9hth/ChatGPT%20Image%20Feb%2024,%202026,%2005_06_21%20AM.png?updatedAt=1771902459474',
+        features: [
+            'Same premium quality as large',
+            'Triple nut filling blend',
+            'Hand-layered phyllo dough',
+            'Honey-sugar syrup',
+            'Orange blossom essence',
+            'Serves 6-8 people',
+            'Ideal for family gatherings'
+        ]
+    },
+    'kunafa-medium': {
+        name: 'Kunafa Medium',
+        price: '250 L.E',
+        description: 'Our traditional kunafa in a medium size, perfect for intimate gatherings or when you want to enjoy this delicious dessert without leftovers. Made with the same care and premium ingredients as our large tray.',
+        image: 'https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg',
+        features: [
+            'Traditional Egyptian kunafa',
+            'Premium cheese filling',
+            'Golden crispy threads',
+            'Pistachio garnish',
+            'Special syrup blend',
+            'Serves 6-8 people',
+            'Fresh daily preparation'
+        ]
+    }
+};
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loly's Kunafa House | Handmade by Mom. Shared with Love.</title>
-    <meta name="description"
-        content="Experience authentic Egyptian Kunafa and Golash, handcrafted with love by Mom. A family tradition now shared with you.">
+// ===================================
+// Initialize
+// ===================================
+document.addEventListener('DOMContentLoaded', function () {
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    // Hide loading screen FIRST - always runs no matter what
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+        }
+        document.body.style.overflow = 'auto';
+    }, 1500);
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    // Initialize AOS safely
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 100,
+            delay: 100
+        });
+    }
 
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    // Initialize all functionality
+    initNavigation();
+    initSmoothScroll();
+    initContactForm();
+    initParallax();
+    initCardEffects();
+    initScrollObserver();
 
-    <link rel="stylesheet" href="style.css">
-</head>
+});
 
-<body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loader">
-            <div class="loader-inner">
-                <div class="loader-circle"></div>
-                <div class="loader-text">Loly's</div>
-            </div>
+// ===================================
+// Navigation
+// ===================================
+function initNavigation() {
+    const navbar = document.getElementById('navbar');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinkItems = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    navLinkItems.forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+
+    function highlightNavigation() {
+        const scrollY = window.pageYOffset;
+        sections.forEach(section => {
+            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 100;
+            const sectionId = section.getAttribute('id');
+            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                navLinkItems.forEach(link => link.classList.remove('active'));
+                if (navLink) navLink.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', highlightNavigation);
+}
+
+// ===================================
+// Smooth Scroll
+// ===================================
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// ===================================
+// Product Modal
+// ===================================
+function openProductModal(productId) {
+    const product = products[productId];
+    if (!product) return;
+
+    document.getElementById('modalProductImage').src = product.image;
+    document.getElementById('modalProductImage').alt = product.name;
+    document.getElementById('modalProductName').textContent = product.name;
+    document.getElementById('modalProductDescription').textContent = product.description;
+    document.getElementById('modalProductPrice').textContent = product.price;
+
+    const modalFeatures = document.getElementById('modalProductFeatures');
+    modalFeatures.innerHTML = '';
+    product.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.textContent = feature;
+        modalFeatures.appendChild(li);
+    });
+
+    const modal = document.getElementById('productModal');
+    modal.dataset.currentProduct = productId;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal() {
+    document.getElementById('productModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+function closeModalAndOrder() {
+    const modal = document.getElementById('productModal');
+    const productId = modal.dataset.currentProduct;
+    closeProductModal();
+    setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        window.scrollTo({ top: contactSection.offsetTop - 80, behavior: 'smooth' });
+        setTimeout(() => {
+            const productSelect = document.getElementById('product');
+            if (productSelect) {
+                productSelect.value = productId;
+                productSelect.focus();
+            }
+        }, 500);
+    }, 300);
+}
+
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('productModal');
+    if (e.target === modal) closeProductModal();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeProductModal();
+});
+
+// ===================================
+// Add to Cart
+// ===================================
+function addToCart(productId) {
+    showCartNotification();
+    setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        window.scrollTo({ top: contactSection.offsetTop - 80, behavior: 'smooth' });
+        setTimeout(() => {
+            const productSelect = document.getElementById('product');
+            if (productSelect) productSelect.value = productId;
+        }, 500);
+    }, 1000);
+}
+
+function showCartNotification() {
+    const notification = document.getElementById('cartNotification');
+    notification.classList.add('show');
+    setTimeout(() => notification.classList.remove('show'), 3000);
+}
+
+// ===================================
+// Contact Form
+// ===================================
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const productSelect = document.getElementById('product');
+        const productName = productSelect.options[productSelect.selectedIndex].text;
+
+        const formData = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            product: productName,
+            message: document.getElementById('message').value
+        };
+
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRCQ2emy53UDIurk_E6NYgOnFCkk6aTWvvkTcRfOD3SfApNtKXjealxroP-_hM4-OW/exec';
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+        } catch (error) {
+            console.error('Sheet error:', error);
+        }
+
+        form.reset();
+        showThankYouPopup(formData.name);
+    });
+}
+
+function showThankYouPopup(name) {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7); z-index: 99999;
+        display: flex; align-items: center; justify-content: center;
+        backdrop-filter: blur(5px); animation: fadeIn 0.3s ease;
+    `;
+
+    overlay.innerHTML = `
+        <div style="
+            background: white; border-radius: 24px; padding: 60px 50px;
+            max-width: 500px; width: 90%; text-align: center;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s cubic-bezier(0.4,0,0.2,1);
+        ">
+            <div style="
+                width: 80px; height: 80px; background: linear-gradient(135deg, #D4AF37, #F4C430);
+                border-radius: 50%; display: flex; align-items: center;
+                justify-content: center; margin: 0 auto 25px; font-size: 36px;
+            ">🍰</div>
+            <h2 style="
+                font-family: 'Playfair Display', serif; font-size: 32px;
+                color: #2C1810; margin-bottom: 15px;
+            ">Thank You, ${name}!</h2>
+            <p style="
+                font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 10px;
+            ">Your order request has been received.</p>
+            <p style="
+                font-size: 17px; color: #666; line-height: 1.7; margin-bottom: 35px;
+            ">We will contact you shortly on WhatsApp to confirm your order. 💛</p>
+            <button onclick="document.querySelector('[data-popup]').remove()" style="
+                background: linear-gradient(135deg, #D4AF37, #F4C430);
+                color: #2C1810; border: none; padding: 15px 40px;
+                border-radius: 50px; font-size: 16px; font-weight: 700;
+                cursor: pointer; letter-spacing: 1px;
+            ">Done</button>
         </div>
-    </div>
+    `;
 
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <img src="https://ik.imagekit.io/xtj3m9hth/Loly's%20Logo%20NoBK.png" alt="Loly's Kunafa House Logo">
-            </div>
-            <div class="nav-links">
-                <a href="#home" class="nav-link active">Home</a>
-                <a href="#story" class="nav-link">Our Story</a>
-                <a href="#products" class="nav-link">Products</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    overlay.setAttribute('data-popup', 'true');
 
-    <!-- Hero Section with Video -->
-    <section id="home" class="hero-section">
-        <div class="hero-video-container">
-            <video autoplay muted loop playsinline webkit-playsinline class="hero-video">
-                <source src="https://ik.imagekit.io/244zlaxy8/Loly's%20Video.mp4" type="video/mp4">
-            </video>
-            <div class="hero-overlay"></div>
-        </div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-banner-content" data-aos="fade-up">
-                    <h2 class="stunning-text">STUNNING</h2>
-                    <h1 class="main-title">KUNAFA AND GOLASH</h1>
-                    <h3 class="from-home">From Our Home</h3>
-                    <div class="hero-phone">+20 10 21604151</div>
-                </div>
-                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="800">
-                    <a href="#products" class="btn btn-primary">
-                        <span>EXPLORE OUR SWEETS</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#story" class="btn btn-secondary">
-                        <span>OUR STORY</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Scroll to discover</span>
-        </div>
-    </section>
+    // Close on outside click
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="container">
-            <div class="features-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3>Homemade Excellence</h3>
-                    <p>Every dessert is crafted in our family kitchen with Mom's special touch</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Made with Love</h3>
-                    <p>Three generations of tradition in every bite</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Premium Ingredients</h3>
-                    <p>Only the finest ingredients, handpicked for perfection</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Family Legacy</h3>
-                    <p>A tradition passed down through generations</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    document.body.appendChild(overlay);
 
-    <!-- Story Section -->
-    <section id="story" class="story-section">
-        <div class="container">
-            <div class="story-content">
-                <div class="story-text" data-aos="fade-right">
-                    <span class="section-label">Our Journey</span>
-                    <h2 class="section-title">From Our Home to Yours ✨</h2>
-                    <div class="story-body">
-                        <p>Every great recipe starts with a memory. For us, it starts in our mother's kitchen.</p>
+    // Auto close after 8 seconds
+    setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 8000);
+}
 
-                        <p>As the years passed and we grew up—moving out, getting married, and traveling—one thing
-                            always brought us back: Ramadan. It was the time for family gatherings, and more
-                            importantly, it was the time for Mom's legendary Kunafa and Golash.</p>
+// ===================================
+// Parallax Effect
+// ===================================
+function initParallax() {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroVideo = document.querySelector('.hero-video');
+        if (heroVideo) heroVideo.style.transform = `translateY(${scrolled * 0.5}px)`;
+    });
+}
 
-                        <p>She didn't just make sweets; she made masterpieces, perfected with her own special "extras"
-                            that no store could ever replicate. We realized her talent was too good to keep hidden
-                            within our four walls. We wanted the world to taste the love, the crunch, and the tradition
-                            that we grew up with.</p>
+// ===================================
+// Card Hover Effects
+// ===================================
+function initCardEffects() {
+    const cards = document.querySelectorAll('.product-card, .feature-card, .testimonial-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const rotateX = (e.clientY - rect.top - rect.height / 2) / 20;
+            const rotateY = (rect.width / 2 - (e.clientX - rect.left)) / 20;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+}
 
-                        <p>We named the brand after the newest light in our family, Layla (Loly), bridging the gap
-                            between our mother's timeless tradition and a sweet future for the next generation.</p>
+// ===================================
+// Scroll Observer
+// ===================================
+function initScrollObserver() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('fade-in');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
 
-                        <p class="story-signature"><strong>Loly's Kunafa House: Handmade by Mom. Shared with
-                                Love.</strong></p>
-                    </div>
-                </div>
-                <div class="story-images" data-aos="fade-left">
-                    <div class="story-image-grid">
-                        <div class="story-image story-image-1">
-                            <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg"
-                                alt="Traditional Golash">
-                        </div>
-                        <div class="story-image story-image-2">
-                            <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg"
-                                alt="Authentic Kunafa">
-                        </div>
-                    </div>
-                    <div class="story-decoration">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#D4AF37"
-                                d="M45.3,-59.7C57.9,-50.1,66.8,-34.9,70.2,-18.3C73.6,-1.8,71.5,16.1,63.9,30.3C56.3,44.5,43.2,55,28.4,60.3C13.6,65.6,-2.9,65.7,-18.7,61.2C-34.5,56.7,-49.6,47.6,-58.2,34.2C-66.8,20.8,-68.9,3.1,-65.7,-12.9C-62.5,-28.9,-54,-43.2,-42.2,-53C-30.4,-62.8,-15.2,-68.1,0.7,-69C16.6,-69.9,32.7,-69.3,45.3,-59.7Z"
-                                transform="translate(100 100)" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
+}
 
-    <!-- Contact Section (Moved) -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right">
-                    <span class="section-label">Get in Touch</span>
-                    <h2 class="section-title">Order Your Sweets Today</h2>
-                    <p class="contact-description">We'd love to share our family tradition with you. Reach out to place
-                        an order or ask any questions.</p>
+// ===================================
+// Scroll to Top Button
+// ===================================
+const scrollTopButton = document.createElement('button');
+scrollTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+scrollTopButton.className = 'scroll-to-top';
+scrollTopButton.style.cssText = `
+    position: fixed; bottom: 30px; right: 30px;
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, #D4AF37 0%, #F4C430 100%);
+    color: #2C1810; border: none; border-radius: 50%;
+    font-size: 20px; cursor: pointer;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease; z-index: 9998;
+`;
+document.body.appendChild(scrollTopButton);
 
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>WhatsApp</h4>
-                                <p>Message us for quick orders</p>
-                                <a href="https://wa.me/201021604151" class="contact-link">+20 10 21604151</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Facebook</h4>
-                                <p>Follow our journey</p>
-                                <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
-                                    class="contact-link">Loly's Kunafa House</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Facebook</h4>
-                                <p>Follow our journey</p>
-                                <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
-                                    class="contact-link">Loly's Kunafa House</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        scrollTopButton.style.opacity = '1';
+        scrollTopButton.style.visibility = 'visible';
+    } else {
+        scrollTopButton.style.opacity = '0';
+        scrollTopButton.style.visibility = 'hidden';
+    }
+});
 
-                <div class="contact-form-wrapper" data-aos="fade-left">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Enter your name">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="+20 XXX XXX XXXX">
-                        </div>
-                        <div class="form-group">
-                            <label for="product">Select Product</label>
-                            <select id="product" name="product" required>
-                                <option value="">Choose a product...</option>
-                                <option value="golash-large">Golash Large - 350 L.E</option>
-                                <option value="kunafa-large">Kunafa Large - 350 L.E</option>
-                                <option value="golash-medium">Golash Medium - 250 L.E</option>
-                                <option value="kunafa-medium">Kunafa Medium - 250 L.E</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4"
-                                placeholder="Special requests or questions..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <span>Send Order Request</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+scrollTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+scrollTopButton.addEventListener('mouseenter', () => scrollTopButton.style.transform = 'scale(1.1) translateY(-5px)');
+scrollTopButton.addEventListener('mouseleave', () => scrollTopButton.style.transform = 'scale(1) translateY(0)');
 
-    <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-label">Our Delights</span>
-                <h2 class="section-title">Handcrafted Masterpieces</h2>
-                <p class="section-subtitle">Each dessert is made to order with premium ingredients and Mom's special
-                    touch</p>
-            </div>
+// ===================================
+// Calculator Logic
+// ===================================
+const cart = {
+    'golash-large': 0,
+    'kunafa-large': 0,
+    'golash-medium': 0,
+    'kunafa-medium': 0
+};
 
-            <div class="products-grid">
-                <!-- Product 1: Golash Large -->
-                <div class="product-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="product-badge">Signature</div>
-                    <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg"
-                            alt="Golash Large">
-                        <div class="product-overlay">
-                            <button class="btn-view-details" onclick="openProductModal('golash-large')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Golash Large</h3>
-                        <p class="product-description">Layers of crispy phyllo dough filled with premium nuts and
-                            drenched in sweet syrup</p>
-                        <div class="product-footer">
-                            <span class="product-price">350 <small>L.E</small></span>
-                            <button class="btn-add-to-cart" onclick="addToCart('golash-large')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+function changeQuantity(productId, delta) {
+    const newQty = Math.max(0, cart[productId] + delta);
+    cart[productId] = newQty;
 
-                <!-- Product 2: Kunafa Large -->
-                <div class="product-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="product-badge">Best Seller</div>
-                    <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg"
-                            alt="Kunafa Large">
-                        <div class="product-overlay">
-                            <button class="btn-view-details" onclick="openProductModal('kunafa-large')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Kunafa Large</h3>
-                        <p class="product-description">Traditional kunafa with melted cheese center and golden crispy
-                            threads</p>
-                        <div class="product-footer">
-                            <span class="product-price">350 <small>L.E</small></span>
-                            <button class="btn-add-to-cart" onclick="addToCart('kunafa-large')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    // Update display
+    const qtyDisplay = document.getElementById(`qty-${productId}`);
+    if (qtyDisplay) {
+        qtyDisplay.textContent = newQty;
+    }
 
-                <!-- Product 3: Golash Medium -->
-                <div class="product-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="product-badge">Popular</div>
-                    <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/ChatGPT%20Image%20Feb%2024,%202026,%2005_06_21%20AM.png?updatedAt=1771902459474"
-                            alt="Golash Medium">
-                        <div class="product-overlay">
-                            <button class="btn-view-details" onclick="openProductModal('golash-medium')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Golash Medium</h3>
-                        <p class="product-description">Perfect portion of our signature Golash for smaller gatherings
-                        </p>
-                        <div class="product-footer">
-                            <span class="product-price">250 <small>L.E</small></span>
-                            <button class="btn-add-to-cart" onclick="addToCart('golash-medium')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    updateOrderSummary();
+}
 
-                <!-- Product 4: Kunafa Medium -->
-                <div class="product-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="product-badge">Family Favorite</div>
-                    <div class="product-image">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg"
-                            alt="Kunafa Medium">
-                        <div class="product-overlay">
-                            <button class="btn-view-details" onclick="openProductModal('kunafa-medium')">
-                                <i class="fas fa-eye"></i>
-                                <span>View Details</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Kunafa Medium</h3>
-                        <p class="product-description">Our beloved Kunafa in a medium size, perfect for any occasion</p>
-                        <div class="product-footer">
-                            <span class="product-price">250 <small>L.E</small></span>
-                            <button class="btn-add-to-cart" onclick="addToCart('kunafa-medium')">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span>Order Now</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+function updateOrderSummary() {
+    let total = 0;
+    let hasItems = false;
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-image" data-aos="fade-right">
-                    <div class="about-image-wrapper">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg"
-                            alt="About Loly's Kunafa House">
-                        <div class="about-decoration">
-                            <div class="decoration-circle decoration-circle-1"></div>
-                            <div class="decoration-circle decoration-circle-2"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-text" data-aos="fade-left">
-                    <span class="section-label">About Us</span>
-                    <h2 class="section-title">A Family Legacy 🏠</h2>
-                    <div class="about-body">
-                        <p>Loly's Kunafa House isn't a commercial bakery—it's a family legacy. We believe that the best
-                            desserts aren't made in factories; they are made at home, with premium ingredients and a
-                            mother's intuition.</p>
+    for (const [id, qty] of Object.entries(cart)) {
+        const price = parseInt(products[id].price.replace(' L.E', ''));
+        total += price * qty;
+        if (qty > 0) hasItems = true;
+    }
 
-                        <p>What started as a private Ramadan tradition for our family is now a kitchen dedicated to
-                            bringing that same warmth to your table. Every tray we bake carries the essence of an
-                            Egyptian family gathering: authentic, generous, and unforgettable.</p>
+    const summaryBar = document.getElementById('orderSummaryBar');
+    const grandTotalDisplay = document.getElementById('grandTotal');
 
-                        <div class="about-values">
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>100% Homemade</span>
-                            </div>
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Premium Ingredients</span>
-                            </div>
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Traditional Recipes</span>
-                            </div>
-                            <div class="value-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Made to Order</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    if (grandTotalDisplay) {
+        grandTotalDisplay.textContent = total;
+    }
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-label">Testimonials</span>
-                <h2 class="section-title">What Our Customers Say</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"The kunafa reminded me of my grandmother's cooking. Absolutely
-                        authentic and delicious!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Fatima Ahmed</h4>
-                            <span>Cairo</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Best Golash I've ever tasted! You can really taste the love and care in
-                        every bite."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Omar Hassan</h4>
-                            <span>Alexandria</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Finally, a place that makes kunafa like my mother used to! This is the
-                        real deal."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="author-info">
-                            <h4>Nour Mahmoud</h4>
-                            <span>Giza</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    if (summaryBar) {
+        if (hasItems) {
+            summaryBar.style.display = 'block';
+        } else {
+            summaryBar.style.display = 'none';
+        }
+    }
+}
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="footer-logo">
-                        <img src="https://ik.imagekit.io/xtj3m9hth/Loly's%20Logo%20NoBK.png"
-                            alt="Loly's Kunafa House Logo">
-                    </div>
-                    <p class="footer-description">Handmade by Mom. Shared with Love.</p>
-                    <div class="footer-social">
-                        <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" class="social-link"
-                            aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://wa.me/201021604151" class="social-link" aria-label="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#story">Our Story</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#about">About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Products</h4>
-                    <ul class="footer-links">
-                        <li><a href="#products">Golash Large</a></li>
-                        <li><a href="#products">Kunafa Large</a></li>
-                        <li><a href="#products">Golash Medium</a></li>
-                        <li><a href="#products">Kunafa Medium</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <ul class="footer-contact">
-                        <li>
-                            <i class="fab fa-whatsapp"></i>
-                            <span>+20 10 21604151</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>orders@lolyskunafa.com</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Cairo, Egypt</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Loly's Kunafa House. All rights reserved. Made with <i class="fas fa-heart"></i> by the
-                    Family</p>
-            </div>
-        </div>
-    </footer>
+function proceedToOrder() {
+    let message = "Hello Loly's Kunafa House! I'd like to place an order:\n\n";
+    let total = 0;
+    let hasItems = false;
 
-    <!-- Product Modal -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProductModal()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modalProductImage" src="" alt="">
-                </div>
-                <div class="modal-info">
-                    <h3 id="modalProductName"></h3>
-                    <p id="modalProductDescription"></p>
-                    <div class="modal-price">
-                        <span id="modalProductPrice"></span>
-                    </div>
-                    <div class="modal-features">
-                        <h4>Features:</h4>
-                        <ul id="modalProductFeatures"></ul>
-                    </div>
-                    <button class="btn btn-primary btn-full" onclick="closeModalAndOrder()">
-                        <span>Order Now</span>
-                        <i class="fas fa-shopping-bag"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    for (const [id, qty] of Object.entries(cart)) {
+        if (qty > 0) {
+            const product = products[id];
+            const price = parseInt(product.price.replace(' L.E', ''));
+            const subtotal = price * qty;
+            message += `• ${product.name} x${qty} = ${subtotal} L.E\n`;
+            total += subtotal;
+            hasItems = true;
+        }
+    }
 
-    <!-- Cart Notification -->
-    <div id="cartNotification" class="cart-notification">
-        <i class="fas fa-check-circle"></i>
-        <span>Added to cart successfully!</span>
-    </div>
+    if (!hasItems) return;
 
-    <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    message += `\n*TOTAL: ${total} L.E*`;
 
-    <script src="js/main.js"></script>
-</body>
+    const whatsappUrl = `https://wa.me/201021604151?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
 
-</html>
+// Update addToCart to use current quantity or default to 1
+const originalAddToCart = addToCart;
+addToCart = function (productId) {
+    if (cart[productId] === 0) {
+        changeQuantity(productId, 1);
+    }
+
+    showCartNotification();
+
+    // Smooth scroll to summary bar or contact
+    setTimeout(() => {
+        const summaryBar = document.getElementById('orderSummaryBar');
+        if (summaryBar) {
+            summaryBar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 500);
+};
+
+// ===================================
+// Console Welcome Message
+// ===================================
+console.log('%c🍰 Welcome to Loly\'s Kunafa House! 🍰', 'font-size: 24px; font-weight: bold; color: #D4AF37;');
+console.log('%cHandmade by Mom. Shared with Love.', 'font-size: 16px; font-style: italic; color: #6B4423;');
