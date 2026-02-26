@@ -67,7 +67,7 @@ const products = {
 // ===================================
 // Initialize
 // ===================================
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Hide loading screen FIRST - always runs no matter what
     setTimeout(() => {
@@ -154,7 +154,7 @@ function initNavigation() {
 // ===================================
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href === '#') return;
             e.preventDefault();
@@ -254,7 +254,7 @@ function showCartNotification() {
 function initContactForm() {
     const form = document.getElementById('contactForm');
 
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         const productSelect = document.getElementById('product');
@@ -412,6 +412,97 @@ window.addEventListener('scroll', () => {
 scrollTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 scrollTopButton.addEventListener('mouseenter', () => scrollTopButton.style.transform = 'scale(1.1) translateY(-5px)');
 scrollTopButton.addEventListener('mouseleave', () => scrollTopButton.style.transform = 'scale(1) translateY(0)');
+
+// ===================================
+// Calculator Logic
+// ===================================
+const cart = {
+    'golash-large': 0,
+    'kunafa-large': 0,
+    'golash-medium': 0,
+    'kunafa-medium': 0
+};
+
+function changeQuantity(productId, delta) {
+    const newQty = Math.max(0, cart[productId] + delta);
+    cart[productId] = newQty;
+
+    // Update display
+    const qtyDisplay = document.getElementById(`qty-${productId}`);
+    if (qtyDisplay) {
+        qtyDisplay.textContent = newQty;
+    }
+
+    updateOrderSummary();
+}
+
+function updateOrderSummary() {
+    let total = 0;
+    let hasItems = false;
+
+    for (const [id, qty] of Object.entries(cart)) {
+        const price = parseInt(products[id].price.replace(' L.E', ''));
+        total += price * qty;
+        if (qty > 0) hasItems = true;
+    }
+
+    const summaryBar = document.getElementById('orderSummaryBar');
+    const grandTotalDisplay = document.getElementById('grandTotal');
+
+    if (grandTotalDisplay) {
+        grandTotalDisplay.textContent = total;
+    }
+
+    if (summaryBar) {
+        if (hasItems) {
+            summaryBar.style.display = 'block';
+        } else {
+            summaryBar.style.display = 'none';
+        }
+    }
+}
+
+function proceedToOrder() {
+    let message = "Hello Loly's Kunafa House! I'd like to place an order:\n\n";
+    let total = 0;
+    let hasItems = false;
+
+    for (const [id, qty] of Object.entries(cart)) {
+        if (qty > 0) {
+            const product = products[id];
+            const price = parseInt(product.price.replace(' L.E', ''));
+            const subtotal = price * qty;
+            message += `• ${product.name} x${qty} = ${subtotal} L.E\n`;
+            total += subtotal;
+            hasItems = true;
+        }
+    }
+
+    if (!hasItems) return;
+
+    message += `\n*TOTAL: ${total} L.E*`;
+
+    const whatsappUrl = `https://wa.me/201021604151?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+// Update addToCart to use current quantity or default to 1
+const originalAddToCart = addToCart;
+addToCart = function (productId) {
+    if (cart[productId] === 0) {
+        changeQuantity(productId, 1);
+    }
+
+    showCartNotification();
+
+    // Smooth scroll to summary bar or contact
+    setTimeout(() => {
+        const summaryBar = document.getElementById('orderSummaryBar');
+        if (summaryBar) {
+            summaryBar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 500);
+};
 
 // ===================================
 // Console Welcome Message
