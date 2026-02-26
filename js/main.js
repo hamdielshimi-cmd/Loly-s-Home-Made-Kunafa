@@ -509,4 +509,3 @@ addToCart = function (productId) {
 // ===================================
 console.log('%c🍰 Welcome to Loly\'s Kunafa House! 🍰', 'font-size: 24px; font-weight: bold; color: #D4AF37;');
 console.log('%cHandmade by Mom. Shared with Love.', 'font-size: 16px; font-style: italic; color: #6B4423;');
-
