@@ -21,7 +21,7 @@
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -66,14 +66,19 @@
         </div>
         <div class="hero-content">
             <div class="hero-text">
-                <!-- Hero text removed per user request (video contains text) -->
+                <div class="hero-banner-content" data-aos="fade-up">
+                    <h2 class="stunning-text">STUNNING</h2>
+                    <h1 class="main-title">KUNAFA AND GOLASH</h1>
+                    <h3 class="from-home">From Our Home</h3>
+                    <div class="hero-phone">+20 10 21604151</div>
+                </div>
                 <div class="hero-buttons" data-aos="fade-up" data-aos-delay="800">
                     <a href="#products" class="btn btn-primary">
-                        <span>Explore Our Sweets</span>
+                        <span>EXPLORE OUR SWEETS</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
                     <a href="#story" class="btn btn-secondary">
-                        <span>Our Story</span>
+                        <span>OUR STORY</span>
                     </a>
                 </div>
             </div>
@@ -166,6 +171,87 @@
                                 transform="translate(100 100)" />
                         </svg>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Moved) -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <span class="section-label">Get in Touch</span>
+                    <h2 class="section-title">Order Your Sweets Today</h2>
+                    <p class="contact-description">We'd love to share our family tradition with you. Reach out to place
+                        an order or ask any questions.</p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>WhatsApp</h4>
+                                <p>Message us for quick orders</p>
+                                <a href="https://wa.me/201021604151" class="contact-link">+20 10 21604151</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Facebook</h4>
+                                <p>Follow our journey</p>
+                                <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
+                                    class="contact-link">Loly's Kunafa House</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Facebook</h4>
+                                <p>Follow our journey</p>
+                                <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
+                                    class="contact-link">Loly's Kunafa House</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper" data-aos="fade-left">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+20 XXX XXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="product">Select Product</label>
+                            <select id="product" name="product" required>
+                                <option value="">Choose a product...</option>
+                                <option value="golash-large">Golash Large - 350 L.E</option>
+                                <option value="kunafa-large">Kunafa Large - 350 L.E</option>
+                                <option value="golash-medium">Golash Medium - 250 L.E</option>
+                                <option value="kunafa-medium">Kunafa Medium - 250 L.E</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4"
+                                placeholder="Special requests or questions..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Send Order Request</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -414,79 +500,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right">
-                    <span class="section-label">Get in Touch</span>
-                    <h2 class="section-title">Order Your Sweets Today</h2>
-                    <p class="contact-description">We'd love to share our family tradition with you. Reach out to place
-                        an order or ask any questions.</p>
-
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>WhatsApp</h4>
-                                <p>Message us for quick orders</p>
-                                <a href="https://wa.me/201021604151" class="contact-link">+20 10 21604151</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Email</h4>
-                                <p>For inquiries and orders</p>
-                                <a href="mailto:orders@lolyskunafa.com" class="contact-link">orders@lolyskunafa.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr"
-                                class="contact-link">Loly's Kunafa House</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form-wrapper" data-aos="fade-left">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Enter your name">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="+20 XXX XXX XXXX">
-                        </div>
-                        <div class="form-group">
-                            <label for="product">Select Product</label>
-                            <select id="product" name="product" required>
-                                <option value="">Choose a product...</option>
-                                <option value="golash-large">Golash Large - 350 L.E</option>
-                                <option value="kunafa-large">Kunafa Large - 350 L.E</option>
-                                <option value="golash-medium">Golash Medium - 250 L.E</option>
-                                <option value="kunafa-medium">Kunafa Medium - 250 L.E</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4"
-                                placeholder="Special requests or questions..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">
-                            <span>Send Order Request</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -500,9 +513,6 @@
                     <div class="footer-social">
                         <a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" class="social-link"
                             aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://facebook.com/lolyskunafa" class="social-link" aria-label="Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="https://wa.me/201021604151" class="social-link" aria-label="WhatsApp">
