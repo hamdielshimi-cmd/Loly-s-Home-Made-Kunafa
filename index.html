@@ -1,4 +1,5 @@
-                                                                        <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -153,9 +154,7 @@ section{padding:110px 0;position:relative}
 .footer-logo{height:70px;margin:0 auto 24px;filter:brightness(1.1);}
 .footer p{color:rgba(255,255,255,0.5);font-size:14px;letter-spacing:0.5px;}
 
-/* ═══════════════════════════
-   WHATSAPP ORDER MODAL
-   ═══════════════════════════ */
+/* WHATSAPP ORDER MODAL */
 #waModal{
   display:none;position:fixed;inset:0;
   background:rgba(0,0,0,0.78);z-index:20000;
@@ -460,9 +459,7 @@ section{padding:110px 0;position:relative}
     </div>
 </footer>
 
-<!-- ═══════════════════════════════════════════
-     WHATSAPP ORDER MODAL
-     ═══════════════════════════════════════════ -->
+<!-- WHATSAPP ORDER MODAL -->
 <div id="waModal">
     <div class="wa-modal-box">
         <button class="wa-close-btn" onclick="closeWAModal()" aria-label="Close">✕</button>
@@ -504,6 +501,7 @@ section{padding:110px 0;position:relative}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 // ── Config ──────────────────────────────────────────────────────
+// REPLACE THIS URL WITH YOUR NEW DEPLOYMENT URL FROM APPS SCRIPT
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3fldd7-CY59IwyAP46raZaXSDsosUYnJbRhmsTc73V5aazcObOd7N3W4XL6o8lx2m6A/exec';
 const WA_NUMBER  = '201021604151';
 
@@ -560,26 +558,31 @@ function updateUI() {
     }
 }
 
-// ═══════════════════════════════════════════════════════
 // WHATSAPP POPUP
-// ═══════════════════════════════════════════════════════
 function openWAModal() {
     if (!cartHasItems()) return;
     
     const modal = document.getElementById('waModal');
     const summaryDiv = document.getElementById('waOrderSummary');
+    const orderNo = generateOrderNo();
+    
+    // Store orderNo on modal for later use
+    modal.dataset.orderNo = orderNo;
     
     // Build the summary HTML
     summaryDiv.innerHTML = `
-        <div class="wa-order-number">Order Request</div>
-        ${cartLines()}
+        <div class="wa-order-number">Order #${orderNo}</div>
+        ${cartLines().map(l => `
+            <div class="wa-order-line">
+                <span>${l.name} × ${l.qty}</span>
+                <span>${l.sub} L.E</span>
+            </div>`).join('')}
         <div class="wa-order-total">
             <span>Total</span>
-            <span>${calculateTotal()} L.E</span>
+            <span>${cartTotal()} L.E</span>
         </div>
     `;
     
-    // FIX: Use inline styles instead of .classList.add('open')
     modal.style.display = 'flex'; 
     document.body.style.overflow = 'hidden'; // Prevent scrolling
 }
@@ -626,9 +629,7 @@ function sendToWhatsApp() {
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
-// ═══════════════════════════════════════════════════════
-// CONTACT FORM → Google Sheets + email notifications
-// ═══════════════════════════════════════════════════════
+// ── CONTACT FORM → Google Sheets + Email Notification ─────────────
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -659,36 +660,35 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.innerHTML = '<span>Sending…</span>';
 
     try {
+        // Fixed fetch logic
         await fetch(SCRIPT_URL, {
-// Inside your form submission or "Confirm WhatsApp Order" logic:
-fetch(SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors', // Keeps it a simple request
-    headers: {
-        'Content-Type': 'text/plain' // FIX: Must be text/plain to avoid CORS
-    },
-    body: JSON.stringify(orderData)
-})
-.then(() => {
-    // Because of no-cors, we won't get a readable response, 
-    // but the data WILL reach the script now.
-    alert("Order sent successfully!");
-    closeWAModal();
-});    
+            method: 'POST',
+            mode: 'no-cors', 
+            headers: {
+                'Content-Type': 'text/plain' 
+            },
+            body: JSON.stringify(payload)
+        });
 
-    // Reset cart & form
-    this.reset();
-    Object.keys(cart).forEach(id => {
-        cart[id] = 0;
-        const el = document.getElementById('qty-' + id);
-        if (el) el.textContent = '0';
-    });
-    updateUI();
+        // Reset cart & form
+        this.reset();
+        Object.keys(cart).forEach(id => {
+            cart[id] = 0;
+            const el = document.getElementById('qty-' + id);
+            if (el) el.textContent = '0';
+        });
+        updateUI();
 
-    btn.disabled  = false;
-    btn.innerHTML = origHTML;
+        btn.disabled  = false;
+        btn.innerHTML = origHTML;
 
-    showThankYou(name, phone, orderNo);
+        showThankYou(name, phone, orderNo);
+    } catch (error) {
+        console.error('Error:', error);
+        alert("There was an error sending your order. Please try again.");
+        btn.disabled = false;
+        btn.innerHTML = origHTML;
+    }
 });
 
 function showThankYou(name, phone, orderNo) {
