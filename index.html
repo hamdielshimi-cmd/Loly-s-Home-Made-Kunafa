@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loly's Kunafa House | Handmade by Mom. Shared with Love.</title>
-    <meta name="description" content="Experience authentic Egyptian Kunafa and Golash, handcrafted with love by Mom. A family tradition now shared with you.">
+    <meta name="description" content="Experience authentic Egyptian Kunafa and Golash, handcrafted with love by Mom.">
+    
+    <!-- Fonts (Added Cairo for Arabic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
@@ -26,9 +28,25 @@
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:var(--fb);color:var(--txt);line-height:1.7;overflow-x:hidden;background:var(--bg);-webkit-font-smoothing:antialiased;}
+/* Arabic Font Override */
+html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 { font-family: 'Cairo', serif; }
+
 img{max-width:100%;height:auto;display:block}
 a{text-decoration:none;color:inherit;transition:var(--ease)}
 ::selection{background:var(--gold);color:var(--dark)}
+
+/* RTL Adjustments */
+html[dir="rtl"] { direction: rtl; text-align: right; }
+html[dir="rtl"] .nav-links { margin-right: auto; margin-left: 0; }
+html[dir="rtl"] .nav-logo { margin-right: 0; margin-left: auto; }
+html[dir="rtl"] .nav-toggle { right: auto; left: 20px; }
+html[dir="rtl"] .btn i { margin-left: 0; margin-right: 8px; }
+html[dir="rtl"] .story-images img:first-child { transform: translateY(-24px); }
+html[dir="rtl"] .story-images img:last-child { transform: translateY(24px); }
+html[dir="rtl"] .about-image-wrapper::before { transform: translate(12px, 12px); }
+html[dir="rtl"] .wa-modal-subtitle { padding-right: 0; padding-left: 0; text-align: right; }
+html[dir="rtl"] .loader-text { letter-spacing: normal; }
 
 /* Loading */
 #loading-screen{position:fixed;inset:0;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s ease,visibility .6s ease;}
@@ -46,14 +64,33 @@ a{text-decoration:none;color:inherit;transition:var(--ease)}
 .navbar.scrolled .nav-logo img{height:48px}
 .nav-links{display:flex;gap:36px;align-items:center}
 .nav-link{font-size:13px;font-weight:500;color:var(--white);position:relative;transition:var(--ease);text-shadow:0 2px 8px rgba(0,0,0,0.4);letter-spacing:0.5px;}
-.nav-link::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:var(--ease);}
+.nav-link::after{content:'';position:absolute;bottom:-6px;right:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:var(--ease);}
+/* Fix for RTL line animation */
+html[dir="ltr"] .nav-link:hover::after, html[dir="ltr"] .nav-link.active::after{left:0; right:auto;}
+html[dir="rtl"] .nav-link:hover::after, html[dir="rtl"] .nav-link.active::after{right:0; left:auto; width:100%;}
 .nav-link:hover,.nav-link.active{color:var(--gold)}
-.nav-link:hover::after,.nav-link.active::after{width:100%}
 .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:8px;}
 .nav-toggle span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:var(--ease);}
 .nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .nav-toggle.active span:nth-child(2){opacity:0}
 .nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* Language Switcher */
+.lang-switch {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--ease);
+    margin-left: 20px;
+    font-family: var(--fb);
+}
+html[dir="rtl"] .lang-switch { margin-left: 0; margin-right: 20px; }
+.lang-switch:hover { background: var(--gold); color: var(--dark); }
 
 /* Hero */
 .hero-section{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;overflow:hidden;background:transparent;}
@@ -95,12 +132,15 @@ section{padding:110px 0;position:relative}
 .story-images img:last-child{transform:translateY(-24px)}
 .story-images img:hover{transform:scale(1.02) translateY(0)!important;box-shadow:var(--shadow-lg)}
 .story-quote{font-family:var(--fe);font-size:22px;color:var(--brown);margin-top:28px;padding-left:20px;border-left:3px solid var(--gold);line-height:1.5;}
+html[dir="rtl"] .story-quote { padding-left: 0; padding-right: 20px; border-left: none; border-right: 3px solid var(--gold); }
 
 /* Contact */
 .contact-section{background:var(--bg);border-top:1px solid rgba(212,175,55,0.15);border-bottom:1px solid rgba(212,175,55,0.15);}
 .contact-content{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
 .contact-info-item{display:flex;gap:16px;margin-bottom:24px;padding:20px;background:var(--cream);border-radius:12px;transition:var(--ease);}
 .contact-info-item:hover{background:var(--cream-warm);transform:translateX(4px);}
+html[dir="rtl"] .contact-info-item:hover { transform: translateX(-4px); }
+
 .contact-info-item i{font-size:20px;color:var(--gold);width:24px;text-align:center}
 .contact-info-item h4{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--dark)}
 .contact-info-item p{font-size:14px;color:var(--muted)}
@@ -113,7 +153,7 @@ section{padding:110px 0;position:relative}
 .form-group input:focus,.form-group textarea:focus{border-color:var(--gold);outline:none;background:var(--white);box-shadow:0 0 0 4px rgba(212,175,55,0.1);}
 #formPreview{background:linear-gradient(135deg,var(--cream) 0%,var(--cream-warm) 100%);padding:20px;border-radius:12px;border:1px solid var(--gold);margin-bottom:24px;display:none;}
 #formPreview.show{display:block;animation:fadeInUp 0.4s ease}
-#formPreviewText{font-size:14px;color:var(--dark);line-height:1.8}
+#formPreviewText{font-size:14px;color:var(--dark);line-height:1.8;}
 
 /* Products */
 .products-section{background:var(--cream)}
@@ -135,6 +175,21 @@ section{padding:110px 0;position:relative}
 .btn-qty:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .qty-display{min-width:32px;text-align:center;font-weight:700;font-size:16px;color:var(--dark);}
 
+/* 24h Notice */
+.highlight-notice {
+  background: rgba(212, 175, 55, 0.1);
+  border-left: 5px solid var(--gold);
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+html[dir="rtl"] .highlight-notice { border-left: none; border-right: 5px solid var(--gold); }
+.highlight-notice i { font-size: 24px; color: var(--gold-dark); }
+.highlight-notice span { font-size: 15px; color: var(--dark); font-weight: 600; }
+
 /* Order bar */
 .order-summary-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--white);padding:16px 32px;border-radius:100px;box-shadow:0 12px 48px rgba(30,18,16,0.2);display:none;z-index:900;width:90%;max-width:700px;border:2px solid var(--gold);transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);}
 .order-summary-bar.visible{display:flex;transform:translateX(-50%) translateY(0);}
@@ -155,13 +210,13 @@ section{padding:110px 0;position:relative}
 .footer p{color:rgba(255,255,255,0.5);font-size:14px;letter-spacing:0.5px;}
 
 /* WHATSAPP ORDER MODAL */
-#waModal{
+#walModal{
   display:none;position:fixed;inset:0;
   background:rgba(0,0,0,0.78);z-index:20000;
   padding:20px;overflow-y:auto;
   backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
 }
-#waModal.open{display:flex;align-items:center;justify-content:center;animation:fadeInUp 0.3s ease;}
+#walModal.open{display:flex;align-items:center;justify-content:center;animation:fadeInUp 0.3s ease;}
 .wa-modal-box{
   background:#fff;border-radius:24px;max-width:500px;width:100%;
   padding:44px 40px;position:relative;
@@ -183,13 +238,16 @@ section{padding:110px 0;position:relative}
 .btn-wa-submit{width:100%;margin-top:20px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;padding:18px 24px;border-radius:100px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:var(--ease);display:flex;align-items:center;justify-content:center;gap:10px;}
 .btn-wa-submit:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,0.4);}
 .wa-close-btn{position:absolute;top:16px;right:16px;width:36px;height:36px;background:var(--cream);border:none;border-radius:50%;font-size:16px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--ease);}
+html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
 .wa-close-btn:hover{background:var(--dark);color:#fff;}
 
 /* Responsive */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}html{scroll-behavior:auto}}
 @media(max-width:992px){
   .nav-links{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--dark-rich);flex-direction:column;justify-content:center;gap:32px;transition:var(--ease);padding:40px;}
+  html[dir="rtl"] .nav-links { right: auto; left: -100%; }
   .nav-links.active{right:0}
+  html[dir="rtl"] .nav-links.active { left: 0; right: auto; }
   .nav-link{text-shadow:none;font-size:16px}
   .nav-toggle{display:flex}
   .story-content,.contact-content,.about-content{grid-template-columns:1fr;gap:50px}
@@ -223,14 +281,17 @@ section{padding:110px 0;position:relative}
             <img src="https://ik.imagekit.io/xtj3m9hth/Loly's%20Logo%20NoBK.png" alt="Loly's Kunafa House">
         </div>
         <div class="nav-links" id="navLinks">
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#story" class="nav-link">Our Story</a>
-            <a href="#contact" class="nav-link">Order Now</a>
-            <a href="#products" class="nav-link">Products</a>
-            <a href="#about" class="nav-link">About</a>
+            <a href="#home" class="nav-link active" data-i18n="nav_home">Home</a>
+            <a href="#story" class="nav-link" data-i18n="nav_story">Our Story</a>
+            <a href="#contact" class="nav-link" data-i18n="nav_order">Order Now</a>
+            <a href="#products" class="nav-link" data-i18n="nav_products">Products</a>
+            <a href="#about" class="nav-link" data-i18n="nav_about">About</a>
         </div>
-        <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
-            <span></span><span></span><span></span>
+        <div style="display:flex; align-items:center;">
+            <button class="lang-switch" onclick="toggleLanguage()" id="langBtn">العربية</button>
+            <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </div>
 </nav>
@@ -245,15 +306,15 @@ section{padding:110px 0;position:relative}
     <div class="hero-overlay"></div>
     <div class="hero-content" data-aos="fade-up">
         <div class="hero-inner">
-            <h1 class="hero-headline">
+            <h1 class="hero-headline" data-i18n="hero_title">
                 Stunning Kunafa &amp; Golash — <em>From Our Home to Yours</em>
             </h1>
-            <p class="hero-subtext">
+            <p class="hero-subtext" data-i18n="hero_sub">
                 Handcrafted masterpieces by Mom. Order via form below or message us on <a href="https://wa.me/201021604151">WhatsApp</a>.
             </p>
             <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary">Explore Sweets</a>
-                <a href="#contact" class="btn btn-secondary">Place Order</a>
+                <a href="#products" class="btn btn-primary" data-i18n="btn_explore">Explore Sweets</a>
+                <a href="#contact" class="btn btn-secondary" data-i18n="btn_order">Place Order</a>
             </div>
         </div>
     </div>
@@ -264,11 +325,11 @@ section{padding:110px 0;position:relative}
     <div class="container">
         <div class="story-content">
             <div data-aos="fade-right">
-                <span class="section-label">Our Journey</span>
-                <h2 class="section-title">From Our Home to Yours</h2>
-                <p class="section-desc">Every great recipe starts with a memory. For us, it begins in our mother's kitchen. Ramadan gatherings were never complete without Mom's legendary Kunafa and Golash — golden, crispy, and dripping with sweetness.</p>
-                <p class="section-desc">We named the brand after Layla (Loly), bridging timeless tradition with a sweet future for the next generation.</p>
-                <p class="story-quote"><strong>Loly's Kunafa House: Handmade by Mom. Shared with Love.</strong></p>
+                <span class="section-label" data-i18n="label_journey">Our Journey</span>
+                <h2 class="section-title" data-i18n="story_title">From Our Home to Yours</h2>
+                <p class="section-desc" data-i18n="story_p1">Every great recipe starts with a memory. For us, it begins in our mother's kitchen. Ramadan gatherings were never complete without Mom's legendary Kunafa and Golash — golden, crispy, and dripping with sweetness.</p>
+                <p class="section-desc" data-i18n="story_p2">We named the brand after Layla (Loly), bridging timeless tradition with a sweet future for the next generation.</p>
+                <p class="story-quote" data-i18n="story_quote"><strong>Loly's Kunafa House: Handmade by Mom. Shared with Love.</strong></p>
             </div>
             <div class="story-images" data-aos="fade-left">
                 <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Freshly prepared Golash" loading="lazy">
@@ -283,56 +344,56 @@ section{padding:110px 0;position:relative}
     <div class="container">
         <div class="contact-content">
             <div data-aos="fade-right">
-                <span class="section-label">Order Now</span>
-                <h2 class="section-title">Order Your Sweets Today</h2>
-                <p class="section-desc">Select your favorite items from the Products section below. Your order will be calculated automatically, and we'll prepare everything fresh just for you.</p>
+                <span class="section-label" data-i18n="label_order">Order Now</span>
+                <h2 class="section-title" data-i18n="contact_title">Order Your Sweets Today</h2>
+                <p class="section-desc" data-i18n="contact_desc">Select your favorite items from the Products section below. Your order will be calculated automatically, and we'll prepare everything fresh just for you.</p>
 
                 <div style="margin-top:32px;">
                     <div class="contact-info-item">
                         <i class="fab fa-whatsapp"></i>
                         <div>
-                            <h4>WhatsApp Orders</h4>
+                            <h4 data-i18n="info_whatsapp">WhatsApp Orders</h4>
                             <p><a href="https://wa.me/201021604151">+20 10 21604151</a></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fab fa-facebook-f"></i>
                         <div>
-                            <h4>Facebook</h4>
+                            <h4 data-i18n="info_facebook">Facebook</h4>
                             <p><a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" target="_blank" rel="noopener">Loly's Kunafa House</a></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            <h4>Delivery Time</h4>
-                            <p>Same-day delivery available</p>
+                            <h4 data-i18n="info_delivery">Delivery Time</h4>
+                            <p data-i18n="info_delivery_txt">Same-day delivery available</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="contact-form-wrapper" data-aos="fade-left">
-                <h3 style="margin-bottom:24px;font-family:var(--fh);font-size:24px;color:var(--dark);">Order Details</h3>
+                <h3 style="margin-bottom:24px;font-family:var(--fh);font-size:24px;color:var(--dark);" data-i18n="form_title">Order Details</h3>
                 <div id="formPreview">
-                    <p style="font-size:11px;color:var(--gold-dark);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Current Selection</p>
+                    <p style="font-size:11px;color:var(--gold-dark);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;" data-i18n="preview_title">Current Selection</p>
                     <div id="formPreviewText"></div>
                 </div>
                 <form id="contactForm">
                     <div class="form-group">
-                        <label for="cName">Your Name</label>
-                        <input type="text" id="cName" placeholder="Enter your full name" required>
+                        <label for="cName" data-i18n="lbl_name">Your Name</label>
+                        <input type="text" id="cName" data-i18n-ph="ph_name" placeholder="Enter your full name" required>
                     </div>
                     <div class="form-group">
-                        <label for="cPhone">Phone Number</label>
-                        <input type="tel" id="cPhone" placeholder="Enter your phone number" required>
+                        <label for="cPhone" data-i18n="lbl_phone">Phone Number</label>
+                        <input type="tel" id="cPhone" data-i18n-ph="ph_phone" placeholder="Enter your phone number" required>
                     </div>
                     <div class="form-group">
-                        <label for="cAddress">Delivery Address</label>
-                        <input type="text" id="cAddress" placeholder="Enter your delivery address" required>
+                        <label for="cAddress" data-i18n="lbl_address">Delivery Address</label>
+                        <input type="text" id="cAddress" data-i18n-ph="ph_address" placeholder="Enter your delivery address" required>
                     </div>
                     <button type="submit" class="btn btn-primary" style="width:100%;padding:18px;">
-                        <span>Confirm Order Request</span>
+                        <span data-i18n="btn_confirm">Confirm Order Request</span>
                         <i class="fas fa-arrow-right"></i>
                     </button>
                 </form>
@@ -345,18 +406,25 @@ section{padding:110px 0;position:relative}
 <section id="products" class="products-section">
     <div class="container">
         <div style="text-align:center;margin-bottom:60px;">
-            <span class="section-label">Menu</span>
-            <h2 class="section-title">Our Handcrafted Selection</h2>
-            <p class="section-desc" style="margin:0 auto;">Each piece is made fresh daily using traditional recipes passed down through generations.</p>
+            <span class="section-label" data-i18n="label_menu">Menu</span>
+            <h2 class="section-title" data-i18n="prod_title">Our Handcrafted Selection</h2>
+            <p class="section-desc" style="margin:0 auto;" data-i18n="prod_desc">Each piece is made fresh daily using traditional recipes passed down through generations.</p>
         </div>
+        
+        <!-- 24h Notice -->
+        <div class="highlight-notice">
+            <i class="fas fa-exclamation-circle"></i>
+            <span data-i18n="notice_24h">Please confirm your order 24 hours in advance to ensure freshness and availability. During Ramadan all delivery is FreePlease confirm your order 24 hours in advance to ensure freshness and availability. During Ramadan all delivery is Free</span>
+        </div>
+
         <div class="products-grid">
             <div class="product-card" data-aos="fade-up">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Large" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <h3>Golash Large</h3>
-                    <p>Signature layers of crispy phyllo dough filled with premium nuts and sweetened to perfection.</p>
+                    <h3 class="p-name" data-key="golash-large">Golash Large</h3>
+                    <p class="p-desc" data-i18n="desc_golash">Signature layers of crispy phyllo dough filled with premium nuts and sweetened to perfection.</p>
                     <div class="product-price-row">
                         <span class="product-price">350 L.E</span>
                         <div class="quantity-controls">
@@ -372,8 +440,8 @@ section{padding:110px 0;position:relative}
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Large" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <h3>Kunafa Large</h3>
-                    <p>Authentic cheese kunafa masterpiece with golden vermicelli and rich, creamy filling.</p>
+                    <h3 class="p-name" data-key="kunafa-large">Kunafa Large</h3>
+                    <p class="p-desc" data-i18n="desc_kunafa">Authentic cheese kunafa masterpiece with golden vermicelli and rich, creamy filling.</p>
                     <div class="product-price-row">
                         <span class="product-price">350 L.E</span>
                         <div class="quantity-controls">
@@ -389,10 +457,10 @@ section{padding:110px 0;position:relative}
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Small" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <h3>Golash Small</h3>
-                    <p>Perfect individual portion of our signature golash, ideal for personal enjoyment.</p>
+                    <h3 class="p-name" data-key="golash-small">Golash Small</h3>
+                    <p class="p-desc" data-i18n="desc_golash_s">Perfect individual portion of our signature golash, ideal for personal enjoyment.</p>
                     <div class="product-price-row">
-                        <span class="product-price">200 L.E</span>
+                        <span class="product-price">250 L.E</span>
                         <div class="quantity-controls">
                             <button class="btn-qty" onclick="changeQty('golash-small',-1)" aria-label="Decrease quantity">−</button>
                             <span class="qty-display" id="qty-golash-small">0</span>
@@ -406,10 +474,10 @@ section{padding:110px 0;position:relative}
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Small" loading="lazy">
                 </div>
                 <div class="product-info">
-                    <h3>Kunafa Small</h3>
-                    <p>A personal-sized portion of our beloved cheese kunafa, freshly made to order.</p>
+                    <h3 class="p-name" data-key="kunafa-small">Kunafa Small</h3>
+                    <p class="p-desc" data-i18n="desc_kunafa_s">A personal-sized portion of our beloved cheese kunafa, freshly made to order.</p>
                     <div class="product-price-row">
-                        <span class="product-price">200 L.E</span>
+                        <span class="product-price">250 L.E</span>
                         <div class="quantity-controls">
                             <button class="btn-qty" onclick="changeQty('kunafa-small',-1)" aria-label="Decrease quantity">−</button>
                             <span class="qty-display" id="qty-kunafa-small">0</span>
@@ -426,10 +494,10 @@ section{padding:110px 0;position:relative}
 <div id="orderBar" class="order-summary-bar">
     <div class="order-summary-content">
         <div class="order-total-text">
-            Total: <strong id="grandTotal">0</strong> L.E
+            <span data-i18n="lbl_total">Total:</span> <strong id="grandTotal">0</strong> L.E
         </div>
         <button class="btn btn-primary" onclick="openWAModal()">
-            Order via WhatsApp &nbsp;<i class="fab fa-whatsapp"></i>
+            <span data-i18n="btn_whatsapp">Order via WhatsApp</span> &nbsp;<i class="fab fa-whatsapp"></i>
         </button>
     </div>
 </div>
@@ -442,10 +510,10 @@ section{padding:110px 0;position:relative}
                 <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Loly's Kitchen" loading="lazy">
             </div>
             <div data-aos="fade-left">
-                <span class="section-label">Legacy</span>
-                <h2 class="section-title">A Family Legacy</h2>
-                <p class="section-desc">What started as a private Ramadan tradition is now a kitchen dedicated to bringing that same warmth to your table. Every tray carries the essence of an Egyptian family gathering — the laughter, the stories, and most importantly, the love.</p>
-                <p class="section-desc" style="margin-top:16px;">We believe that the best sweets are made with patience, quality ingredients, and generations of knowledge passed down from mother to daughter.</p>
+                <span class="section-label" data-i18n="label_legacy">Legacy</span>
+                <h2 class="section-title" data-i18n="about_title">A Family Legacy</h2>
+                <p class="section-desc" data-i18n="about_p1">What started as a private Ramadan tradition is now a kitchen dedicated to bringing that same warmth to your table. Every tray carries the essence of an Egyptian family gathering — the laughter, the stories, and most importantly, the love.</p>
+                <p class="section-desc" style="margin-top:16px;" data-i18n="about_p2">We believe that the best sweets are made with patience, quality ingredients, and generations of knowledge passed down from mother to daughter.</p>
             </div>
         </div>
     </div>
@@ -455,45 +523,45 @@ section{padding:110px 0;position:relative}
 <footer class="footer">
     <div class="container">
         <img src="https://ik.imagekit.io/xtj3m9hth/Loly's%20Logo%20NoBK.png" class="footer-logo" alt="Loly's Kunafa House">
-        <p>2025 Loly's Kunafa House. All rights reserved. Handmade with love.</p>
+        <p data-i18n="footer_txt">2025 Loly's Kunafa House. All rights reserved. Handmade with love.</p>
     </div>
 </footer>
 
 <!-- WHATSAPP ORDER MODAL -->
-<div id="waModal">
+<div id="walModal">
     <div class="wa-modal-box">
         <button class="wa-close-btn" onclick="closeWAModal()" aria-label="Close">✕</button>
 
         <div class="wa-modal-header">
             <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
-            <h3>WhatsApp Order</h3>
+            <h3 data-i18n="modal_title">WhatsApp Order</h3>
         </div>
-        <p class="wa-modal-subtitle">To proceed with your WhatsApp order, please fill in your details. We'll pre-type everything — you just tap <strong>Send</strong>.</p>
+        <p class="wa-modal-subtitle" data-i18n="modal_sub">To proceed with your WhatsApp order, please fill in your details. We'll pre-type everything — you just tap <strong>Send</strong>.</p>
 
         <div class="wa-order-summary" id="waOrderSummary"></div>
 
         <div class="wa-form">
             <div class="form-group">
-                <label for="waName">Name *</label>
-                <input type="text" id="waName" placeholder="Your full name">
+                <label for="waName" data-i18n="lbl_name">Name *</label>
+                <input type="text" id="waName" data-i18n-ph="ph_name" placeholder="Your full name">
             </div>
             <div class="form-group">
-                <label for="waAddress">Address *</label>
-                <input type="text" id="waAddress" placeholder="Street &amp; area">
+                <label for="waAddress" data-i18n="lbl_address">Address *</label>
+                <input type="text" id="waAddress" data-i18n-ph="ph_address" placeholder="Street &amp; area">
             </div>
             <div class="form-group">
-                <label for="waLandmark">Landmark</label>
-                <input type="text" id="waLandmark" placeholder="e.g. near the mosque, blue building…">
+                <label for="waLandmark" data-i18n="lbl_landmark">Landmark</label>
+                <input type="text" id="waLandmark" data-i18n-ph="ph_landmark" placeholder="e.g. near the mosque, blue building…">
             </div>
             <div class="form-group">
-                <label for="waPhone">Phone Number *</label>
-                <input type="tel" id="waPhone" placeholder="+20 XXX XXX XXXX">
+                <label for="waPhone" data-i18n="lbl_phone">Phone Number *</label>
+                <input type="tel" id="waPhone" data-i18n-ph="ph_phone" placeholder="+20 XXX XXX XXXX">
             </div>
         </div>
 
         <button class="btn-wa-submit" onclick="sendToWhatsApp()">
             <i class="fab fa-whatsapp" style="font-size:20px;"></i>
-            Send Order on WhatsApp
+            <span data-i18n="btn_send_wa">Send Order on WhatsApp</span>
         </button>
     </div>
 </div>
@@ -501,16 +569,83 @@ section{padding:110px 0;position:relative}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
 // ── Config ──────────────────────────────────────────────────────
-// REPLACE THIS URL WITH YOUR NEW DEPLOYMENT URL FROM APPS SCRIPT
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyThK_0yNv_4DRZFnVHaH9esKaS-e69evDHXkhI8gARXuL-8qFNgjmk8EpUJqL51KnAAA/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3fldd7-CY59IwyAP46raZaXSDsosUYnJbRhmsTc73V5aazcObOd7N3W4XL6o8lx2m6A/exec';
 const WA_NUMBER  = '201021604151';
 
-// ── Products ────────────────────────────────────────────────────
+// ── Language Config ─────────────────────────────────────────────
+let currentLang = 'en';
+
+const translations = {
+    en: {
+        nav_home: "Home", nav_story: "Our Story", nav_order: "Order Now", nav_products: "Products", nav_about: "About",
+        hero_title: 'Stunning Kunafa &amp; Golash — <em>From Our Home to Yours</em>',
+        hero_sub: 'Handcrafted masterpieces by Mom. Order via form below or message us on <a href="https://wa.me/201021604151">WhatsApp</a>.',
+        btn_explore: "Explore Sweets", btn_order: "Place Order",
+        label_journey: "Our Journey", story_title: "From Our Home to Yours",
+        story_p1: "Every great recipe starts with a memory. For us, it begins in our mother's kitchen. Ramadan gatherings were never complete without Mom's legendary Kunafa and Golash — golden, crispy, and dripping with sweetness.",
+        story_p2: "We named the brand after Layla (Loly), bridging timeless tradition with a sweet future for the next generation.",
+        story_quote: "<strong>Loly's Kunafa House: Handmade by Mom. Shared with Love.</strong>",
+        label_order: "Order Now", contact_title: "Order Your Sweets Today",
+        contact_desc: "Select your favorite items from the Products section below. Your order will be calculated automatically, and we'll prepare everything fresh just for you.",
+        info_whatsapp: "WhatsApp Orders", info_facebook: "Facebook", info_delivery: "Delivery Time", info_delivery_txt: "Same-day delivery available",
+        form_title: "Order Details", preview_title: "Current Selection",
+        lbl_name: "Your Name", lbl_phone: "Phone Number", lbl_address: "Delivery Address", lbl_total: "Total:",
+        ph_name: "Enter your full name", ph_phone: "Enter your phone number", ph_address: "Enter your delivery address", ph_landmark: "e.g. near the mosque, blue building…",
+        btn_confirm: "Confirm Order Request", btn_whatsapp: "Order via WhatsApp",
+        label_menu: "Menu", prod_title: "Our Handcrafted Selection", prod_desc: "Each piece is made fresh daily using traditional recipes passed down through generations.",
+        notice_24h: "Please confirm your order 24 hours in advance to ensure freshness and availability.",
+        desc_golash: "Signature layers of crispy phyllo dough filled with premium nuts and sweetened to perfection.",
+        desc_kunafa: "Authentic cheese kunafa masterpiece with golden vermicelli and rich, creamy filling.",
+        desc_golash_s: "Perfect individual portion of our signature golash, ideal for personal enjoyment.",
+        desc_kunafa_s: "A personal-sized portion of our beloved cheese kunafa, freshly made to order.",
+        label_legacy: "Legacy", about_title: "A Family Legacy",
+        about_p1: "What started as a private Ramadan tradition is now a kitchen dedicated to bringing that same warmth to your table. Every tray carries the essence of an Egyptian family gathering — the laughter, the stories, and most importantly, the love.",
+        about_p2: "We believe that the best sweets are made with patience, quality ingredients, and generations of knowledge passed down from mother to daughter.",
+        footer_txt: "2025 Loly's Kunafa House. All rights reserved. Handmade with love.",
+        modal_title: "WhatsApp Order", modal_sub: "To proceed with your WhatsApp order, please fill in your details. We'll pre-type everything — you just tap <strong>Send</strong>.",
+        lbl_landmark: "Landmark", btn_send_wa: "Send Order on WhatsApp",
+        alert_empty: "Please select at least one item before ordering.",
+        thx_title: "Thank you", ths_msg: "Your order has been received. We'll call you back on"
+    },
+    ar: {
+        nav_home: "الرئيسية", nav_story: "قصتنا", nav_order: "اطلب الآن", nav_products: "المنتجات", nav_about: "من نحن",
+        hero_title: 'كنافة وجلاش مذهلون — <em>من منزلنا إليكم</em>',
+        hero_sub: 'تحف مصنوعة يدوياً بواسطة الأم. اطلب عبر النموذج أدناه أو راسلنا على <a href="https://wa.me/201021604151">واتساب</a>.',
+        btn_explore: "تصفح الحلويات", btn_order: "تقديم الطلب",
+        label_journey: "رحلتنا", story_title: "من منزلنا إليكم",
+        story_p1: "كل وصفة عظيمة تبدأ بذاكرة. بالنسبة لنا، تبدأ في مطبخ والدتنا. لم تكن تجمعات رمضان مكتملة أبداً بدون كنافة وجلاش الأسطوري للأم — ذهبي، مقرمش، يقطر حلاوة.",
+        story_p2: "سمينا العلامة التجارية على اسم ليلى (لولي)، لربط التقاليد الخالدة بمستقبل حلو للجيل القادم.",
+        story_quote: "<strong>بيت كنافة لولي: مصنوع يدوياً بحب. مشارك بحب.</strong>",
+        label_order: "اطلب الآن", contact_title: "اطلب حلوياتك اليوم",
+        contact_desc: "اختر المفضلات لديك من قسم المنتجات أدناه. سيتم حساب طلبك تلقائياً، وسنقوم بتحضير كل شيء طازج من أجلك.",
+        info_whatsapp: "طلبات واتساب", info_facebook: "فيسبوك", info_delivery: "موعد التوصيل", info_delivery_txt: "التوصيل متاح في نفس اليوم",
+        form_title: "تفاصيل الطلب", preview_title: "الاختيار الحالي",
+        lbl_name: "الاسم بالكامل", lbl_phone: "رقم الهاتف", lbl_address: "عنوان التوصيل", lbl_total: "الإجمالي:",
+        ph_name: "أدخل اسمك الكامل", ph_phone: "أدخل رقم هاتفك", ph_address: "أدخل عنوان التوصيل", ph_landmark: "مثال: بجانب المسجد، المبنى الأزرق…",
+        btn_confirm: "تأكيد طلب الشراء", btn_whatsapp: "اطلب عبر واتساب",
+        label_menu: "القائمة", prod_title: "مختاراتنا المصنوعة يدوياً", prod_desc: "كل قطعة تُصنع يومياً طازجة باستخدام وصفات تقليدية تناقلت عبر الأجيال.",
+        notice_24h: "يرجى تأكيد طلبك قبل 24 ساعة لضمان الجودة والتوفر. خلال شهر رمضان، التوصيل مجاني لجميع الطلبات.",
+        desc_golash: "طبقات مميزة من عجينة الفيلو المقرششة محشوة بالمكسرات الممتازة ومحلاة بشكل مثالي.",
+        desc_kunafa: "تحفة كنافة بالجبنة الأصيلة مع شعيرية ذهبية وحشوة غنية وكريمية.",
+        desc_golash_s: "حصة فردية مثالية من جلاشنا المميز، مثالية للاستمتاع الشخصي.",
+        desc_kunafa_s: "حصة شخصية بحجم كنافتنا المحبوبة، تُصنع طازجة عند الطلب.",
+        label_legacy: "إرث العائلة", about_title: "إرث عائلي",
+        about_p1: "ما بدأ كتقليد خاص في رمضان أصبح الآن مطبخاً مكرساً لجلب نفس الدفء إلى طاولتك. كل صينية تحمل جوهر تجمع عائلي مصري — الضحكات، القصص، والأهم من ذلك، الحب.",
+        about_p2: "نحن نؤمن بأن أفضل الحلوى تصنع بالصبر، والمكونات عالية الجودة، ومعرفة الأجيال التي تنتقل من الأم إلى الابنة.",
+        footer_txt: "2025 بيت كنافة لولي. جميع الحقوق محفوظة. مصنوع بحب.",
+        modal_title: "طلب واتساب", modal_sub: "للمتابعة مع طلب واتساب الخاص بك، يرجى ملء تفاصيلك. سنقوم بكتابة كل شيء — أنت فقط اضغط <strong>إرسال</strong>.",
+        lbl_landmark: "معلم بارز", btn_send_wa: "إرسال الطلب عبر واتساب",
+        alert_empty: "يرجى اختيار منتج واحد على الأقل قبل الطلب.",
+        thx_title: "شكراً لك", ths_msg: "تم استلام طلبك. سنتصل بك على هاتفك"
+    }
+};
+
+// ── Products (Bilingual) ───────────────────────────────────────
 const products = {
-    'golash-large': { name: 'Golash Large', price: 350 },
-    'kunafa-large': { name: 'Kunafa Large', price: 350 },
-    'golash-small': { name: 'Golash Small', price: 200 },
-    'kunafa-small': { name: 'Kunafa Small', price: 200 }
+    'golash-large': { name: { en: 'Golash Large', ar: 'جلاش كبير' }, price: 350 },
+    'kunafa-large': { name: { en: 'Kunafa Large', ar: 'كنافة كبيرة' }, price: 350 },
+    'golash-small': { name: { en: 'Golash Small', ar: 'جلاش صغير' }, price: 200 },
+    'kunafa-small': { name: { en: 'Kunafa Small', ar: 'كنافة صغيرة' }, price: 200 }
 };
 
 // ── Cart ─────────────────────────────────────────────────────────
@@ -527,7 +662,7 @@ function cartHasItems() { return Object.values(cart).some(q => q > 0); }
 function cartLines()    {
     return Object.entries(cart)
         .filter(([,q]) => q > 0)
-        .map(([id,q]) => ({ name: products[id].name, qty: q, price: products[id].price, sub: q * products[id].price }));
+        .map(([id,q]) => ({ name: products[id].name[currentLang], qty: q, price: products[id].price, sub: q * products[id].price }));
 }
 
 function generateOrderNo() {
@@ -552,49 +687,100 @@ function updateUI() {
         preview.classList.add('show');
         previewText.innerHTML =
             lines.map(l => `${l.name} × ${l.qty} = <strong>${l.sub} L.E</strong>`).join('<br>') +
-            `<br><br><strong style="color:var(--gold-dark);font-size:16px;">Total: ${total} L.E</strong>`;
+            `<br><br><strong style="color:var(--gold-dark);font-size:16px;">${currentLang==='en'?'Total:':'الإجمالي:'} ${total} L.E</strong>`;
     } else {
         preview.classList.remove('show');
     }
 }
 
-// WHATSAPP POPUP
+// ── Language Switcher Logic ────────────────────────────────────
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'ar' : 'en';
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.getElementById('langBtn').textContent = currentLang === 'en' ? 'العربية' : 'English';
+    
+    // Update Text
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+            el.innerHTML = translations[currentLang][key];
+        }
+    });
+
+    // Update Placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (translations[currentLang][key]) {
+            el.placeholder = translations[currentLang][key];
+        }
+    });
+
+    // Update Product Names in Grid
+    document.querySelectorAll('.p-name').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (products[key] && products[key].name[currentLang]) {
+            el.textContent = products[key].name[currentLang];
+        }
+    });
+
+    // Update Cart Summaries if open
+    if (document.getElementById('walModal').style.display === 'flex') {
+        const orderNo = document.getElementById('walModal').dataset.orderNo;
+        const summaryDiv = document.getElementById('waOrderSummary');
+        summaryDiv.innerHTML = `
+            <div class="wa-order-number">${currentLang==='en'?'Order #':'طلب #'}${orderNo}</div>
+            ${cartLines().map(l => `
+                <div class="wa-order-line">
+                    <span>${l.name} × ${l.qty}</span>
+                    <span>${l.sub} L.E</span>
+                </div>`).join('')}
+            <div class="wa-order-total">
+                <span>${currentLang==='en'?'Total':'الإجمالي'}</span>
+                <span>${cartTotal()} L.E</span>
+            </div>
+        `;
+    } else {
+        updateUI(); // Refresh main cart preview
+    }
+}
+
+// ── WHATSAPP POPUP ────────────────────────────────────────────────
 function openWAModal() {
     if (!cartHasItems()) return;
     
-    const modal = document.getElementById('waModal');
+    const modal = document.getElementById('walModal');
     const summaryDiv = document.getElementById('waOrderSummary');
     const orderNo = generateOrderNo();
     
-    // Store orderNo on modal for later use
     modal.dataset.orderNo = orderNo;
     
-    // Build the summary HTML
+    // Build the summary HTML based on current language
     summaryDiv.innerHTML = `
-        <div class="wa-order-number">Order #${orderNo}</div>
+        <div class="wa-order-number">${currentLang==='en'?'Order #':'طلب #'}${orderNo}</div>
         ${cartLines().map(l => `
             <div class="wa-order-line">
                 <span>${l.name} × ${l.qty}</span>
                 <span>${l.sub} L.E</span>
             </div>`).join('')}
         <div class="wa-order-total">
-            <span>Total</span>
+            <span>${currentLang==='en'?'Total':'الإجمالي'}</span>
             <span>${cartTotal()} L.E</span>
         </div>
     `;
     
     modal.style.display = 'flex'; 
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden';
 }
 
 function closeWAModal() {
-    const modal = document.getElementById('waModal');
+    const modal = document.getElementById('walModal');
     modal.style.display = 'none';
     document.body.style.overflow = ''; 
 }
     
-// Close on backdrop click
-document.getElementById('waModal').addEventListener('click', function(e) {
+document.getElementById('walModal').addEventListener('click', function(e) {
     if (e.target === this) closeWAModal();
 });
 
@@ -605,11 +791,11 @@ function sendToWhatsApp() {
     const phone    = document.getElementById('waPhone').value.trim();
 
     if (!name || !address || !phone) {
-        alert('Please fill in your Name, Address and Phone Number.');
+        alert(currentLang === 'en' ? 'Please fill in your Name, Address and Phone Number.' : 'يرجى ملء الاسم والعنوان ورقم الهاتف.');
         return;
     }
 
-    const orderNo = document.getElementById('waModal').dataset.orderNo;
+    const orderNo = document.getElementById('walModal').dataset.orderNo;
     const lines   = cartLines();
     const total   = cartTotal();
 
@@ -632,6 +818,12 @@ function sendToWhatsApp() {
 // ── CONTACT FORM → Google Sheets + Email Notification ─────────────
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
+    // VALIDATION: Check if cart is empty
+    if (!cartHasItems()) {
+        alert(translations[currentLang].alert_empty);
+        return;
+    }
 
     const name    = document.getElementById('cName').value.trim();
     const phone   = document.getElementById('cPhone').value.trim();
@@ -660,7 +852,6 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.innerHTML = '<span>Sending…</span>';
 
     try {
-        // Fixed fetch logic
         await fetch(SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors', 
@@ -670,7 +861,6 @@ document.getElementById('contactForm').addEventListener('submit', async function
             body: JSON.stringify(payload)
         });
 
-        // Reset cart & form
         this.reset();
         Object.keys(cart).forEach(id => {
             cart[id] = 0;
@@ -685,7 +875,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
         showThankYou(name, phone, orderNo);
     } catch (error) {
         console.error('Error:', error);
-        alert("There was an error sending your order. Please try again.");
+        alert(currentLang === 'en' ? "There was an error sending your order. Please try again." : "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.");
         btn.disabled = false;
         btn.innerHTML = origHTML;
     }
@@ -694,15 +884,18 @@ document.getElementById('contactForm').addEventListener('submit', async function
 function showThankYou(name, phone, orderNo) {
     const ov = document.createElement('div');
     ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:fadeInUp 0.4s ease;';
+    const thanksTitle = translations[currentLang].thx_title + ", " + name + "!";
+    const thanksMsg = translations[currentLang].ths_msg + " <strong style='color:#D4AF37;'>" + phone + "</strong> " + (currentLang==='en'?"to confirm. 💛":"لتأكيد الطلب. 💛");
+    
     ov.innerHTML = `
         <div style="background:#fff;border-radius:24px;padding:50px 40px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,0.3);">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#D4AF37,#B8962E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:34px;">🍰</div>
             <p style="font-size:11px;color:#B8962E;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">${orderNo}</p>
-            <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1E1210;margin-bottom:12px;">Thank you, ${name}!</h2>
-            <p style="font-size:15px;color:#666;line-height:1.7;margin-bottom:28px;">Your order has been received. We'll call you back on <strong style="color:#D4AF37;">${phone}</strong> to confirm. 💛</p>
+            <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1E1210;margin-bottom:12px;">${thanksTitle}</h2>
+            <p style="font-size:15px;color:#666;line-height:1.7;margin-bottom:28px;">${thanksMsg}</p>
             <button onclick="this.closest('[style*=fixed]').remove()"
                 style="background:linear-gradient(135deg,#D4AF37,#B8962E);color:#1E1210;border:none;padding:14px 38px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;">
-                Done
+                ${currentLang==='en'?'Done':'تم'}
             </button>
         </div>`;
     ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
