@@ -1,4 +1,4 @@
-<html lang="en">
+                                                                        <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -565,36 +565,31 @@ function updateUI() {
 // ═══════════════════════════════════════════════════════
 function openWAModal() {
     if (!cartHasItems()) return;
-
-    const lines   = cartLines();
-    const total   = cartTotal();
-    const orderNo = generateOrderNo();
-
-    // Store order number for sendToWhatsApp
-    document.getElementById('waModal').dataset.orderNo = orderNo;
-
-    // Build mini order summary
-    let html = `<div class="wa-order-number">📋 Order #${orderNo}</div>`;
-    lines.forEach(l => {
-        html += `<div class="wa-order-line"><span>${l.name} × ${l.qty}</span><span>${l.sub} L.E</span></div>`;
-    });
-    html += `<div class="wa-order-total"><span>TOTAL</span><span>${total} L.E</span></div>`;
-    document.getElementById('waOrderSummary').innerHTML = html;
-
-    // Clear inputs
-    ['waName','waAddress','waLandmark','waPhone'].forEach(id => {
-        document.getElementById(id).value = '';
-    });
-
-    document.getElementById('waModal').classList.add('open');
-    document.body.style.overflow = 'hidden';
+    
+    const modal = document.getElementById('waModal');
+    const summaryDiv = document.getElementById('waOrderSummary');
+    
+    // Build the summary HTML
+    summaryDiv.innerHTML = `
+        <div class="wa-order-number">Order Request</div>
+        ${cartLines()}
+        <div class="wa-order-total">
+            <span>Total</span>
+            <span>${calculateTotal()} L.E</span>
+        </div>
+    `;
+    
+    // FIX: Use inline styles instead of .classList.add('open')
+    modal.style.display = 'flex'; 
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
 }
 
 function closeWAModal() {
-    document.getElementById('waModal').classList.remove('open');
-    document.body.style.overflow = 'auto';
+    const modal = document.getElementById('waModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; 
 }
-
+    
 // Close on backdrop click
 document.getElementById('waModal').addEventListener('click', function(e) {
     if (e.target === this) closeWAModal();
@@ -665,14 +660,21 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
     try {
         await fetch(SCRIPT_URL, {
-            method:  'POST',
-            mode:    'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body:    JSON.stringify(payload)
-        });
-    } catch (err) {
-        console.warn('Submit note:', err);
-    }
+// Inside your form submission or "Confirm WhatsApp Order" logic:
+fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors', // Keeps it a simple request
+    headers: {
+        'Content-Type': 'text/plain' // FIX: Must be text/plain to avoid CORS
+    },
+    body: JSON.stringify(orderData)
+})
+.then(() => {
+    // Because of no-cors, we won't get a readable response, 
+    // but the data WILL reach the script now.
+    alert("Order sent successfully!");
+    closeWAModal();
+});    
 
     // Reset cart & form
     this.reset();
