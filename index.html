@@ -11,702 +11,201 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-
 :root{
-  --gold:#D4AF37;
-  --gold-light:#E8C547;
-  --gold-dark:#B8962E;
-  --dark:#1E1210;
-  --dark-rich:#2A1810;
-  --brown:#6B4423;
-  --cream:#FDF8F3;
-  --cream-warm:#F7EDE4;
-  --red-accent:#B8543E;
-  --txt:#1A1A1A;
-  --white:#FFFFFF;
-  --gray:#666666;
-  --muted:#8A7A6E;
-  --bg:#FCFAF7;
-  --fh:'Playfair Display',serif;
-  --fb:'Montserrat',sans-serif;
-  --fe:'Cormorant Garamond',serif;
+  --gold:#D4AF37;--gold-light:#E8C547;--gold-dark:#B8962E;
+  --dark:#1E1210;--dark-rich:#2A1810;--brown:#6B4423;
+  --cream:#FDF8F3;--cream-warm:#F7EDE4;
+  --txt:#1A1A1A;--white:#FFFFFF;--gray:#666666;--muted:#8A7A6E;--bg:#FCFAF7;
+  --fh:'Playfair Display',serif;--fb:'Montserrat',sans-serif;--fe:'Cormorant Garamond',serif;
   --ease:all 0.4s cubic-bezier(.4,0,.2,1);
   --ease-fast:all 0.25s cubic-bezier(.4,0,.2,1);
-  --bounce:all 0.6s cubic-bezier(.68,-.55,.265,1.55);
   --shadow-sm:0 2px 8px rgba(30,18,16,0.06);
   --shadow-md:0 8px 30px rgba(30,18,16,0.08);
   --shadow-lg:0 20px 60px rgba(30,18,16,0.12);
 }
-
 html{scroll-behavior:smooth;overflow-x:hidden}
-
-body{
-  font-family:var(--fb);
-  color:var(--txt);
-  line-height:1.7;
-  overflow-x:hidden;
-  background:var(--bg);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-
+body{font-family:var(--fb);color:var(--txt);line-height:1.7;overflow-x:hidden;background:var(--bg);-webkit-font-smoothing:antialiased;}
 img{max-width:100%;height:auto;display:block}
 a{text-decoration:none;color:inherit;transition:var(--ease)}
-
-/* Selection */
 ::selection{background:var(--gold);color:var(--dark)}
 
-/* Loading Screen */
-#loading-screen{
-  position:fixed;
-  inset:0;
-  background:var(--dark);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  transition:opacity .6s ease, visibility .6s ease;
-}
+/* Loading */
+#loading-screen{position:fixed;inset:0;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s ease,visibility .6s ease;}
 #loading-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-
-.loader-circle{
-  width:60px;
-  height:60px;
-  border:2px solid rgba(212,175,55,.15);
-  border-top-color:var(--gold);
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-  margin-bottom:24px;
-}
-
-.loader-text{
-  font-family:var(--fh);
-  font-size:28px;
-  color:var(--gold);
-  font-weight:600;
-  letter-spacing:4px;
-  animation:fadeInUp 0.8s ease-out;
-}
-
+.loader-circle{width:60px;height:60px;border:2px solid rgba(212,175,55,.15);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:24px;}
+.loader-text{font-family:var(--fh);font-size:28px;color:var(--gold);font-weight:600;letter-spacing:4px;animation:fadeInUp 0.8s ease-out;}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeInUp{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* Navbar */
-.navbar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  padding:18px 0;
-  z-index:1000;
-  transition:var(--ease);
-  background:transparent;
-}
-
-.navbar.scrolled{
-  background:rgba(30,18,16,.95);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  box-shadow:0 4px 30px rgba(0,0,0,.2);
-  padding:12px 0;
-}
-
-.nav-container{
-  max-width:1400px;
-  margin:0 auto;
-  padding:0 32px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.nav-logo img{
-  height:60px;
-  transition:var(--ease);
-  filter:brightness(1) contrast(1.05);
-  mix-blend-mode:normal;
-}
+.navbar{position:fixed;top:0;left:0;width:100%;padding:18px 0;z-index:1000;transition:var(--ease);background:transparent;}
+.navbar.scrolled{background:rgba(30,18,16,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 4px 30px rgba(0,0,0,.2);padding:12px 0;}
+.nav-container{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo img{height:60px;transition:var(--ease);}
 .navbar.scrolled .nav-logo img{height:48px}
-
 .nav-links{display:flex;gap:36px;align-items:center}
-.nav-link{
-  font-size:13px;
-  font-weight:500;
-  color:var(--white);
-  position:relative;
-  transition:var(--ease);
-  text-shadow:0 2px 8px rgba(0,0,0,0.4);
-  letter-spacing:0.5px;
-}
-.nav-link::after{
-  content:'';
-  position:absolute;
-  bottom:-6px;
-  left:0;
-  width:0;
-  height:2px;
-  background:linear-gradient(90deg,var(--gold),var(--gold-light));
-  transition:var(--ease);
-}
+.nav-link{font-size:13px;font-weight:500;color:var(--white);position:relative;transition:var(--ease);text-shadow:0 2px 8px rgba(0,0,0,0.4);letter-spacing:0.5px;}
+.nav-link::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:var(--ease);}
 .nav-link:hover,.nav-link.active{color:var(--gold)}
 .nav-link:hover::after,.nav-link.active::after{width:100%}
-
-.nav-toggle{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer;
-  z-index:1001;
-  padding:8px;
-}
-.nav-toggle span{
-  width:24px;
-  height:2px;
-  background:var(--white);
-  border-radius:2px;
-  transition:var(--ease);
-}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:8px;}
+.nav-toggle span{width:24px;height:2px;background:var(--white);border-radius:2px;transition:var(--ease);}
 .nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .nav-toggle.active span:nth-child(2){opacity:0}
 .nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-/* Hero Section - Transparent Background */
-.hero-section{
-  position:relative;
-  height:100vh;
-  min-height:650px;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-  background:transparent;
-}
-
-.hero-video-bg{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-  background:var(--dark);
-}
-
-.hero-video-bg video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    135deg,
-    rgba(30,18,16,0.5) 0%,
-    rgba(30,18,16,0.3) 50%,
-    rgba(30,18,16,0.7) 100%
-  );
-  z-index:2;
-}
-
-.hero-overlay::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:radial-gradient(ellipse at 30% 50%, rgba(212,175,55,0.08) 0%, transparent 60%);
-  z-index:3;
-}
-
-.hero-content{
-  position:relative;
-  z-index:4;
-  width:100%;
-  padding:0 6%;
-  background:transparent;
-}
-
+/* Hero */
+.hero-section{position:relative;height:100vh;min-height:650px;display:flex;align-items:center;overflow:hidden;background:transparent;}
+.hero-video-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:var(--dark);}
+.hero-video-bg video{width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,18,16,0.5) 0%,rgba(30,18,16,0.3) 50%,rgba(30,18,16,0.7) 100%);z-index:2;}
+.hero-overlay::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(212,175,55,0.08) 0%,transparent 60%);z-index:3;}
+.hero-content{position:relative;z-index:4;width:100%;padding:0 6%;background:transparent;}
 .hero-inner{max-width:1400px;margin:0 auto}
-
-.hero-headline{
-  font-family:var(--fh);
-  font-size:clamp(36px,6vw,80px);
-  font-weight:700;
-  color:var(--white);
-  line-height:1.1;
-  margin-bottom:24px;
-  text-shadow:0 4px 24px rgba(0,0,0,0.5);
-  letter-spacing:-1px;
-}
-
-.hero-headline em{
-  font-style:italic;
-  color:var(--gold);
-  font-weight:400;
-  position:relative;
-}
-
-.hero-subtext{
-  font-size:clamp(15px,1.8vw,18px);
-  color:rgba(255,255,255,.85);
-  margin-bottom:44px;
-  line-height:1.7;
-  max-width:540px;
-  font-weight:400;
-}
-
-.hero-subtext a{
-  color:var(--gold);
-  font-weight:600;
-  border-bottom:1px solid var(--gold);
-  transition:var(--ease);
-}
+.hero-headline{font-family:var(--fh);font-size:clamp(36px,6vw,80px);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:24px;text-shadow:0 4px 24px rgba(0,0,0,0.5);letter-spacing:-1px;}
+.hero-headline em{font-style:italic;color:var(--gold);font-weight:400;}
+.hero-subtext{font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.85);margin-bottom:44px;line-height:1.7;max-width:540px;font-weight:400;}
+.hero-subtext a{color:var(--gold);font-weight:600;border-bottom:1px solid var(--gold);transition:var(--ease);}
 .hero-subtext a:hover{color:var(--gold-light);border-color:var(--gold-light)}
-
 .hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
 
-/* Global Section Styles */
+/* Sections */
 section{padding:110px 0;position:relative}
 .container{max-width:1400px;margin:0 auto;padding:0 32px}
-
-.section-label{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  font-size:11px;
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:3px;
-  color:var(--gold-dark);
-  margin-bottom:16px;
-}
-
-.section-label::before{
-  content:'';
-  width:20px;
-  height:1px;
-  background:var(--gold);
-}
-
-.section-title{
-  font-family:var(--fh);
-  font-size:clamp(32px,4vw,52px);
-  font-weight:700;
-  color:var(--dark);
-  margin-bottom:20px;
-  line-height:1.2;
-  letter-spacing:-0.5px;
-}
-
-.section-desc{
-  font-size:16px;
-  color:var(--muted);
-  max-width:540px;
-  line-height:1.8;
-}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--gold-dark);margin-bottom:16px;}
+.section-label::before{content:'';width:20px;height:1px;background:var(--gold);}
+.section-title{font-family:var(--fh);font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--dark);margin-bottom:20px;line-height:1.2;letter-spacing:-0.5px;}
+.section-desc{font-size:16px;color:var(--muted);max-width:540px;line-height:1.8;}
 
 /* Buttons */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:16px 32px;
-  font-size:12px;
-  font-weight:700;
-  border-radius:100px;
-  cursor:pointer;
-  border:none;
-  transition:var(--ease);
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-  position:relative;
-  overflow:hidden;
-}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;font-size:12px;font-weight:700;border-radius:100px;cursor:pointer;border:none;transition:var(--ease);text-transform:uppercase;letter-spacing:1.5px;position:relative;overflow:hidden;}
+.btn-primary{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);color:var(--dark);box-shadow:0 8px 32px rgba(212,175,55,0.35);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(212,175,55,0.45);}
+.btn-secondary{background:rgba(255,255,255,0.08);backdrop-filter:blur(8px);color:var(--white);border:1px solid rgba(255,255,255,0.25);}
+.btn-secondary:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4);transform:translateY(-2px);}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 
-.btn-primary{
-  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
-  color:var(--dark);
-  box-shadow:0 8px 32px rgba(212,175,55,0.35);
-}
-.btn-primary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 40px rgba(212,175,55,0.45);
-}
-
-.btn-secondary{
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  color:var(--white);
-  border:1px solid rgba(255,255,255,0.25);
-}
-.btn-secondary:hover{
-  background:rgba(255,255,255,0.15);
-  border-color:rgba(255,255,255,0.4);
-  transform:translateY(-2px);
-}
-
-.btn:focus-visible{
-  outline:2px solid var(--gold);
-  outline-offset:3px;
-}
-
-/* Story Section */
+/* Story */
 .story-section{background:var(--cream)}
 .story-content{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-
-.story-images{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-.story-images img{
-  border-radius:16px;
-  box-shadow:var(--shadow-md);
-  transition:var(--ease);
-}
+.story-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.story-images img{border-radius:16px;box-shadow:var(--shadow-md);transition:var(--ease);}
 .story-images img:first-child{transform:translateY(24px)}
 .story-images img:last-child{transform:translateY(-24px)}
 .story-images img:hover{transform:scale(1.02) translateY(0)!important;box-shadow:var(--shadow-lg)}
+.story-quote{font-family:var(--fe);font-size:22px;color:var(--brown);margin-top:28px;padding-left:20px;border-left:3px solid var(--gold);line-height:1.5;}
 
-.story-quote{
-  font-family:var(--fe);
-  font-size:22px;
-  color:var(--brown);
-  margin-top:28px;
-  padding-left:20px;
-  border-left:3px solid var(--gold);
-  line-height:1.5;
-}
-
-/* Contact Section */
-.contact-section{
-  background:var(--bg);
-  border-top:1px solid rgba(212,175,55,0.15);
-  border-bottom:1px solid rgba(212,175,55,0.15);
-}
-
+/* Contact */
+.contact-section{background:var(--bg);border-top:1px solid rgba(212,175,55,0.15);border-bottom:1px solid rgba(212,175,55,0.15);}
 .contact-content{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
-
-.contact-info-item{
-  display:flex;
-  gap:16px;
-  margin-bottom:24px;
-  padding:20px;
-  background:var(--cream);
-  border-radius:12px;
-  transition:var(--ease);
-}
-.contact-info-item:hover{
-  background:var(--cream-warm);
-  transform:translateX(4px);
-}
+.contact-info-item{display:flex;gap:16px;margin-bottom:24px;padding:20px;background:var(--cream);border-radius:12px;transition:var(--ease);}
+.contact-info-item:hover{background:var(--cream-warm);transform:translateX(4px);}
 .contact-info-item i{font-size:20px;color:var(--gold);width:24px;text-align:center}
 .contact-info-item h4{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--dark)}
 .contact-info-item p{font-size:14px;color:var(--muted)}
 .contact-info-item a{color:var(--brown);font-weight:500}
 .contact-info-item a:hover{color:var(--gold)}
-
-.contact-form-wrapper{
-  background:var(--white);
-  padding:40px;
-  border-radius:20px;
-  box-shadow:var(--shadow-md);
-  border:1px solid rgba(212,175,55,0.1);
-}
-
+.contact-form-wrapper{background:var(--white);padding:40px;border-radius:20px;box-shadow:var(--shadow-md);border:1px solid rgba(212,175,55,0.1);}
 .form-group{margin-bottom:20px}
-.form-group label{
-  display:block;
-  font-size:11px;
-  font-weight:700;
-  margin-bottom:10px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:var(--brown);
-}
-.form-group input,
-.form-group textarea{
-  width:100%;
-  padding:14px 18px;
-  border:2px solid rgba(107,68,35,0.15);
-  border-radius:10px;
-  font-family:inherit;
-  font-size:15px;
-  transition:var(--ease-fast);
-  background:var(--cream);
-}
-.form-group input:focus,
-.form-group textarea:focus{
-  border-color:var(--gold);
-  outline:none;
-  background:var(--white);
-  box-shadow:0 0 0 4px rgba(212,175,55,0.1);
-}
-
-#formPreview{
-  background:linear-gradient(135deg,var(--cream) 0%,var(--cream-warm) 100%);
-  padding:20px;
-  border-radius:12px;
-  border:1px solid var(--gold);
-  margin-bottom:24px;
-  display:none;
-}
+.form-group label{display:block;font-size:11px;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;color:var(--brown);}
+.form-group input,.form-group textarea{width:100%;padding:14px 18px;border:2px solid rgba(107,68,35,0.15);border-radius:10px;font-family:inherit;font-size:15px;transition:var(--ease-fast);background:var(--cream);}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold);outline:none;background:var(--white);box-shadow:0 0 0 4px rgba(212,175,55,0.1);}
+#formPreview{background:linear-gradient(135deg,var(--cream) 0%,var(--cream-warm) 100%);padding:20px;border-radius:12px;border:1px solid var(--gold);margin-bottom:24px;display:none;}
 #formPreview.show{display:block;animation:fadeInUp 0.4s ease}
 #formPreviewText{font-size:14px;color:var(--dark);line-height:1.8}
 
-/* Products Section */
+/* Products */
 .products-section{background:var(--cream)}
-
-.products-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:28px;
-  margin-top:50px;
-}
-
-.product-card{
-  background:var(--white);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:var(--shadow-sm);
-  transition:var(--ease);
-  border:1px solid rgba(212,175,55,0.08);
-}
-.product-card:hover{
-  transform:translateY(-8px);
-  box-shadow:var(--shadow-lg);
-}
-
-.product-image{
-  height:280px;
-  overflow:hidden;
-  position:relative;
-}
-.product-image::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to top,rgba(30,18,16,0.1) 0%,transparent 50%);
-  pointer-events:none;
-}
-.product-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:var(--ease);
-}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px;margin-top:50px;}
+.product-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-sm);transition:var(--ease);border:1px solid rgba(212,175,55,0.08);}
+.product-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);}
+.product-image{height:280px;overflow:hidden;position:relative;}
+.product-image::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(30,18,16,0.1) 0%,transparent 50%);pointer-events:none;}
+.product-image img{width:100%;height:100%;object-fit:cover;transition:var(--ease);}
 .product-card:hover .product-image img{transform:scale(1.08)}
-
 .product-info{padding:24px}
-
-.product-info h3{
-  font-family:var(--fh);
-  font-size:22px;
-  font-weight:700;
-  color:var(--dark);
-  margin-bottom:8px;
-}
-
-.product-info p{
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:20px;
-  line-height:1.6;
-}
-
-.product-price-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.product-price{
-  font-size:26px;
-  font-weight:800;
-  color:var(--gold-dark);
-  font-family:var(--fb);
-}
-
-.quantity-controls{
-  display:flex;
-  align-items:center;
-  gap:4px;
-  background:var(--cream);
-  border-radius:100px;
-  padding:4px;
-}
-
-.btn-qty{
-  width:36px;
-  height:36px;
-  border:none;
-  background:var(--white);
-  border-radius:50%;
-  font-size:18px;
-  font-weight:600;
-  color:var(--dark);
-  cursor:pointer;
-  transition:var(--ease-fast);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
+.product-info h3{font-family:var(--fh);font-size:22px;font-weight:700;color:var(--dark);margin-bottom:8px;}
+.product-info p{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.product-price-row{display:flex;justify-content:space-between;align-items:center;}
+.product-price{font-size:26px;font-weight:800;color:var(--gold-dark);font-family:var(--fb);}
+.quantity-controls{display:flex;align-items:center;gap:4px;background:var(--cream);border-radius:100px;padding:4px;}
+.btn-qty{width:36px;height:36px;border:none;background:var(--white);border-radius:50%;font-size:18px;font-weight:600;color:var(--dark);cursor:pointer;transition:var(--ease-fast);display:flex;align-items:center;justify-content:center;}
 .btn-qty:hover{background:var(--gold);color:var(--white)}
 .btn-qty:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.qty-display{min-width:32px;text-align:center;font-weight:700;font-size:16px;color:var(--dark);}
 
-.qty-display{
-  min-width:32px;
-  text-align:center;
-  font-weight:700;
-  font-size:16px;
-  color:var(--dark);
-}
-
-/* Order Summary Bar */
-.order-summary-bar{
-  position:fixed;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%) translateY(100px);
-  background:var(--white);
-  padding:16px 32px;
-  border-radius:100px;
-  box-shadow:0 12px 48px rgba(30,18,16,0.2);
-  display:none;
-  z-index:900;
-  width:90%;
-  max-width:700px;
-  border:2px solid var(--gold);
-  transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.order-summary-bar.visible{
-  display:flex;
-  transform:translateX(-50%) translateY(0);
-}
-
-.order-summary-content{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  width:100%;
-  gap:20px;
-}
-
+/* Order bar */
+.order-summary-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--white);padding:16px 32px;border-radius:100px;box-shadow:0 12px 48px rgba(30,18,16,0.2);display:none;z-index:900;width:90%;max-width:700px;border:2px solid var(--gold);transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+.order-summary-bar.visible{display:flex;transform:translateX(-50%) translateY(0);}
+.order-summary-content{display:flex;justify-content:space-between;align-items:center;width:100%;gap:20px;}
 .order-total-text{font-size:14px;color:var(--muted)}
 .order-total-text strong{font-size:28px;color:var(--dark);font-weight:800;margin-left:4px}
 
-/* About Section */
+/* About */
 .about-section{background:var(--white)}
-
 .about-content{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-
-.about-image-wrapper{
-  position:relative;
-  padding:20px;
-}
-.about-image-wrapper::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
-  border-radius:24px;
-  transform:translate(-12px,12px);
-  z-index:0;
-}
-.about-image-wrapper img{
-  position:relative;
-  z-index:1;
-  border-radius:20px;
-  box-shadow:var(--shadow-lg);
-}
+.about-image-wrapper{position:relative;padding:20px;}
+.about-image-wrapper::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);border-radius:24px;transform:translate(-12px,12px);z-index:0;}
+.about-image-wrapper img{position:relative;z-index:1;border-radius:20px;box-shadow:var(--shadow-lg);}
 
 /* Footer */
-.footer{
-  background:var(--dark);
-  padding:60px 0 40px;
-  text-align:center;
-}
+.footer{background:var(--dark);padding:60px 0 40px;text-align:center;}
+.footer-logo{height:70px;margin:0 auto 24px;filter:brightness(1.1);}
+.footer p{color:rgba(255,255,255,0.5);font-size:14px;letter-spacing:0.5px;}
 
-.footer-logo{
-  height:70px;
-  margin:0 auto 24px;
-  filter:brightness(1.1);
+/* ═══════════════════════════
+   WHATSAPP ORDER MODAL
+   ═══════════════════════════ */
+#waModal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.78);z-index:20000;
+  padding:20px;overflow-y:auto;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
 }
-
-.footer p{
-  color:rgba(255,255,255,0.5);
-  font-size:14px;
-  letter-spacing:0.5px;
+#waModal.open{display:flex;align-items:center;justify-content:center;animation:fadeInUp 0.3s ease;}
+.wa-modal-box{
+  background:#fff;border-radius:24px;max-width:500px;width:100%;
+  padding:44px 40px;position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,0.25);
+  animation:fadeInUp 0.4s cubic-bezier(.4,0,.2,1);
 }
+.wa-modal-header{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+.wa-icon{width:52px;height:52px;background:linear-gradient(135deg,#25D366,#128C7E);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;flex-shrink:0;}
+.wa-modal-header h3{font-family:var(--fh);font-size:22px;color:var(--dark);margin:0;}
+.wa-modal-subtitle{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.55;padding-left:66px;}
+.wa-order-summary{background:linear-gradient(135deg,var(--cream),var(--cream-warm));border:1px solid var(--gold);border-radius:12px;padding:16px 18px;margin-bottom:22px;font-size:13px;line-height:1.8;color:var(--dark);}
+.wa-order-line{display:flex;justify-content:space-between;}
+.wa-order-total{display:flex;justify-content:space-between;font-weight:800;font-size:15px;border-top:1px solid rgba(212,175,55,0.4);margin-top:8px;padding-top:8px;color:var(--dark);}
+.wa-order-number{font-size:11px;color:var(--gold-dark);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.wa-form .form-group{margin-bottom:14px;}
+.wa-form .form-group label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brown);display:block;margin-bottom:8px;}
+.wa-form .form-group input{width:100%;padding:12px 16px;border:2px solid rgba(107,68,35,0.15);border-radius:10px;font-family:inherit;font-size:14px;background:var(--cream);transition:var(--ease-fast);}
+.wa-form .form-group input:focus{border-color:var(--gold);outline:none;background:#fff;box-shadow:0 0 0 4px rgba(212,175,55,0.1);}
+.btn-wa-submit{width:100%;margin-top:20px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;padding:18px 24px;border-radius:100px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:var(--ease);display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-wa-submit:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,0.4);}
+.wa-close-btn{position:absolute;top:16px;right:16px;width:36px;height:36px;background:var(--cream);border:none;border-radius:50%;font-size:16px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--ease);}
+.wa-close-btn:hover{background:var(--dark);color:#fff;}
 
-/* Animations */
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-/* Reduced Motion */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation-duration:0.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:0.01ms!important;
-  }
-  html{scroll-behavior:auto}
-}
-
-/* Mobile Styles */
+/* Responsive */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}html{scroll-behavior:auto}}
 @media(max-width:992px){
-  .nav-links{
-    position:fixed;
-    top:0;
-    right:-100%;
-    width:280px;
-    height:100vh;
-    background:var(--dark-rich);
-    flex-direction:column;
-    justify-content:center;
-    gap:32px;
-    transition:var(--ease);
-    padding:40px;
-  }
+  .nav-links{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--dark-rich);flex-direction:column;justify-content:center;gap:32px;transition:var(--ease);padding:40px;}
   .nav-links.active{right:0}
   .nav-link{text-shadow:none;font-size:16px}
   .nav-toggle{display:flex}
-  
-  .story-content,
-  .contact-content,
-  .about-content{grid-template-columns:1fr;gap:50px}
-  
+  .story-content,.contact-content,.about-content{grid-template-columns:1fr;gap:50px}
   .story-images{order:-1}
   .story-images img:first-child{transform:translateY(12px)}
   .story-images img:last-child{transform:translateY(-12px)}
 }
-
 @media(max-width:600px){
-  section{padding:80px 0}
-  .container{padding:0 20px}
-  
-  .hero-section{min-height:580px}
-  .hero-content{padding:0 5%}
-  .hero-buttons{flex-direction:column;gap:12px}
-  .btn{width:100%;justify-content:center}
-  
+  section{padding:80px 0}.container{padding:0 20px}
+  .hero-section{min-height:580px}.hero-content{padding:0 5%}
+  .hero-buttons{flex-direction:column;gap:12px}.btn{width:100%;justify-content:center}
   .products-grid{grid-template-columns:1fr}
-  
-  .order-summary-bar{
-    padding:14px 20px;
-    border-radius:20px;
-  }
+  .order-summary-bar{padding:14px 20px;border-radius:20px;}
   .order-summary-content{flex-direction:column;gap:12px;text-align:center}
+  .wa-modal-box{padding:32px 22px;}.wa-modal-subtitle{padding-left:0;}
 }
 </style>
 </head>
@@ -732,14 +231,12 @@ section{padding:110px 0;position:relative}
             <a href="#about" class="nav-link">About</a>
         </div>
         <div class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
     </div>
 </nav>
 
-<!-- HERO SECTION -->
+<!-- HERO -->
 <section id="home" class="hero-section">
     <div class="hero-video-bg">
         <video autoplay muted loop playsinline class="hero-video" aria-hidden="true">
@@ -750,7 +247,7 @@ section{padding:110px 0;position:relative}
     <div class="hero-content" data-aos="fade-up">
         <div class="hero-inner">
             <h1 class="hero-headline">
-                Stunning Kunafa & Golash — <em>From Our Home to Yours</em>
+                Stunning Kunafa &amp; Golash — <em>From Our Home to Yours</em>
             </h1>
             <p class="hero-subtext">
                 Handcrafted masterpieces by Mom. Order via form below or message us on <a href="https://wa.me/201021604151">WhatsApp</a>.
@@ -763,7 +260,7 @@ section{padding:110px 0;position:relative}
     </div>
 </section>
 
-<!-- STORY SECTION -->
+<!-- STORY -->
 <section id="story" class="story-section">
     <div class="container">
         <div class="story-content">
@@ -772,9 +269,7 @@ section{padding:110px 0;position:relative}
                 <h2 class="section-title">From Our Home to Yours</h2>
                 <p class="section-desc">Every great recipe starts with a memory. For us, it begins in our mother's kitchen. Ramadan gatherings were never complete without Mom's legendary Kunafa and Golash — golden, crispy, and dripping with sweetness.</p>
                 <p class="section-desc">We named the brand after Layla (Loly), bridging timeless tradition with a sweet future for the next generation.</p>
-                <p class="story-quote">
-                    <strong>Loly's Kunafa House: Handmade by Mom. Shared with Love.</strong>
-                </p>
+                <p class="story-quote"><strong>Loly's Kunafa House: Handmade by Mom. Shared with Love.</strong></p>
             </div>
             <div class="story-images" data-aos="fade-left">
                 <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Freshly prepared Golash" loading="lazy">
@@ -784,7 +279,7 @@ section{padding:110px 0;position:relative}
     </div>
 </section>
 
-<!-- CONTACT SECTION (Placed after Story) -->
+<!-- CONTACT -->
 <section id="contact" class="contact-section">
     <div class="container">
         <div class="contact-content">
@@ -792,13 +287,20 @@ section{padding:110px 0;position:relative}
                 <span class="section-label">Order Now</span>
                 <h2 class="section-title">Order Your Sweets Today</h2>
                 <p class="section-desc">Select your favorite items from the Products section below. Your order will be calculated automatically, and we'll prepare everything fresh just for you.</p>
-                
+
                 <div style="margin-top:32px;">
                     <div class="contact-info-item">
                         <i class="fab fa-whatsapp"></i>
                         <div>
                             <h4>WhatsApp Orders</h4>
                             <p><a href="https://wa.me/201021604151">+20 10 21604151</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fab fa-facebook-f"></i>
+                        <div>
+                            <h4>Facebook</h4>
+                            <p><a href="https://www.facebook.com/share/1CFXdkfpiB/?mibextid=wwXIfr" target="_blank" rel="noopener">Loly's Kunafa House</a></p>
                         </div>
                     </div>
                     <div class="contact-info-item">
@@ -840,7 +342,7 @@ section{padding:110px 0;position:relative}
     </div>
 </section>
 
-<!-- PRODUCTS SECTION -->
+<!-- PRODUCTS -->
 <section id="products" class="products-section">
     <div class="container">
         <div style="text-align:center;margin-bottom:60px;">
@@ -848,9 +350,7 @@ section{padding:110px 0;position:relative}
             <h2 class="section-title">Our Handcrafted Selection</h2>
             <p class="section-desc" style="margin:0 auto;">Each piece is made fresh daily using traditional recipes passed down through generations.</p>
         </div>
-
         <div class="products-grid">
-            <!-- Product 1 -->
             <div class="product-card" data-aos="fade-up">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Large" loading="lazy">
@@ -868,8 +368,6 @@ section{padding:110px 0;position:relative}
                     </div>
                 </div>
             </div>
-
-            <!-- Product 2 -->
             <div class="product-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Large" loading="lazy">
@@ -887,8 +385,6 @@ section{padding:110px 0;position:relative}
                     </div>
                 </div>
             </div>
-
-            <!-- Product 3 -->
             <div class="product-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Small" loading="lazy">
@@ -906,8 +402,6 @@ section{padding:110px 0;position:relative}
                     </div>
                 </div>
             </div>
-
-            <!-- Product 4 -->
             <div class="product-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Small" loading="lazy">
@@ -929,20 +423,19 @@ section{padding:110px 0;position:relative}
     </div>
 </section>
 
-<!-- ORDER SUMMARY BAR -->
+<!-- ORDER BAR -->
 <div id="orderBar" class="order-summary-bar">
     <div class="order-summary-content">
         <div class="order-total-text">
             Total: <strong id="grandTotal">0</strong> L.E
         </div>
-        <button class="btn btn-primary" onclick="scrollToContact()">
-            Complete Order
-            <i class="fas fa-arrow-up"></i>
+        <button class="btn btn-primary" onclick="openWAModal()">
+            Order via WhatsApp &nbsp;<i class="fab fa-whatsapp"></i>
         </button>
     </div>
 </div>
 
-<!-- ABOUT SECTION -->
+<!-- ABOUT -->
 <section id="about" class="about-section">
     <div class="container">
         <div class="about-content">
@@ -967,9 +460,54 @@ section{padding:110px 0;position:relative}
     </div>
 </footer>
 
+<!-- ═══════════════════════════════════════════
+     WHATSAPP ORDER MODAL
+     ═══════════════════════════════════════════ -->
+<div id="waModal">
+    <div class="wa-modal-box">
+        <button class="wa-close-btn" onclick="closeWAModal()" aria-label="Close">✕</button>
+
+        <div class="wa-modal-header">
+            <div class="wa-icon"><i class="fab fa-whatsapp"></i></div>
+            <h3>WhatsApp Order</h3>
+        </div>
+        <p class="wa-modal-subtitle">To proceed with your WhatsApp order, please fill in your details. We'll pre-type everything — you just tap <strong>Send</strong>.</p>
+
+        <div class="wa-order-summary" id="waOrderSummary"></div>
+
+        <div class="wa-form">
+            <div class="form-group">
+                <label for="waName">Name *</label>
+                <input type="text" id="waName" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+                <label for="waAddress">Address *</label>
+                <input type="text" id="waAddress" placeholder="Street &amp; area">
+            </div>
+            <div class="form-group">
+                <label for="waLandmark">Landmark</label>
+                <input type="text" id="waLandmark" placeholder="e.g. near the mosque, blue building…">
+            </div>
+            <div class="form-group">
+                <label for="waPhone">Phone Number *</label>
+                <input type="tel" id="waPhone" placeholder="+20 XXX XXX XXXX">
+            </div>
+        </div>
+
+        <button class="btn-wa-submit" onclick="sendToWhatsApp()">
+            <i class="fab fa-whatsapp" style="font-size:20px;"></i>
+            Send Order on WhatsApp
+        </button>
+    </div>
+</div>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-// Product Data
+// ── Config ──────────────────────────────────────────────────────
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3fldd7-CY59IwyAP46raZaXSDsosUYnJbRhmsTc73V5aazcObOd7N3W4XL6o8lx2m6A/exec';
+const WA_NUMBER  = '201021604151';
+
+// ── Products ────────────────────────────────────────────────────
 const products = {
     'golash-large': { name: 'Golash Large', price: 350 },
     'kunafa-large': { name: 'Kunafa Large', price: 350 },
@@ -977,89 +515,210 @@ const products = {
     'kunafa-small': { name: 'Kunafa Small', price: 200 }
 };
 
-// Cart State
-const cart = Object.keys(products).reduce((acc, key) => {
-    acc[key] = 0;
-    return acc;
-}, {});
+// ── Cart ─────────────────────────────────────────────────────────
+const cart = Object.keys(products).reduce((acc, key) => { acc[key] = 0; return acc; }, {});
 
-// Change Quantity
 function changeQty(id, delta) {
     cart[id] = Math.max(0, cart[id] + delta);
     document.getElementById('qty-' + id).textContent = cart[id];
     updateUI();
 }
 
-// Update UI
+function cartTotal()    { return Object.entries(cart).reduce((s,[id,q]) => s + q * products[id].price, 0); }
+function cartHasItems() { return Object.values(cart).some(q => q > 0); }
+function cartLines()    {
+    return Object.entries(cart)
+        .filter(([,q]) => q > 0)
+        .map(([id,q]) => ({ name: products[id].name, qty: q, price: products[id].price, sub: q * products[id].price }));
+}
+
+function generateOrderNo() {
+    const d = new Date();
+    return 'ORD-' + String(d.getFullYear()).slice(-2) + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '-' + Math.floor(Math.random()*900+100);
+}
+
+// ── Update page UI ───────────────────────────────────────────────
 function updateUI() {
-    let total = 0;
-    let items = [];
-    
-    for (let id in cart) {
-        if (cart[id] > 0) {
-            total += cart[id] * products[id].price;
-            items.push(products[id].name + ' x' + cart[id]);
-        }
-    }
-    
-    // Update total display
+    const total    = cartTotal();
+    const lines    = cartLines();
+    const hasItems = cartHasItems();
+
     document.getElementById('grandTotal').textContent = total;
-    
-    // Toggle order bar
-    const orderBar = document.getElementById('orderBar');
-    if (total > 0) {
-        orderBar.classList.add('visible');
-    } else {
-        orderBar.classList.remove('visible');
-    }
-    
-    // Update form preview
-    const preview = document.getElementById('formPreview');
+
+    const bar = document.getElementById('orderBar');
+    hasItems ? bar.classList.add('visible') : bar.classList.remove('visible');
+
+    const preview     = document.getElementById('formPreview');
     const previewText = document.getElementById('formPreviewText');
-    
-    if (total > 0) {
+    if (hasItems) {
         preview.classList.add('show');
-        previewText.innerHTML = items.join('<br>') + '<br><br><strong style="color:var(--gold-dark);font-size:18px;">Total: ' + total + ' L.E</strong>';
+        previewText.innerHTML =
+            lines.map(l => `${l.name} × ${l.qty} = <strong>${l.sub} L.E</strong>`).join('<br>') +
+            `<br><br><strong style="color:var(--gold-dark);font-size:16px;">Total: ${total} L.E</strong>`;
     } else {
         preview.classList.remove('show');
     }
 }
 
-// Scroll to Contact
-function scrollToContact() {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-        const offset = contactSection.offsetTop - 100;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
-    }
+// ═══════════════════════════════════════════════════════
+// WHATSAPP POPUP
+// ═══════════════════════════════════════════════════════
+function openWAModal() {
+    if (!cartHasItems()) return;
+
+    const lines   = cartLines();
+    const total   = cartTotal();
+    const orderNo = generateOrderNo();
+
+    // Store order number for sendToWhatsApp
+    document.getElementById('waModal').dataset.orderNo = orderNo;
+
+    // Build mini order summary
+    let html = `<div class="wa-order-number">📋 Order #${orderNo}</div>`;
+    lines.forEach(l => {
+        html += `<div class="wa-order-line"><span>${l.name} × ${l.qty}</span><span>${l.sub} L.E</span></div>`;
+    });
+    html += `<div class="wa-order-total"><span>TOTAL</span><span>${total} L.E</span></div>`;
+    document.getElementById('waOrderSummary').innerHTML = html;
+
+    // Clear inputs
+    ['waName','waAddress','waLandmark','waPhone'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+
+    document.getElementById('waModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
 }
 
-// Navbar Scroll Effect
-const navbar = document.getElementById('navbar');
-let lastScrollY = 0;
+function closeWAModal() {
+    document.getElementById('waModal').classList.remove('open');
+    document.body.style.overflow = 'auto';
+}
 
-window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    
-    if (currentScrollY > 80) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
+// Close on backdrop click
+document.getElementById('waModal').addEventListener('click', function(e) {
+    if (e.target === this) closeWAModal();
+});
+
+function sendToWhatsApp() {
+    const name     = document.getElementById('waName').value.trim();
+    const address  = document.getElementById('waAddress').value.trim();
+    const landmark = document.getElementById('waLandmark').value.trim();
+    const phone    = document.getElementById('waPhone').value.trim();
+
+    if (!name || !address || !phone) {
+        alert('Please fill in your Name, Address and Phone Number.');
+        return;
     }
-    
-    lastScrollY = currentScrollY;
+
+    const orderNo = document.getElementById('waModal').dataset.orderNo;
+    const lines   = cartLines();
+    const total   = cartTotal();
+
+    let msg  = `🍰 *NEW ORDER — Loly's Kunafa House*\n`;
+    msg     += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg     += `📋 *Order #${orderNo}*\n\n`;
+    msg     += `👤 *Name:* ${name}\n`;
+    msg     += `📞 *Phone:* ${phone}\n`;
+    msg     += `📍 *Address:* ${address}\n`;
+    if (landmark) msg += `🗺️ *Landmark:* ${landmark}\n`;
+    msg     += `\n🛒 *ORDER DETAILS:*\n`;
+    lines.forEach(l => { msg += `   • ${l.name} × ${l.qty} = ${l.sub} L.E\n`; });
+    msg     += `\n💰 *TOTAL: ${total} L.E*\n`;
+    msg     += `━━━━━━━━━━━━━━━━━━━━`;
+
+    closeWAModal();
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ═══════════════════════════════════════════════════════
+// CONTACT FORM → Google Sheets + email notifications
+// ═══════════════════════════════════════════════════════
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const name    = document.getElementById('cName').value.trim();
+    const phone   = document.getElementById('cPhone').value.trim();
+    const address = document.getElementById('cAddress').value.trim();
+    const lines   = cartLines();
+    const total   = cartTotal();
+    const orderNo = generateOrderNo();
+
+    const orderStr = lines.length > 0
+        ? lines.map(l => `${l.name} x${l.qty} = ${l.sub} L.E`).join(', ')
+        : 'No items selected';
+
+    const payload = {
+        orderNumber: orderNo,
+        name:    name,
+        phone:   phone,
+        address: address,
+        order:   orderStr,
+        total:   total,
+        notes:   ''
+    };
+
+    const btn = this.querySelector('button[type="submit"]');
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span>Sending…</span>';
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method:  'POST',
+            mode:    'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload)
+        });
+    } catch (err) {
+        console.warn('Submit note:', err);
+    }
+
+    // Reset cart & form
+    this.reset();
+    Object.keys(cart).forEach(id => {
+        cart[id] = 0;
+        const el = document.getElementById('qty-' + id);
+        if (el) el.textContent = '0';
+    });
+    updateUI();
+
+    btn.disabled  = false;
+    btn.innerHTML = origHTML;
+
+    showThankYou(name, phone, orderNo);
+});
+
+function showThankYou(name, phone, orderNo) {
+    const ov = document.createElement('div');
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:fadeInUp 0.4s ease;';
+    ov.innerHTML = `
+        <div style="background:#fff;border-radius:24px;padding:50px 40px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,0.3);">
+            <div style="width:72px;height:72px;background:linear-gradient(135deg,#D4AF37,#B8962E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:34px;">🍰</div>
+            <p style="font-size:11px;color:#B8962E;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">${orderNo}</p>
+            <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:#1E1210;margin-bottom:12px;">Thank you, ${name}!</h2>
+            <p style="font-size:15px;color:#666;line-height:1.7;margin-bottom:28px;">Your order has been received. We'll call you back on <strong style="color:#D4AF37;">${phone}</strong> to confirm. 💛</p>
+            <button onclick="this.closest('[style*=fixed]').remove()"
+                style="background:linear-gradient(135deg,#D4AF37,#B8962E);color:#1E1210;border:none;padding:14px 38px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;">
+                Done
+            </button>
+        </div>`;
+    ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
+    document.body.appendChild(ov);
+    setTimeout(() => { if (ov.parentNode) ov.remove(); }, 12000);
+}
+
+// ── Navbar ───────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
 }, { passive: true });
 
-// Mobile Navigation Toggle
 const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-
+const navLinks  = document.getElementById('navLinks');
 navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
     navLinks.classList.toggle('active');
 });
-
-// Close mobile nav on link click
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         navToggle.classList.remove('active');
@@ -1067,83 +726,35 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Active nav link on scroll
-const sections = document.querySelectorAll('section[id]');
+// Active nav on scroll
+const sections    = document.querySelectorAll('section[id]');
 const navLinksAll = document.querySelectorAll('.nav-link');
-
 window.addEventListener('scroll', () => {
     let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 150;
-        const sectionHeight = section.offsetHeight;
-        
-        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-        }
+    sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 150 && window.scrollY < s.offsetTop - 150 + s.offsetHeight)
+            current = s.getAttribute('id');
     });
-    
-    navLinksAll.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-        }
+    navLinksAll.forEach(l => {
+        l.classList.remove('active');
+        if (l.getAttribute('href') === '#' + current) l.classList.add('active');
     });
 }, { passive: true });
 
-// Form Submission
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const name = document.getElementById('cName').value;
-    const phone = document.getElementById('cPhone').value;
-    const address = document.getElementById('cAddress').value;
-    
-    // Build order summary
-    let orderSummary = '';
-    for (let id in cart) {
-        if (cart[id] > 0) {
-            orderSummary += products[id].name + ' x' + cart[id] + '\n';
-        }
-    }
-    
-    // In a real app, you'd send this to a server
-    alert('Thank you, ' + name + '! Your order has been received.\n\nWe will contact you shortly at ' + phone + ' to confirm delivery to ' + address + '.');
-    
-    // Reset form
-    this.reset();
-    for (let id in cart) {
-        cart[id] = 0;
-        const qtyEl = document.getElementById('qty-' + id);
-        if (qtyEl) qtyEl.textContent = '0';
-    }
-    updateUI();
-});
-
-// Loading Screen & AOS Init
-document.addEventListener('DOMContentLoaded', () => {
-    // Hide loading screen
-    setTimeout(() => {
-        document.getElementById('loading-screen').classList.add('hidden');
-    }, 1200);
-    
-    // Initialize AOS
-    AOS.init({
-        duration: 700,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 60
-    });
-});
-
-// Keyboard accessibility for quantity buttons
+// Keyboard accessibility for qty buttons
 document.querySelectorAll('.btn-qty').forEach(btn => {
-    btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            btn.click();
-        }
+    btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
     });
+});
+
+// ESC closes WA modal
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWAModal(); });
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => { document.getElementById('loading-screen').classList.add('hidden'); }, 1200);
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
 });
 </script>
 </body>
