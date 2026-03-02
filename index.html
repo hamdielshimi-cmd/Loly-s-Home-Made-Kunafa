@@ -6,7 +6,6 @@
     <title>Loly's Kunafa House | Handmade by Mom. Shared with Love.</title>
     <meta name="description" content="Experience authentic Egyptian Kunafa and Golash, handcrafted with love by Mom.">
     
-    <!-- Fonts (Added Cairo for Arabic) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -28,7 +27,6 @@
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:var(--fb);color:var(--txt);line-height:1.7;overflow-x:hidden;background:var(--bg);-webkit-font-smoothing:antialiased;}
-/* Arabic Font Override */
 html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
 html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 { font-family: 'Cairo', serif; }
 
@@ -36,7 +34,6 @@ img{max-width:100%;height:auto;display:block}
 a{text-decoration:none;color:inherit;transition:var(--ease)}
 ::selection{background:var(--gold);color:var(--dark)}
 
-/* RTL Adjustments */
 html[dir="rtl"] { direction: rtl; text-align: right; }
 html[dir="rtl"] .nav-links { margin-right: auto; margin-left: 0; }
 html[dir="rtl"] .nav-logo { margin-right: 0; margin-left: auto; }
@@ -65,8 +62,7 @@ html[dir="rtl"] .loader-text { letter-spacing: normal; }
 .nav-links{display:flex;gap:36px;align-items:center}
 .nav-link{font-size:13px;font-weight:500;color:var(--white);position:relative;transition:var(--ease);text-shadow:0 2px 8px rgba(0,0,0,0.4);letter-spacing:0.5px;}
 .nav-link::after{content:'';position:absolute;bottom:-6px;right:0;width:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transition:var(--ease);}
-/* Fix for RTL line animation */
-html[dir="ltr"] .nav-link:hover::after, html[dir="ltr"] .nav-link.active::after{left:0; right:auto;}
+html[dir="ltr"] .nav-link:hover::after, html[dir="ltr"] .nav-link.active::after{left:0; right:auto; width:100%;}
 html[dir="rtl"] .nav-link:hover::after, html[dir="rtl"] .nav-link.active::after{right:0; left:auto; width:100%;}
 .nav-link:hover,.nav-link.active{color:var(--gold)}
 .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:8px;}
@@ -75,7 +71,6 @@ html[dir="rtl"] .nav-link:hover::after, html[dir="rtl"] .nav-link.active::after{
 .nav-toggle.active span:nth-child(2){opacity:0}
 .nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-/* Language Switcher */
 .lang-switch {
     background: rgba(255,255,255,0.1);
     border: 1px solid var(--gold);
@@ -107,7 +102,6 @@ html[dir="rtl"] .lang-switch { margin-left: 0; margin-right: 20px; }
 .hero-subtext a:hover{color:var(--gold-light);border-color:var(--gold-light)}
 .hero-buttons{display:flex;gap:16px;flex-wrap:wrap}
 
-/* Sections */
 section{padding:110px 0;position:relative}
 .container{max-width:1400px;margin:0 auto;padding:0 32px}
 .section-label{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--gold-dark);margin-bottom:16px;}
@@ -115,7 +109,6 @@ section{padding:110px 0;position:relative}
 .section-title{font-family:var(--fh);font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--dark);margin-bottom:20px;line-height:1.2;letter-spacing:-0.5px;}
 .section-desc{font-size:16px;color:var(--muted);max-width:540px;line-height:1.8;}
 
-/* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 32px;font-size:12px;font-weight:700;border-radius:100px;cursor:pointer;border:none;transition:var(--ease);text-transform:uppercase;letter-spacing:1.5px;position:relative;overflow:hidden;}
 .btn-primary{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);color:var(--dark);box-shadow:0 8px 32px rgba(212,175,55,0.35);}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(212,175,55,0.45);}
@@ -123,7 +116,6 @@ section{padding:110px 0;position:relative}
 .btn-secondary:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4);transform:translateY(-2px);}
 .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
 
-/* Story */
 .story-section{background:var(--cream)}
 .story-content{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .story-images{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
@@ -134,13 +126,11 @@ section{padding:110px 0;position:relative}
 .story-quote{font-family:var(--fe);font-size:22px;color:var(--brown);margin-top:28px;padding-left:20px;border-left:3px solid var(--gold);line-height:1.5;}
 html[dir="rtl"] .story-quote { padding-left: 0; padding-right: 20px; border-left: none; border-right: 3px solid var(--gold); }
 
-/* Contact */
 .contact-section{background:var(--bg);border-top:1px solid rgba(212,175,55,0.15);border-bottom:1px solid rgba(212,175,55,0.15);}
 .contact-content{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
 .contact-info-item{display:flex;gap:16px;margin-bottom:24px;padding:20px;background:var(--cream);border-radius:12px;transition:var(--ease);}
 .contact-info-item:hover{background:var(--cream-warm);transform:translateX(4px);}
 html[dir="rtl"] .contact-info-item:hover { transform: translateX(-4px); }
-
 .contact-info-item i{font-size:20px;color:var(--gold);width:24px;text-align:center}
 .contact-info-item h4{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--dark)}
 .contact-info-item p{font-size:14px;color:var(--muted)}
@@ -165,10 +155,39 @@ html[dir="rtl"] .contact-info-item:hover { transform: translateX(-4px); }
 .product-image img{width:100%;height:100%;object-fit:cover;transition:var(--ease);}
 .product-card:hover .product-image img{transform:scale(1.08)}
 .product-info{padding:24px}
-.product-info h3{font-family:var(--fh);font-size:22px;font-weight:700;color:var(--dark);margin-bottom:8px;}
+.product-info h3{font-family:var(--fh);font-size:22px;font-weight:700;color:var(--dark);margin-bottom:4px;}
+
+/* ── Size badge ── */
+.product-size-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.35);
+  color: var(--gold-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+
 .product-info p{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
 .product-price-row{display:flex;justify-content:space-between;align-items:center;}
 .product-price{font-size:26px;font-weight:800;color:var(--gold-dark);font-family:var(--fb);}
+
+/* ── Delivery disclaimer under price ── */
+.price-excl-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.price-excl-note i { font-size: 10px; color: var(--gold-dark); }
+
 .quantity-controls{display:flex;align-items:center;gap:4px;background:var(--cream);border-radius:100px;padding:4px;}
 .btn-qty{width:36px;height:36px;border:none;background:var(--white);border-radius:50%;font-size:18px;font-weight:600;color:var(--dark);cursor:pointer;transition:var(--ease-fast);display:flex;align-items:center;justify-content:center;}
 .btn-qty:hover{background:var(--gold);color:var(--white)}
@@ -190,6 +209,21 @@ html[dir="rtl"] .highlight-notice { border-left: none; border-right: 5px solid v
 .highlight-notice i { font-size: 24px; color: var(--gold-dark); }
 .highlight-notice span { font-size: 15px; color: var(--dark); font-weight: 600; }
 
+/* Delivery disclaimer banner */
+.delivery-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(107,68,35,0.06);
+  border: 1px dashed rgba(107,68,35,0.25);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+.delivery-disclaimer i { color: var(--brown); font-size: 16px; flex-shrink: 0; }
+.delivery-disclaimer span { font-size: 13px; color: var(--brown); font-weight: 600; }
+
 /* Order bar */
 .order-summary-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--white);padding:16px 32px;border-radius:100px;box-shadow:0 12px 48px rgba(30,18,16,0.2);display:none;z-index:900;width:90%;max-width:700px;border:2px solid var(--gold);transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);}
 .order-summary-bar.visible{display:flex;transform:translateX(-50%) translateY(0);}
@@ -197,14 +231,12 @@ html[dir="rtl"] .highlight-notice { border-left: none; border-right: 5px solid v
 .order-total-text{font-size:14px;color:var(--muted)}
 .order-total-text strong{font-size:28px;color:var(--dark);font-weight:800;margin-left:4px}
 
-/* About */
 .about-section{background:var(--white)}
 .about-content{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .about-image-wrapper{position:relative;padding:20px;}
 .about-image-wrapper::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);border-radius:24px;transform:translate(-12px,12px);z-index:0;}
 .about-image-wrapper img{position:relative;z-index:1;border-radius:20px;box-shadow:var(--shadow-lg);}
 
-/* Footer */
 .footer{background:var(--dark);padding:60px 0 40px;text-align:center;}
 .footer-logo{height:70px;margin:0 auto 24px;filter:brightness(1.1);}
 .footer p{color:rgba(255,255,255,0.5);font-size:14px;letter-spacing:0.5px;}
@@ -230,6 +262,7 @@ html[dir="rtl"] .highlight-notice { border-left: none; border-right: 5px solid v
 .wa-order-summary{background:linear-gradient(135deg,var(--cream),var(--cream-warm));border:1px solid var(--gold);border-radius:12px;padding:16px 18px;margin-bottom:22px;font-size:13px;line-height:1.8;color:var(--dark);}
 .wa-order-line{display:flex;justify-content:space-between;}
 .wa-order-total{display:flex;justify-content:space-between;font-weight:800;font-size:15px;border-top:1px solid rgba(212,175,55,0.4);margin-top:8px;padding-top:8px;color:var(--dark);}
+.wa-order-excl{font-size:11px;color:var(--muted);margin-top:8px;padding-top:6px;border-top:1px dashed rgba(107,68,35,0.2);font-style:italic;}
 .wa-order-number{font-size:11px;color:var(--gold-dark);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
 .wa-form .form-group{margin-bottom:14px;}
 .wa-form .form-group label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brown);display:block;margin-bottom:8px;}
@@ -241,7 +274,6 @@ html[dir="rtl"] .highlight-notice { border-left: none; border-right: 5px solid v
 html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
 .wa-close-btn:hover{background:var(--dark);color:#fff;}
 
-/* Responsive */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}html{scroll-behavior:auto}}
 @media(max-width:992px){
   .nav-links{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--dark-rich);flex-direction:column;justify-content:center;gap:32px;transition:var(--ease);padding:40px;}
@@ -410,23 +442,35 @@ html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
             <h2 class="section-title" data-i18n="prod_title">Our Handcrafted Selection</h2>
             <p class="section-desc" style="margin:0 auto;" data-i18n="prod_desc">Each piece is made fresh daily using traditional recipes passed down through generations.</p>
         </div>
-        
+
         <!-- 24h Notice -->
         <div class="highlight-notice">
             <i class="fas fa-exclamation-circle"></i>
-            <span data-i18n="notice_24h">Please confirm your order 24 hours in advance to ensure freshness and availability. During Ramadan all delivery is Free</span>
+            <span data-i18n="notice_24h">Please confirm your order 24 hours in advance to ensure freshness and availability. During Ramadan all delivery is Free.</span>
+        </div>
+
+        <!-- Delivery disclaimer -->
+        <div class="delivery-disclaimer">
+            <i class="fas fa-truck"></i>
+            <span data-i18n="notice_delivery_excl">Prices shown are for products only and exclude delivery fees.</span>
         </div>
 
         <div class="products-grid">
+
+            <!-- Golash Large -->
             <div class="product-card" data-aos="fade-up">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Large" loading="lazy">
                 </div>
                 <div class="product-info">
                     <h3 class="p-name" data-key="golash-large">Golash Large</h3>
+                    <span class="product-size-badge"><i class="fas fa-ruler-horizontal"></i> <span data-i18n="size_large">34 cm</span></span>
                     <p class="p-desc" data-i18n="desc_golash">Signature layers of crispy phyllo dough filled with premium nuts and sweetened to perfection.</p>
                     <div class="product-price-row">
-                        <span class="product-price">350 L.E</span>
+                        <div>
+                            <span class="product-price">350 L.E</span>
+                            <p class="price-excl-note"><i class="fas fa-info-circle"></i> <span data-i18n="excl_delivery">Excl. delivery</span></p>
+                        </div>
                         <div class="quantity-controls">
                             <button class="btn-qty" onclick="changeQty('golash-large',-1)" aria-label="Decrease quantity">−</button>
                             <span class="qty-display" id="qty-golash-large">0</span>
@@ -435,15 +479,21 @@ html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
                     </div>
                 </div>
             </div>
+
+            <!-- Kunafa Large -->
             <div class="product-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Large" loading="lazy">
                 </div>
                 <div class="product-info">
                     <h3 class="p-name" data-key="kunafa-large">Kunafa Large</h3>
+                    <span class="product-size-badge"><i class="fas fa-ruler-horizontal"></i> <span data-i18n="size_large">34 cm</span></span>
                     <p class="p-desc" data-i18n="desc_kunafa">Authentic cheese kunafa masterpiece with golden vermicelli and rich, creamy filling.</p>
                     <div class="product-price-row">
-                        <span class="product-price">350 L.E</span>
+                        <div>
+                            <span class="product-price">350 L.E</span>
+                            <p class="price-excl-note"><i class="fas fa-info-circle"></i> <span data-i18n="excl_delivery">Excl. delivery</span></p>
+                        </div>
                         <div class="quantity-controls">
                             <button class="btn-qty" onclick="changeQty('kunafa-large',-1)" aria-label="Decrease quantity">−</button>
                             <span class="qty-display" id="qty-kunafa-large">0</span>
@@ -452,15 +502,21 @@ html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
                     </div>
                 </div>
             </div>
+
+            <!-- Golash Small -->
             <div class="product-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.26.15%20AM.jpeg" alt="Golash Small" loading="lazy">
                 </div>
                 <div class="product-info">
                     <h3 class="p-name" data-key="golash-small">Golash Small</h3>
+                    <span class="product-size-badge"><i class="fas fa-ruler-horizontal"></i> <span data-i18n="size_small">28 cm</span></span>
                     <p class="p-desc" data-i18n="desc_golash_s">Perfect individual portion of our signature golash, ideal for personal enjoyment.</p>
                     <div class="product-price-row">
-                        <span class="product-price">250 L.E</span>
+                        <div>
+                            <span class="product-price">250 L.E</span>
+                            <p class="price-excl-note"><i class="fas fa-info-circle"></i> <span data-i18n="excl_delivery">Excl. delivery</span></p>
+                        </div>
                         <div class="quantity-controls">
                             <button class="btn-qty" onclick="changeQty('golash-small',-1)" aria-label="Decrease quantity">−</button>
                             <span class="qty-display" id="qty-golash-small">0</span>
@@ -469,15 +525,21 @@ html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
                     </div>
                 </div>
             </div>
+
+            <!-- Kunafa Small -->
             <div class="product-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="product-image">
                     <img src="https://ik.imagekit.io/xtj3m9hth/WhatsApp%20Image%202026-02-24%20at%201.27.10%20AM.jpeg" alt="Kunafa Small" loading="lazy">
                 </div>
                 <div class="product-info">
                     <h3 class="p-name" data-key="kunafa-small">Kunafa Small</h3>
+                    <span class="product-size-badge"><i class="fas fa-ruler-horizontal"></i> <span data-i18n="size_small">28 cm</span></span>
                     <p class="p-desc" data-i18n="desc_kunafa_s">A personal-sized portion of our beloved cheese kunafa, freshly made to order.</p>
                     <div class="product-price-row">
-                        <span class="product-price">250 L.E</span>
+                        <div>
+                            <span class="product-price">250 L.E</span>
+                            <p class="price-excl-note"><i class="fas fa-info-circle"></i> <span data-i18n="excl_delivery">Excl. delivery</span></p>
+                        </div>
                         <div class="quantity-controls">
                             <button class="btn-qty" onclick="changeQty('kunafa-small',-1)" aria-label="Decrease quantity">−</button>
                             <span class="qty-display" id="qty-kunafa-small">0</span>
@@ -486,6 +548,7 @@ html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -494,7 +557,7 @@ html[dir="rtl"] .wa-close-btn { right: auto; left: 16px; }
 <div id="orderBar" class="order-summary-bar">
     <div class="order-summary-content">
         <div class="order-total-text">
-            <span data-i18n="lbl_total">Total:</span> <strong id="grandTotal">0</strong> L.E
+            <span data-i18n="lbl_total">Total:</span> <strong id="grandTotal">0</strong> L.E &nbsp;<span style="font-size:11px;color:var(--muted);" data-i18n="bar_excl_note">(excl. delivery)</span>
         </div>
         <button class="btn btn-primary" onclick="openWAModal()">
             <span data-i18n="btn_whatsapp">Order via WhatsApp</span> &nbsp;<i class="fab fa-whatsapp"></i>
@@ -592,8 +655,12 @@ const translations = {
         lbl_name: "Your Name", lbl_phone: "Phone Number", lbl_address: "Delivery Address", lbl_total: "Total:",
         ph_name: "Enter your full name", ph_phone: "Enter your phone number", ph_address: "Enter your delivery address", ph_landmark: "e.g. near the mosque, blue building…",
         btn_confirm: "Confirm Order Request", btn_whatsapp: "Order via WhatsApp",
+        bar_excl_note: "(excl. delivery)",
         label_menu: "Menu", prod_title: "Our Handcrafted Selection", prod_desc: "Each piece is made fresh daily using traditional recipes passed down through generations.",
-        notice_24h: "Please confirm your order 24 hours in advance to ensure freshness and availability.",
+        notice_24h: "Please confirm your order 24 hours in advance to ensure freshness and availability. During Ramadan all delivery is Free.",
+        notice_delivery_excl: "Prices shown are for products only and exclude delivery fees.",
+        excl_delivery: "Excl. delivery",
+        size_large: "34 cm", size_small: "28 cm",
         desc_golash: "Signature layers of crispy phyllo dough filled with premium nuts and sweetened to perfection.",
         desc_kunafa: "Authentic cheese kunafa masterpiece with golden vermicelli and rich, creamy filling.",
         desc_golash_s: "Perfect individual portion of our signature golash, ideal for personal enjoyment.",
@@ -623,8 +690,12 @@ const translations = {
         lbl_name: "الاسم بالكامل", lbl_phone: "رقم الهاتف", lbl_address: "عنوان التوصيل", lbl_total: "الإجمالي:",
         ph_name: "أدخل اسمك الكامل", ph_phone: "أدخل رقم هاتفك", ph_address: "أدخل عنوان التوصيل", ph_landmark: "مثال: بجانب المسجد، المبنى الأزرق…",
         btn_confirm: "تأكيد طلب الشراء", btn_whatsapp: "اطلب عبر واتساب",
+        bar_excl_note: "(لا يشمل التوصيل)",
         label_menu: "القائمة", prod_title: "مختاراتنا المصنوعة يدوياً", prod_desc: "كل قطعة تُصنع يومياً طازجة باستخدام وصفات تقليدية تناقلت عبر الأجيال.",
         notice_24h: "يرجى تأكيد طلبك قبل 24 ساعة لضمان الجودة والتوفر. خلال شهر رمضان، التوصيل مجاني لجميع الطلبات.",
+        notice_delivery_excl: "الأسعار المعروضة للمنتجات فقط ولا تشمل رسوم التوصيل.",
+        excl_delivery: "لا يشمل التوصيل",
+        size_large: "٣٤ سم", size_small: "٢٨ سم",
         desc_golash: "طبقات مميزة من عجينة الفيلو المقرششة محشوة بالمكسرات الممتازة ومحلاة بشكل مثالي.",
         desc_kunafa: "تحفة كنافة بالجبنة الأصيلة مع شعيرية ذهبية وحشوة غنية وكريمية.",
         desc_golash_s: "حصة فردية مثالية من جلاشنا المميز، مثالية للاستمتاع الشخصي.",
@@ -640,12 +711,12 @@ const translations = {
     }
 };
 
-// ── Products (Bilingual) ───────────────────────────────────────
+// ── Products ── FIXED: golash-small & kunafa-small price corrected to 250 ──
 const products = {
-    'golash-large': { name: { en: 'Golash Large', ar: 'جلاش كبير' }, price: 350 },
-    'kunafa-large': { name: { en: 'Kunafa Large', ar: 'كنافة كبيرة' }, price: 350 },
-    'golash-small': { name: { en: 'Golash Small', ar: 'جلاش صغير' }, price: 200 },
-    'kunafa-small': { name: { en: 'Kunafa Small', ar: 'كنافة صغيرة' }, price: 200 }
+    'golash-large': { name: { en: 'Golash Large (34 cm)', ar: 'جلاش كبير (٣٤ سم)' }, price: 350 },
+    'kunafa-large': { name: { en: 'Kunafa Large (34 cm)', ar: 'كنافة كبيرة (٣٤ سم)' }, price: 350 },
+    'golash-small': { name: { en: 'Golash Small (28 cm)', ar: 'جلاش وَسيط (٢٨ سم)' }, price: 250 },
+    'kunafa-small': { name: { en: 'Kunafa Small (28 cm)', ar: 'كنافة وَسيطة (٢٨ سم)' }, price: 250 }
 };
 
 // ── Cart ─────────────────────────────────────────────────────────
@@ -670,7 +741,6 @@ function generateOrderNo() {
     return 'ORD-' + String(d.getFullYear()).slice(-2) + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '-' + Math.floor(Math.random()*900+100);
 }
 
-// ── Update page UI ───────────────────────────────────────────────
 function updateUI() {
     const total    = cartTotal();
     const lines    = cartLines();
@@ -687,76 +757,43 @@ function updateUI() {
         preview.classList.add('show');
         previewText.innerHTML =
             lines.map(l => `${l.name} × ${l.qty} = <strong>${l.sub} L.E</strong>`).join('<br>') +
-            `<br><br><strong style="color:var(--gold-dark);font-size:16px;">${currentLang==='en'?'Total:':'الإجمالي:'} ${total} L.E</strong>`;
+            `<br><br><strong style="color:var(--gold-dark);font-size:16px;">${currentLang==='en'?'Total:':'الإجمالي:'} ${total} L.E</strong>` +
+            `<br><span style="font-size:11px;color:var(--muted);">${currentLang==='en'?'* Prices exclude delivery fees':'* الأسعار لا تشمل رسوم التوصيل'}</span>`;
     } else {
         preview.classList.remove('show');
     }
 }
 
-// ── Language Switcher Logic ────────────────────────────────────
 function toggleLanguage() {
     currentLang = currentLang === 'en' ? 'ar' : 'en';
     document.documentElement.lang = currentLang;
     document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    
     document.getElementById('langBtn').textContent = currentLang === 'en' ? 'العربية' : 'English';
-    
-    // Update Text
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[currentLang][key]) {
-            el.innerHTML = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.innerHTML = translations[currentLang][key];
     });
-
-    // Update Placeholders
     document.querySelectorAll('[data-i18n-ph]').forEach(el => {
         const key = el.getAttribute('data-i18n-ph');
-        if (translations[currentLang][key]) {
-            el.placeholder = translations[currentLang][key];
-        }
+        if (translations[currentLang][key]) el.placeholder = translations[currentLang][key];
     });
-
-    // Update Product Names in Grid
     document.querySelectorAll('.p-name').forEach(el => {
         const key = el.getAttribute('data-key');
-        if (products[key] && products[key].name[currentLang]) {
-            el.textContent = products[key].name[currentLang];
-        }
+        if (products[key] && products[key].name[currentLang]) el.textContent = products[key].name[currentLang];
     });
 
-    // Update Cart Summaries if open
     if (document.getElementById('walModal').style.display === 'flex') {
         const orderNo = document.getElementById('walModal').dataset.orderNo;
-        const summaryDiv = document.getElementById('waOrderSummary');
-        summaryDiv.innerHTML = `
-            <div class="wa-order-number">${currentLang==='en'?'Order #':'طلب #'}${orderNo}</div>
-            ${cartLines().map(l => `
-                <div class="wa-order-line">
-                    <span>${l.name} × ${l.qty}</span>
-                    <span>${l.sub} L.E</span>
-                </div>`).join('')}
-            <div class="wa-order-total">
-                <span>${currentLang==='en'?'Total':'الإجمالي'}</span>
-                <span>${cartTotal()} L.E</span>
-            </div>
-        `;
+        buildModalSummary(orderNo);
     } else {
-        updateUI(); // Refresh main cart preview
+        updateUI();
     }
 }
 
-// ── WHATSAPP POPUP ────────────────────────────────────────────────
-function openWAModal() {
-    if (!cartHasItems()) return;
-    
-    const modal = document.getElementById('walModal');
+function buildModalSummary(orderNo) {
     const summaryDiv = document.getElementById('waOrderSummary');
-    const orderNo = generateOrderNo();
-    
-    modal.dataset.orderNo = orderNo;
-    
-    // Build the summary HTML based on current language
+    const exclNote = currentLang === 'en' ? '* Product prices only — delivery fee discussed separately.' : '* أسعار المنتجات فقط — رسوم التوصيل تُناقش بشكل منفصل.';
     summaryDiv.innerHTML = `
         <div class="wa-order-number">${currentLang==='en'?'Order #':'طلب #'}${orderNo}</div>
         ${cartLines().map(l => `
@@ -765,21 +802,28 @@ function openWAModal() {
                 <span>${l.sub} L.E</span>
             </div>`).join('')}
         <div class="wa-order-total">
-            <span>${currentLang==='en'?'Total':'الإجمالي'}</span>
+            <span>${currentLang==='en'?'Products Total':'إجمالي المنتجات'}</span>
             <span>${cartTotal()} L.E</span>
         </div>
+        <div class="wa-order-excl">${exclNote}</div>
     `;
-    
-    modal.style.display = 'flex'; 
+}
+
+function openWAModal() {
+    if (!cartHasItems()) return;
+    const modal   = document.getElementById('walModal');
+    const orderNo = generateOrderNo();
+    modal.dataset.orderNo = orderNo;
+    buildModalSummary(orderNo);
+    modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
 function closeWAModal() {
-    const modal = document.getElementById('walModal');
-    modal.style.display = 'none';
-    document.body.style.overflow = ''; 
+    document.getElementById('walModal').style.display = 'none';
+    document.body.style.overflow = '';
 }
-    
+
 document.getElementById('walModal').addEventListener('click', function(e) {
     if (e.target === this) closeWAModal();
 });
@@ -808,22 +852,18 @@ function sendToWhatsApp() {
     if (landmark) msg += `🗺️ *Landmark:* ${landmark}\n`;
     msg     += `\n🛒 *ORDER DETAILS:*\n`;
     lines.forEach(l => { msg += `   • ${l.name} × ${l.qty} = ${l.sub} L.E\n`; });
-    msg     += `\n💰 *TOTAL: ${total} L.E*\n`;
+    msg     += `\n💰 *PRODUCTS TOTAL: ${total} L.E*\n`;
+    msg     += `🚚 *Delivery fee to be confirmed separately*\n`;
     msg     += `━━━━━━━━━━━━━━━━━━━━`;
 
     closeWAModal();
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
-// ── CONTACT FORM → Google Sheets + Email Notification ─────────────
+// ── CONTACT FORM ────────────────────────────────────────────────
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
-    // VALIDATION: Check if cart is empty
-    if (!cartHasItems()) {
-        alert(translations[currentLang].alert_empty);
-        return;
-    }
+    if (!cartHasItems()) { alert(translations[currentLang].alert_empty); return; }
 
     const name    = document.getElementById('cName').value.trim();
     const phone   = document.getElementById('cPhone').value.trim();
@@ -836,15 +876,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
         ? lines.map(l => `${l.name} x${l.qty} = ${l.sub} L.E`).join(', ')
         : 'No items selected';
 
-    const payload = {
-        orderNumber: orderNo,
-        name:    name,
-        phone:   phone,
-        address: address,
-        order:   orderStr,
-        total:   total,
-        notes:   ''
-    };
+    const payload = { orderNumber: orderNo, name, phone, address, order: orderStr, total, notes: '' };
 
     const btn = this.querySelector('button[type="submit"]');
     const origHTML = btn.innerHTML;
@@ -852,41 +884,24 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.innerHTML = '<span>Sending…</span>';
 
     try {
-        await fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            headers: {
-                'Content-Type': 'text/plain' 
-            },
-            body: JSON.stringify(payload)
-        });
-
+        await fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body: JSON.stringify(payload) });
         this.reset();
-        Object.keys(cart).forEach(id => {
-            cart[id] = 0;
-            const el = document.getElementById('qty-' + id);
-            if (el) el.textContent = '0';
-        });
+        Object.keys(cart).forEach(id => { cart[id]=0; const el=document.getElementById('qty-'+id); if(el) el.textContent='0'; });
         updateUI();
-
-        btn.disabled  = false;
-        btn.innerHTML = origHTML;
-
+        btn.disabled = false; btn.innerHTML = origHTML;
         showThankYou(name, phone, orderNo);
-    } catch (error) {
+    } catch(error) {
         console.error('Error:', error);
-        alert(currentLang === 'en' ? "There was an error sending your order. Please try again." : "حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.");
-        btn.disabled = false;
-        btn.innerHTML = origHTML;
+        alert(currentLang==='en'?"There was an error sending your order. Please try again.":"حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى.");
+        btn.disabled=false; btn.innerHTML=origHTML;
     }
 });
 
 function showThankYou(name, phone, orderNo) {
     const ov = document.createElement('div');
-    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:fadeInUp 0.4s ease;';
+    ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);animation:fadeInUp 0.4s ease;';
     const thanksTitle = translations[currentLang].thx_title + ", " + name + "!";
-    const thanksMsg = translations[currentLang].ths_msg + " <strong style='color:#D4AF37;'>" + phone + "</strong> " + (currentLang==='en'?"to confirm. 💛":"لتأكيد الطلب. 💛");
-    
+    const thanksMsg   = translations[currentLang].ths_msg + " <strong style='color:#D4AF37;'>" + phone + "</strong> " + (currentLang==='en'?"to confirm. 💛":"لتأكيد الطلب. 💛");
     ov.innerHTML = `
         <div style="background:#fff;border-radius:24px;padding:50px 40px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,0.3);">
             <div style="width:72px;height:72px;background:linear-gradient(135deg,#D4AF37,#B8962E);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:34px;">🍰</div>
@@ -898,9 +913,9 @@ function showThankYou(name, phone, orderNo) {
                 ${currentLang==='en'?'Done':'تم'}
             </button>
         </div>`;
-    ov.addEventListener('click', e => { if (e.target === ov) ov.remove(); });
+    ov.addEventListener('click', e => { if(e.target===ov) ov.remove(); });
     document.body.appendChild(ov);
-    setTimeout(() => { if (ov.parentNode) ov.remove(); }, 12000);
+    setTimeout(()=>{ if(ov.parentNode) ov.remove(); }, 12000);
 }
 
 // ── Navbar ───────────────────────────────────────────────────────
@@ -910,43 +925,26 @@ window.addEventListener('scroll', () => {
 
 const navToggle = document.getElementById('navToggle');
 const navLinks  = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
+navToggle.addEventListener('click', () => { navToggle.classList.toggle('active'); navLinks.classList.toggle('active'); });
 document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
+    link.addEventListener('click', () => { navToggle.classList.remove('active'); navLinks.classList.remove('active'); });
 });
 
-// Active nav on scroll
 const sections    = document.querySelectorAll('section[id]');
 const navLinksAll = document.querySelectorAll('.nav-link');
 window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 150 && window.scrollY < s.offsetTop - 150 + s.offsetHeight)
-            current = s.getAttribute('id');
+        if (window.scrollY >= s.offsetTop - 150 && window.scrollY < s.offsetTop - 150 + s.offsetHeight) current = s.getAttribute('id');
     });
-    navLinksAll.forEach(l => {
-        l.classList.remove('active');
-        if (l.getAttribute('href') === '#' + current) l.classList.add('active');
-    });
+    navLinksAll.forEach(l => { l.classList.remove('active'); if (l.getAttribute('href') === '#' + current) l.classList.add('active'); });
 }, { passive: true });
 
-// Keyboard accessibility for qty buttons
 document.querySelectorAll('.btn-qty').forEach(btn => {
-    btn.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-    });
+    btn.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); btn.click(); } });
 });
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeWAModal(); });
 
-// ESC closes WA modal
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWAModal(); });
-
-// Init
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { document.getElementById('loading-screen').classList.add('hidden'); }, 1200);
     AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
